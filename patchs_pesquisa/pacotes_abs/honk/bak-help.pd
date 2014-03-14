@@ -1,0 +1,21 @@
+#N canvas 58 366 1011 503 12;
+#X text 324 232 honk abstractions -- kreidler 2007;
+#X text 390 275 www.kreidler-net.de;
+#X text 278 152 like bang \, but size can be given by argument (by
+default 55);
+#X text 282 118 bak - quick-to-build bang with variable size;
+#X text 100 140 ...;
+#X obj 114 340 bak 66;
+#X obj 114 315 bng 15 250 50 0 empty empty empty 0 -6 0 8 -262144 -1
+-1;
+#X obj 114 415 bng 15 250 50 0 empty empty empty 0 -6 0 8 -262144 -1
+-1;
+#X text 27 293 works like an ordinary bang;
+#X obj 114 436 bng 15 250 50 0 empty empty empty 0 -6 0 8 -262144 -1
+-1;
+#X text 30 110 write the object "bak 66";
+#X obj 117 176 bak 66;
+#X connect 5 0 7 0;
+#X connect 6 0 5 0;
+#X connect 7 0 9 0;
+#X coords 0 0 1 1 59 59 0;

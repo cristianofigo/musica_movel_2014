@@ -1,0 +1,54 @@
+#N canvas 84 22 863 661 10;
+#X text 81 21 CliClap;
+#X text 178 24 patchtitura inicial;
+#X obj -27 208 bonk~;
+#X text 393 23 Tuti: 06/05/09;
+#X msg 219 103 \; pd dsp \$1;
+#X floatatom 52 338 5 0 0 1 delay_(in_milisegundos) - -;
+#X obj 52 358 sig~;
+#X obj 49 382 vd~ timingL;
+#X floatatom 235 341 5 0 0 1 delay_(in_milisegundos) - -;
+#X obj 235 361 sig~;
+#X obj 232 385 vd~ timingR;
+#X obj 118 489 catch~ L;
+#X obj 204 488 catch~ R;
+#X obj 49 411 throw~ L;
+#X obj 231 415 throw~ R;
+#X obj 36 207 delwrite~ timingL 5000;
+#X obj 206 76 cnv 15 100 60 empty empty empty 20 12 0 14 -262144 -66577
+0;
+#X obj 136 82 tgl 50 0 empty empty on_/_off 10 -7 0 10 -257985 -1 -1
+1 1;
+#X text 48 272 mude a relacao do delay nos sliders (de zero a 5 segundos)
+;
+#X obj 89 178 delwrite~ timingR 5000;
+#X obj -28 257 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X floatatom -27 234 5 0 0 0 - - -;
+#X text 215 98 ligue e bata palmas \, cuidado com feedbacks infinitos!!
+;
+#X text 231 113 se comecar a aumentar o nivel de ruido \, desligue!
+;
+#X obj -17 140 inlet~;
+#X obj 134 575 outlet~ L;
+#X obj 216 573 outlet~ R;
+#X obj 91 241 inlet;
+#X obj 232 243 inlet;
+#X obj 134 39 loadbang;
+#X connect 2 0 21 0;
+#X connect 5 0 6 0;
+#X connect 6 0 7 0;
+#X connect 7 0 13 0;
+#X connect 8 0 9 0;
+#X connect 9 0 10 0;
+#X connect 10 0 14 0;
+#X connect 11 0 25 0;
+#X connect 12 0 26 0;
+#X connect 17 0 4 0;
+#X connect 21 0 20 0;
+#X connect 24 0 15 0;
+#X connect 24 0 2 0;
+#X connect 24 0 19 0;
+#X connect 27 0 5 0;
+#X connect 28 0 8 0;
+#X connect 29 0 17 0;

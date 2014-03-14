@@ -1,0 +1,36 @@
+#N canvas 58 366 1007 499 12;
+#X obj 61 252 outlet;
+#X obj 61 93 inlet;
+#X floatatom 223 198 5 0 0 0 - - -;
+#X msg 223 232 size \$1;
+#X obj 366 180 s \$0-cv;
+#X obj 171 24 namecanvas \$0-cv;
+#X floatatom 478 58 5 0 0 0 - - -;
+#X obj 222 89 \$1;
+#X obj 220 61 loadbang;
+#X msg 366 151 donecanvasdialog 1 -1 1 0 -1 1 1 \$1 \$1 59 120;
+#X obj 220 116 route 0;
+#X msg 227 153 55;
+#X text 512 343 honk abstractions -- kreidler 2007;
+#X text 578 386 www.kreidler-net.de;
+#X obj 476 94 expr 4 + $f1;
+#X obj 61 122 bng 55 250 50 0 \$0-bak1 \$0-bak empty 0 -6 0 8 -233017
+-1 -1;
+#X obj 223 262 s \$0-bak;
+#X text 466 263 like bang \, but size can be given by argument (by
+default 55);
+#X text 470 229 bak - quick-to-build bang with variable size;
+#X connect 1 0 15 0;
+#X connect 2 0 3 0;
+#X connect 2 0 6 0;
+#X connect 3 0 16 0;
+#X connect 6 0 14 0;
+#X connect 7 0 10 0;
+#X connect 8 0 7 0;
+#X connect 9 0 4 0;
+#X connect 10 0 11 0;
+#X connect 10 1 2 0;
+#X connect 11 0 2 0;
+#X connect 14 0 9 0;
+#X connect 15 0 0 0;
+#X coords 0 -1 1 1 59 59 1 59 120;

@@ -1,0 +1,19 @@
+#N canvas 219 205 1174 812 12;
+#X text 540 24 sf~: soundfile-player;
+#X text 535 113 outlet1+2: soundfile output (stereo);
+#X text 537 140 outlet3: bang when soundfile has finished;
+#X text 721 619 Honk Abstractions -- Kreidler 2007;
+#X text 788 658 www.kreidler-net.de;
+#X text 535 82 inlet: start & restart (bang);
+#X obj 358 94 sf;
+#X obj 358 50 bng 15 250 50 0 empty empty empty 0 -6 0 8 -262144 -1
+-1;
+#X text 382 47 start!;
+#X obj 358 262 dac;
+#X obj 427 231 bng 15 250 50 0 empty empty empty 0 -6 0 8 -262144 -1
+-1;
+#X connect 6 0 9 0;
+#X connect 6 1 9 0;
+#X connect 6 2 10 0;
+#X connect 7 0 6 0;
+#X coords 0 0 1 1 60 120 0;

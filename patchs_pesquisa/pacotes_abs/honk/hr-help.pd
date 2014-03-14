@@ -1,0 +1,14 @@
+#N canvas 620 216 814 629 12;
+#X text 395 481 honk abstractions -- kreidler 2007;
+#X text 461 524 www.kreidler-net.de;
+#X text 123 66 hr - easy horizontal radio;
+#X text 117 100 like horizontal radio \, but number of buttons can
+be given by argument (by default 8);
+#X obj 121 210 hr 6;
+#X text 119 171 write the object "hr 6":;
+#X obj 118 327 hr 6;
+#X floatatom 118 302 5 0 0 0 - - -;
+#X floatatom 118 354 5 0 0 0 - - -;
+#X text 116 269 works like the ordinary horizontal radio;
+#X connect 6 0 8 0;
+#X connect 7 0 6 0;

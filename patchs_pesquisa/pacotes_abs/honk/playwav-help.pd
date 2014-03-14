@@ -1,0 +1,25 @@
+#N canvas 855 358 826 552 12;
+#X text 311 34 playwav: very easy wav-player;
+#X text 314 63 like readsf~ \, but with filename as argument;
+#X text 311 84 and additional start-bang;
+#X text 330 150 left inlet: like left inlet of readsf~;
+#X text 331 216 right outlet: like rightmost outlet of readsf~;
+#X text 332 197 right outlet: like left outlet of mono readsf~;
+#X text 332 172 argument: filename (.wav or .aif);
+#X text 339 254 bang: start soundfile;
+#X text 376 377 honk abstractions -- kreidler 2007;
+#X text 444 407 www.kreidler-net.de;
+#X obj 76 144 playwav test.wav;
+#X msg 92 76 open test.wav;
+#X msg 101 102 1;
+#X msg 144 104 0;
+#X obj 199 189 bng 15 250 50 0 empty empty empty 0 -6 0 8 -262144 -1
+-1;
+#X obj 77 198 dac~;
+#X connect 10 0 15 0;
+#X connect 10 0 15 1;
+#X connect 10 1 14 0;
+#X connect 11 0 10 0;
+#X connect 12 0 10 0;
+#X connect 13 0 10 0;
+#X coords 0 0 1 1 71 30 0;

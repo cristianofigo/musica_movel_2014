@@ -1,0 +1,13 @@
+#N canvas 839 567 487 396 12;
+#X obj 243 184 bng 15 250 50 0 empty empty empty 0 -6 0 8 -262144 -1
+-1;
+#X floatatom 243 244 5 0 0 0 - - -;
+#X text 133 12 rondom - like random but with offset;
+#X text 182 48 inlets: bang / range / offset;
+#X text 176 73 arguments: range / offset;
+#X text 177 116 output: random number;
+#X text 196 308 honk abstractions -- kreidler 2007;
+#X text 230 343 www.kreidler-net.de;
+#X obj 243 215 rondom 3 1;
+#X connect 0 0 8 0;
+#X connect 8 0 1 0;

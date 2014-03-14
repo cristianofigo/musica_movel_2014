@@ -1,0 +1,89 @@
+#N canvas 197 93 874 603 10;
+#X msg 74 278 1 2 3;
+#X obj 134 309 route list;
+#X msg 41 258 list 1 2 3;
+#X msg 10 63 list;
+#X msg 17 83 list 5;
+#X msg 24 103 list pie;
+#X symbolatom 32 129 10 0 0 0 - - -;
+#X obj 4 2 cnv 15 850 20 empty empty all_about_lists_vs_anythings 20
+10 1 18 -233017 -66577 0;
+#X obj 821 3 pddp;
+#X text 20 558 by Hans-Christoph Steiner <hans@at.or.at>;
+#X obj 65 437 list2int;
+#X obj 129 436 l2i;
+#X obj 131 462 a2l;
+#X obj 64 463 any2list;
+#X obj 64 413 lister;
+#X obj 64 489 list2symbol;
+#X obj 64 510 symbol2list;
+#X obj 153 489 l2s;
+#X obj 153 509 s2l;
+#X obj 197 490 tosymbol;
+#X obj 197 509 fromsymbol;
+#X text 501 288 use [prepend]!!;
+#X obj 618 286 prepend;
+#X obj 661 331 drip;
+#X text 568 331 write about:;
+#X obj 539 411 glue;
+#X obj 600 438 pack;
+#X obj 599 412 list2symbol;
+#X obj 709 411 tosymbol;
+#X text 8 208 More than one "float" in a message is considered a "list".
+More than one "symbol" in a message is not implicitly considered a
+"list" \, only if you cast it.;
+#X text 87 104 A "list" of one "symbol" is translated into a "symbol".
+;
+#X text 72 83 A "list" of one "float" is translated into a "float".
+;
+#X text 50 63 An empty "list" is tranlated into a "bang".;
+#X text 7 39 SPECIAL CASES OF "LISTS".;
+#X text 497 243 working with "lists" and "anythings":;
+#X text 516 385 making "lists" from untyped inputs:;
+#X obj 10 148 print NOT-LISTS;
+#X obj 475 411 repack;
+#X obj 134 332 bng 15 250 50 0 empty empty empty 0 -6 0 8 -262144 -1
+-1;
+#X obj 198 333 bng 15 250 50 0 empty empty empty 0 -6 0 8 -262144 -1
+-1;
+#X text 478 138 Miller's list explanation;
+#X obj 65 391 list;
+#X obj 64 366 any;
+#X obj 93 366 pipe;
+#X text 509 190 - anything is not a atom type;
+#X text 506 162 - lists map to inlets \, non-lists don't;
+#X obj 55 166 route b f s;
+#X msg 183 257 list this is a set with a cast;
+#X msg 190 276 this is a set withOUT a cast;
+#X text 370 475 a set that is not a "list" has an undefined type:;
+#X obj 469 568 bng 15 250 50 0 empty empty empty 0 -6 0 8 -262144 -1
+-1;
+#X obj 516 567 bng 15 250 50 0 empty empty empty 0 -6 0 8 -262144 -1
+-1;
+#X obj 564 566 bng 15 250 50 0 empty empty empty 0 -6 0 8 -262144 -1
+-1;
+#X msg 468 501 list this is a set with a cast;
+#X msg 475 520 this is a set withOUT a cast;
+#X obj 469 545 route bang float symbol list;
+#X obj 612 567 bng 15 250 50 0 empty empty empty 0 -6 0 8 -262144 -1
+-1;
+#X obj 660 566 bng 15 250 50 0 empty empty empty 0 -6 0 8 -262144 -1
+-1;
+#X connect 0 0 1 0;
+#X connect 1 0 38 0;
+#X connect 1 1 39 0;
+#X connect 2 0 1 0;
+#X connect 3 0 36 0;
+#X connect 4 0 36 0;
+#X connect 5 0 6 0;
+#X connect 5 0 36 0;
+#X connect 27 0 26 0;
+#X connect 47 0 1 0;
+#X connect 48 0 1 0;
+#X connect 53 0 55 0;
+#X connect 54 0 55 0;
+#X connect 55 0 50 0;
+#X connect 55 1 51 0;
+#X connect 55 2 52 0;
+#X connect 55 3 56 0;
+#X connect 55 4 57 0;

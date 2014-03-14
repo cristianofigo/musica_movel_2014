@@ -1,0 +1,227 @@
+#N canvas 0 22 657 347 10;
+#X declare -path ../z_usefull_abs/z_bbfilebrowser_abs;
+#N canvas 148 112 547 429 ARGO 0;
+#X obj 368 103 cnv 10 20 10 empty empty Play 1 5 1 14 -262144 -1 1.04858e+06
+;
+#X obj 101 131 cnv 4 10 4 empty empty empty 20 12 0 14 -1 -66577 0
+;
+#X obj 216 399 outlet~;
+#X obj 261 7 openpanel;
+#X msg 212 301 1;
+#X msg 141 275 0;
+#X msg 289 53 set \$1;
+#X msg 242 326 open \$1;
+#X obj 191 233 t b b;
+#X msg 124 394 set 0;
+#X obj 179 138 sel 1 0;
+#X floatatom 230 180 5 0 0 0 - - -;
+#X msg 230 157 set \$1;
+#X obj 204 210 sel 1;
+#X msg 173 334 set 1;
+#X obj 48 5 key;
+#X obj 49 28 select 32;
+#X obj -11 6 loadbang;
+#X obj 243 353 readsf~ 2;
+#X obj 274 272 list2symbol;
+#X obj 242 301 symbol;
+#X obj 262 27 t b s;
+#X text 369 281 avec espace;
+#X text 351 269 -> pour les noms de fichier;
+#X obj 151 101 tgl 12 1 \$0-SendPlay \$0-ReceivePlay Play(Space) 14
+6 1 9 -262144 -1 -1 0 1;
+#X obj 100 114 bng 16 250 50 0 \$0-SendOpen \$0-ReceiveOpen empty 0
+0 1 9 -262144 -1 -1;
+#X obj 311 101 bng 12 250 50 0 \$0-SendStop \$0-ReceiveStop Stop 14
+6 1 9 -262144 -1 -1;
+#X obj 249 101 tgl 12 1 \$0-SendLoop \$0-ReceiveLoop Loop 15 6 1 9
+-262144 -1 -1 1 1;
+#X symbolatom 117 114 46 0 0 0 - - -;
+#X obj 276 401 outlet~;
+#X obj 389 131 cnv 4 10 4 empty empty empty 20 12 0 14 -1 -66577 0
+;
+#X msg 8 147 set \$1;
+#X obj -7 196 list2symbol;
+#X obj -11 40 t b b;
+#X obj 139 101 bng 12 250 50 0 \$0-A \$0-B empty 14 6 1 9 -262144 -1
+-1;
+#X obj 139 101 bng 12 250 50 0 \$0-A \$0-B empty 14 6 1 9 -262144 -1
+-1;
+#X obj 174 277 delay 5;
+#X obj 101 101 cnv 4 10 4 empty empty empty 20 12 0 14 -1 -66577 0
+;
+#X obj 113 5 inlet~;
+#X obj 113 28 threshold~ 0.5 5 0.49 5;
+#X msg -7 172 /Users/Berenger/Documents/Programmation_audio/PureData/Sets/pdLive!_Samples/Ehru_PercussiveNotes
+;
+#X obj 383 47 inlet;
+#X obj 428 46 inlet;
+#X connect 3 0 21 0;
+#X connect 4 0 18 0;
+#X connect 5 0 18 0;
+#X connect 6 0 28 0;
+#X connect 7 0 18 0;
+#X connect 8 0 36 0;
+#X connect 8 1 20 0;
+#X connect 9 0 24 0;
+#X connect 10 0 8 0;
+#X connect 10 1 9 0;
+#X connect 10 1 5 0;
+#X connect 11 0 13 0;
+#X connect 12 0 11 0;
+#X connect 13 0 8 0;
+#X connect 14 0 24 0;
+#X connect 14 0 35 0;
+#X connect 15 0 16 0;
+#X connect 16 0 24 0;
+#X connect 17 0 33 0;
+#X connect 18 0 2 0;
+#X connect 18 1 29 0;
+#X connect 18 2 11 0;
+#X connect 18 2 9 0;
+#X connect 19 0 20 1;
+#X connect 20 0 7 0;
+#X connect 21 0 28 0;
+#X connect 21 1 6 0;
+#X connect 24 0 10 0;
+#X connect 25 0 3 0;
+#X connect 26 0 5 0;
+#X connect 26 0 9 0;
+#X connect 27 0 12 0;
+#X connect 28 0 19 0;
+#X connect 28 0 31 0;
+#X connect 31 0 40 0;
+#X connect 32 0 6 0;
+#X connect 33 0 28 0;
+#X connect 33 1 40 0;
+#X connect 34 0 24 0;
+#X connect 36 0 4 0;
+#X connect 36 0 14 0;
+#X connect 38 0 39 0;
+#X connect 39 0 34 0;
+#X connect 40 0 32 0;
+#X connect 41 0 24 0;
+#X connect 42 0 28 0;
+#X coords 0 -1 1 1 300 36 2 100 100;
+#X restore -9 170 pd ARGO;
+#N canvas 0 22 1024 720 (subpatch) 0;
+#X obj 604 -86 cnv 15 360 114 empty empty empty 20 12 0 14 -203904
+-66577 0;
+#X obj 1 188 print FILE;
+#X floatatom 1 -43 5 0 0 1 index - -;
+#X text 119 261 currently lists a maximum of 200 files;
+#X text 119 283 to increase capacity \, change bottom value;
+#X text 119 296 of slider \, and the "200" in the expr below it;
+#X text 742 -66 separated by spaces ex:;
+#X obj 642 -33 example-bb_filebrowser wav mp3 mov txt;
+#X text 621 -78 creation arguments: file extensions to display;
+#X symbolatom -1 228 50 0 0 0 - - -;
+#X obj 1 1 bb_filebrowser;
+#X text 608 -3 not specifying a creation argument will list all files
+;
+#X obj 602 -196 cnv 15 160 50 empty empty empty 20 12 0 14 -262130
+-66577 0;
+#X text 613 -170 Ben Baker-Smith - 2010;
+#X text 623 -187 bb_filebrowser v1.1;
+#X obj -21 286 prepend load;
+#X obj 89 191 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X obj 86 -88 loadbang;
+#X text 260 -90 <-- load root directory of pdlive in your system;
+#X obj 65 259 outlet;
+#X obj 36 340 print;
+#X msg 85 -68 load /Users/Berenger/Documents/Programmation_audio/PureData/Sets/pdLive!_Samples/
+;
+#X obj 342 13 r path;
+#X msg 344 42 set \$1;
+#X obj 348 105 prepend load;
+#X msg 346 64 /Users/Berenger/Documents/Programmation_audio/PureData/Sets/pdLive!_Samples
+;
+#X connect 2 0 10 0;
+#X connect 9 0 15 0;
+#X connect 9 0 19 0;
+#X connect 9 0 20 0;
+#X connect 10 0 1 0;
+#X connect 10 0 9 0;
+#X connect 10 2 25 0;
+#X connect 15 0 10 0;
+#X connect 16 0 9 0;
+#X connect 17 0 21 0;
+#X connect 21 0 10 0;
+#X connect 22 0 23 0;
+#X connect 23 0 25 0;
+#X connect 24 0 10 0;
+#X connect 25 0 24 0;
+#X coords 0 1 100 -1 272 160 1 0 0;
+#X restore -9 5 graph;
+#N canvas 0 22 450 300 (subpatch) 0;
+#X obj 59 155 inlet;
+#X obj 3 89 inlet~;
+#X obj 58 182 change;
+#X msg 60 246 set \$1;
+#X obj 60 227 tosymbol;
+#X obj 59 204 sprintf Bus%d;
+#X obj 3 282 throw~ Bus0;
+#X obj 2 3 popup 124 25 #ffffff popup Bus0 Bus1 Bus2 Bus3 Bus4 Bus5
+Bus6 Bus7 Bus8 Bus9 Bus10 Bus11 Bus12 Bus13 Bus14 Bus15 Bus16;
+#X obj 1 32 route bang;
+#X obj 154 202 *~;
+#X obj 141 7 tgl 15 0 empty empty Dac 19 7 0 10 -262144 -1 -1 1 1;
+#X obj 155 238 dac~;
+#X obj 1 -41 loadbang;
+#X text 59 -43 Bus0 mutes;
+#X msg 1 -23 options Bus0 Bus1 Bus2 Bus3 Bus4 Bus5 Bus6 Bus7 Bus8 Bus9
+Bus10 Bus11 Bus12 Bus13 Bus14 Bus15 Bus16;
+#X connect 0 0 2 0;
+#X connect 1 0 6 0;
+#X connect 1 0 9 0;
+#X connect 2 0 5 0;
+#X connect 3 0 6 0;
+#X connect 4 0 3 0;
+#X connect 5 0 4 0;
+#X connect 7 0 8 0;
+#X connect 8 1 2 0;
+#X connect 9 0 11 0;
+#X connect 10 0 9 1;
+#X connect 12 0 14 0;
+#X connect 14 0 7 0;
+#X coords 0 1 100 -1 180 30 1 0 0;
+#X restore -9 207 graph;
+#N canvas 0 22 450 300 (subpatch) 0;
+#X obj 59 155 inlet;
+#X obj 3 89 inlet~;
+#X obj 58 182 change;
+#X msg 60 246 set \$1;
+#X obj 60 227 tosymbol;
+#X obj 59 204 sprintf Bus%d;
+#X obj 3 282 throw~ Bus0;
+#X obj 2 3 popup 124 25 #ffffff popup Bus0 Bus1 Bus2 Bus3 Bus4 Bus5
+Bus6 Bus7 Bus8 Bus9 Bus10 Bus11 Bus12 Bus13 Bus14 Bus15 Bus16;
+#X obj 1 32 route bang;
+#X obj 154 202 *~;
+#X obj 141 7 tgl 15 0 empty empty Dac 19 7 0 10 -262144 -1 -1 1 1;
+#X obj 155 238 dac~;
+#X obj 1 -41 loadbang;
+#X text 59 -43 Bus0 mutes;
+#X msg 1 -23 options Bus0 Bus1 Bus2 Bus3 Bus4 Bus5 Bus6 Bus7 Bus8 Bus9
+Bus10 Bus11 Bus12 Bus13 Bus14 Bus15 Bus16;
+#X connect 0 0 2 0;
+#X connect 1 0 6 0;
+#X connect 1 0 9 0;
+#X connect 2 0 5 0;
+#X connect 3 0 6 0;
+#X connect 4 0 3 0;
+#X connect 5 0 4 0;
+#X connect 7 0 8 0;
+#X connect 8 1 2 0;
+#X connect 9 0 11 1;
+#X connect 10 0 9 1;
+#X connect 12 0 14 0;
+#X connect 14 0 7 0;
+#X coords 0 1 100 -1 180 30 1 0 0;
+#X restore -9 240 graph;
+#X text -23 212 L;
+#X text -24 245 R;
+#X obj 249 248 declare -path ../z_usefull_abs/z_bbfilebrowser_abs;
+#X connect 0 0 2 0;
+#X connect 0 1 3 0;
+#X connect 1 0 0 2;

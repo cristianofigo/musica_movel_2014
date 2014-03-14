@@ -1,0 +1,41 @@
+#N canvas 384 141 886 614 12;
+#X obj 12 9 cnv 15 1000 600 empty empty http://www.algorithmiccomposer.com
+20 12 0 14 -261234 -66577 0;
+#X obj 259 358 + 48;
+#X obj 259 163 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X obj 259 488 noteout;
+#X text 50 228 A 'random' object;
+#X text 50 195 A 'metro' object;
+#X text 51 355 A '+' object;
+#X obj 259 413 makenote 100 1000;
+#X text 51 411 A 'makenote' object;
+#X text 51 487 A 'noteout' object;
+#X text 49 158 A toggle;
+#X floatatom 259 260 5 0 0 0 - - -;
+#X floatatom 259 386 5 0 0 0 - - -;
+#X text 133 552 Go to Preferences \, MIDI settings to choose your MIDI
+device.;
+#X text 32 51 Random pitches from the C Major Scale;
+#X obj 540 248 table majorScale;
+#X obj 540 163 loadbang;
+#X obj 540 186 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X msg 539 204 \; majorScale 0 0 2 4 5 7 9 11 12;
+#X obj 259 231 random 8;
+#X obj 259 199 metro 250;
+#X obj 259 291 tabread majorScale;
+#X floatatom 259 321 5 0 0 0 - - -;
+#X text 534 137 Define the intervals of a mjoar scale;
+#X connect 1 0 12 0;
+#X connect 2 0 20 0;
+#X connect 7 0 3 0;
+#X connect 7 1 3 1;
+#X connect 11 0 21 0;
+#X connect 12 0 7 0;
+#X connect 16 0 17 0;
+#X connect 17 0 18 0;
+#X connect 19 0 11 0;
+#X connect 20 0 19 0;
+#X connect 21 0 22 0;
+#X connect 22 0 1 0;

@@ -1,0 +1,25 @@
+#N canvas 0 0 616 732 12;
+#X msg 291 227 clear;
+#X msg 319 272 flush;
+#X obj 193 368 print;
+#X msg 78 164 this;
+#X msg 127 203 is;
+#X msg 159 241 my;
+#X msg 184 271 new;
+#X msg 204 298 honk;
+#X text 187 595 Honk Abstractions -- Kreidler 2007;
+#X text 267 646 www.kreidler-net.de;
+#X text 49 113 left inlet: various symbols;
+#X text 49 22 mergerize-fifo: turns a stream of symbols into one symbol
+\, in order: first in first out.;
+#X text 369 167 flush: output symbol;
+#X text 265 147 right inlet: clear: empty symbol;
+#X obj 193 323 mergerize-fifo;
+#X connect 0 0 14 1;
+#X connect 1 0 14 1;
+#X connect 3 0 14 0;
+#X connect 4 0 14 0;
+#X connect 5 0 14 0;
+#X connect 6 0 14 0;
+#X connect 7 0 14 0;
+#X connect 14 0 2 0;

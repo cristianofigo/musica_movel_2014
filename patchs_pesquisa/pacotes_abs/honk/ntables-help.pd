@@ -1,0 +1,7 @@
+#N canvas 455 541 930 360 12;
+#X text 461 217 Honk Abstractions -- Kreidler 2007;
+#X text 540 254 www.kreidler-net.de;
+#X text 394 14 ntables: create a number of tables;
+#X text 453 62 ntables [number of tables] [table size] [table name]
+;
+#X obj 89 84 ntables 10 44100 my-tabs;

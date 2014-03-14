@@ -1,0 +1,18 @@
+#N canvas 0 0 722 459 12;
+#X obj 58 87 vu 10 120 empty empty -1 -8 0 8 -66577 -1 0 0;
+#X obj 57 61 pvu~;
+#X obj 57 35 inlet~;
+#X text 187 58 vum - quick-to-build VU-Meter;
+#X text 184 93 input~: audio;
+#X text 227 197 honk abstractions -- kreidler 2007;
+#X text 283 235 www.kreidler-net.de;
+#X obj 539 173 vu 10 120 empty empty -1 -8 0 8 -66577 -1 0 0;
+#X obj 538 147 pvu~;
+#X obj 538 92 sig~ 1;
+#X obj 538 120 *~ 0.5;
+#X connect 1 0 0 0;
+#X connect 2 0 1 0;
+#X connect 8 0 7 0;
+#X connect 9 0 10 0;
+#X connect 10 0 8 0;
+#X coords 0 -1 1 1 26 145 1 50 65;

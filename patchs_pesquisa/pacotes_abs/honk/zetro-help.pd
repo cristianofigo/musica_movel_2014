@@ -1,0 +1,39 @@
+#N canvas 496 276 921 628 12;
+#X text 350 36 zetro: random metronome;
+#X text 353 63 arguments: random range (ms) \, offset (ms);
+#X text 351 92 left inlet: toggle to start zetro;
+#X text 352 122 middle inlet: random range (ms);
+#X text 350 145 right inlet: offset (ms);
+#X obj 111 423 bng 15 250 50 0 empty empty empty 0 -6 0 8 -262144 -1
+-1;
+#X obj 111 360 tgl 15 0 empty empty empty 0 -6 0 8 -262144 -1 -1 0
+1;
+#X msg 182 351 1000;
+#X obj 149 297 loadbang;
+#X msg 134 343 1000;
+#X text 355 510 honk abstractions -- kreidler 2007;
+#X text 399 542 www.kreidler-net.de;
+#X text 148 445 bangs with duration between 1000 and 2000 milliseconds
+;
+#X obj 111 389 zetro;
+#X obj 354 374 bng 15 250 50 0 empty empty empty 0 -6 0 8 -262144 -1
+-1;
+#X obj 354 311 tgl 15 0 empty empty empty 0 -6 0 8 -262144 -1 -1 0
+1;
+#X obj 354 340 zetro 200 500;
+#X text 362 392 bangs with duration between 200 and 500 milliseconds
+;
+#X text 350 171 left outlet: random bangs;
+#X text 346 195 right outlet: random duration (ms);
+#X floatatom 453 365 5 0 0 0 - - -;
+#X floatatom 146 417 5 0 0 0 - - -;
+#X connect 6 0 13 0;
+#X connect 7 0 13 2;
+#X connect 8 0 9 0;
+#X connect 8 0 7 0;
+#X connect 9 0 13 1;
+#X connect 13 0 5 0;
+#X connect 13 1 21 0;
+#X connect 15 0 16 0;
+#X connect 16 0 14 0;
+#X connect 16 1 20 0;

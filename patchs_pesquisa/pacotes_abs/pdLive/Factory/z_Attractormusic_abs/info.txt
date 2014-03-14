@@ -1,0 +1,29 @@
+ATTRACTORMUSIC ***************************************************************
+
+is a system, where dynamically created particles are swarming towards the 
+mouse, creating an organic, life-like sound athmosphere.
+
+Behaviour of the autonomous elements can be observed via the sound generation.
+
+The system is written in pure data, using gem for visual represenation / mouse
+interaction. 
+
+TO RUN:
+
+open "Attractormusic.pd"
+
+______________________________________________________________________________
+
+The work is released under the GNU GPL3 license.
+Requirements: Pd-extended 0.41 or higher
+
+______________________________________________________________________________
+
+Agoston Nagy
+Budapest, Hungary
+stc@basilar.net
++36304809295
+..
+.
+2010
+

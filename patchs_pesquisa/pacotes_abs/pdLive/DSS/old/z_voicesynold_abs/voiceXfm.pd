@@ -1,0 +1,47 @@
+#N canvas 0 34 918 591 12;
+#X obj 324 85 inlet;
+#X obj 429 589 *~;
+#X obj 285 527 inlet~;
+#X obj 272 619 outlet~;
+#X obj 322 586 +~;
+#X obj 635 215 +;
+#X obj 324 109 data-start template-toplevel;
+#X obj 236 178 data-array template-toplevel amp template-amp;
+#X obj 635 138 data-array template-toplevel pitch template-pitch;
+#X text 243 35 This is an abstraction used in the sequencer example.
+Here we take care of the audio synthesis \, according to timed controls
+from the the "data-start" and "data-array" subpatches.;
+#X text 751 468 calculate time-varying center frequencies;
+#X text 582 562 ... for three VCFs acting on a noise source.;
+#X text 324 633 summing bus;
+#X text 667 36 Pitch is in eighth-tones (because 4 pixels per half
+tone looks reasonable on the screen.) Hence the * 0.25 objects below.
+;
+#X obj 887 579 rpole~;
+#X obj 944 572 rzero~;
+#X obj 392 206 AmpEnvelope;
+#X obj 776 288 TimeVarFreq;
+#X obj 766 398 vcfBandwith;
+#X obj 495 294 syn-xfm;
+#X obj 531 251 mtof;
+#X connect 0 0 6 0;
+#X connect 1 0 4 1;
+#X connect 2 0 4 0;
+#X connect 4 0 3 0;
+#X connect 5 0 17 0;
+#X connect 5 0 20 0;
+#X connect 6 0 7 0;
+#X connect 6 0 8 0;
+#X connect 6 1 5 1;
+#X connect 7 1 16 0;
+#X connect 7 2 16 1;
+#X connect 8 0 5 0;
+#X connect 8 1 17 1;
+#X connect 8 2 17 2;
+#X connect 16 0 1 0;
+#X connect 17 0 18 1;
+#X connect 17 1 18 2;
+#X connect 17 2 18 3;
+#X connect 18 0 1 1;
+#X connect 19 0 18 0;
+#X connect 20 0 19 0;

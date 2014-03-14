@@ -1,0 +1,744 @@
+#N canvas 141 109 1139 686 10;
+#X text 1027 504 .;
+#X obj 95 -52 cnv 15 700 62 empty empty empty 3 6 0 10 -33289 -66577
+0;
+#X obj 96 -51 cnv 15 698 60 empty empty VisualTracker_section 3 6 0
+10 -262144 -66577 0;
+#X text 914 584 More info code.google.com/p/visualtracker;
+#X obj -88 -52 cnv 15 180 615 empty empty empty 3 6 0 10 -33289 -66577
+0;
+#X obj -87 -51 cnv 15 178 613 empty empty Receive_from_VisualTracker
+3 6 0 10 -262144 -66577 0;
+#X obj 983 -52 cnv 15 180 615 empty empty empty 3 6 0 10 -33289 -66577
+0;
+#X obj 984 -51 cnv 15 178 613 empty empty Send_to_VisualTracker 3 6
+0 10 -262144 -66577 0;
+#X obj 95 110 cnv 15 700 250 empty empty empty 3 6 0 10 -33289 -66577
+0;
+#X obj 95 13 cnv 15 700 94 empty empty empty 3 6 0 10 -33289 -66577
+0;
+#X obj 95 363 cnv 15 700 200 empty empty empty 3 6 0 10 -33289 -66577
+0;
+#X obj 96 14 cnv 15 698 92 empty empty Custom_creation_values 3 6 0
+10 -262144 -66577 0;
+#X obj 96 364 cnv 15 698 198 empty empty Custom_program 3 6 0 10 -262144
+-66577 0;
+#X obj 96 111 cnv 15 698 248 empty empty GOP_section 3 6 0 10 -262144
+-66577 0;
+#X obj 213 121 cnv 15 408 75 empty \$0-background vt_audio_track_mono
+5 8 1 12 -233017 -1 0;
+#X symbolatom 259 424 10 0 0 0 - - -;
+#X obj 330 160 tgl 15 0 empty empty fit: -13 8 1 10 -262144 -1 -1 0
+1;
+#X obj 383 160 nbx 3 14 1 1e+037 0 0 empty empty bars: -30 7 1 10 -262144
+-1 -1 1 256;
+#X obj 450 160 nbx 3 14 1 1e+037 0 0 empty empty mult: -30 7 1 10 -262144
+-1 -1 1 256;
+#X obj 400 123 nbx 3 14 0 19 0 0 empty empty color: -28 7 1 10 -262144
+-1 -1 0 256;
+#X obj 1074 -32 s \$0-01_color;
+#X obj 1073 142 s \$0-04_multi;
+#X obj 1080 87 s \$0-03_bars;
+#X obj 1087 22 s \$0-02_fit;
+#X obj 1070 187 s \$0-05_symbol;
+#X obj 1003 247 s \$0-06_original_duration;
+#X obj 1025 304 s \$0-07_create_symbol;
+#X msg 362 77 1;
+#X msg 361 55 0;
+#X obj 438 55 symbol;
+#X obj 572 124 nbx 4 14 1 1e+037 0 0 GFZT65765E654E654 \$0-vis_moduleID
+module_ID: -57 7 1 10 -233017 -1 -1 1 256;
+#X obj -80 335 r \$0-06_moduleID;
+#X obj 991 357 s~ \$0-08_audio_track_output;
+#X obj 1003 409 s \$0-09_data_track_output;
+#X text 1073 -15 integer 0-14;
+#X text 1176 -36 Color of module background and appropriate module
+canvas. Color is defined by preset - see vt subpatch [pd colortable].
+On loadbang random preset is loaded.;
+#X text 1087 41 logical 0/1;
+#X text 1081 106 integer > 0;
+#X text 1175 85 Defines how many bars last the module event. Active
+only when fit switch is on. Duration of module event is stretched to
+[bar time] * [numebr of bars].;
+#X text 1075 159 integer > 0;
+#X text 1173 137 Defines multiplication of module event. Active only
+when fit switch is on. Each next event starts from beginning right
+after another.;
+#X text 1171 189 Name of each module instance. It appears also in module
+canvas. Usually typed manually or generated for example from file name.
+IMPORTANT: do not use spaces !;
+#X text 1092 210 symbol;
+#X text 1034 265 real number [ms];
+#X text 1170 244 Original duration of module event in milliseconds.
+Set manually or calculate for example from sample table.;
+#X text 1083 321 symbol;
+#X text 1052 375 audio stream;
+#X text 1048 429 real number;
+#X text 1172 352 Address module audio output to the audio channel defined
+in vt track properties (track properties are set in timeline window)
+according to the module canvas vertical position.;
+#X text 1172 405 Address module data output (stream of numbers) to
+the data channel defined in vt track properties (track properties are
+set in timeline window) according to the module canvas vertical position.
+;
+#X obj -84 -19 r \$0-01_creationbang;
+#X obj -81 47 r \$0-02_bangs;
+#X obj -83 132 r \$0-03_duration;
+#X obj -80 199 r \$0-04_position;
+#X obj -79 263 r \$0-05_track;
+#X text -472 -45 .;
+#X text -85 -1 bang;
+#X text -82 63 bang;
+#X text -83 149 real number [ms];
+#X text -451 194 Horizontal position of module canvas on timeline;
+#X text -69 215 integer [bars];
+#X text -84 279 integer [tracks];
+#X text -452 260 Vertical position of module canvas on timeline. Could
+be used for sending data to different outputs according to the particular
+track settings.;
+#X text -449 130 Duration of module in milliseconds according to the
+switch "fit" (original or fited to current BPM). Rely on global BPM
+and "bars" value. Multi(plication) does not affect this value;
+#X text -57 352 integer;
+#X text -449 330 Number generated uniquely for each instance of any
+module. Could be used for referring to particular module. Module ID
+can not be changed.;
+#X text -449 -22 Sends bang only once when module instance is created.
+IMPORTANT: do not use object [loadbang] in module program \, due to
+vt architecture it will bang every time ANY module is created.;
+#X text -451 44 Sends bang at the beginning of every module event according
+to the horizontal position of module canvas on time line. When module
+is for example 2 bars long \, multiplicated 3 times and begining is
+placed at the beginning of 5th bar then vt sends bang on 5th \, 7th
+and 9th sequence. It means when BPM is 6O bangs are send 16 \, 24 and
+32 seconds from the start.;
+#N canvas 422 367 515 393 hide_numbers 0;
+#X obj 170 78 inlet switch;
+#X obj 41 309 pack f f;
+#X obj 41 251 t b f;
+#X obj 41 277 f \$0;
+#X obj 41 224 line;
+#X obj 170 101 sel 0;
+#X msg 103 197 0 200;
+#X obj 234 309 pack f f;
+#X obj 234 255 t b f;
+#X obj 234 283 f \$0;
+#X obj 234 228 line;
+#X msg 41 197 200 200;
+#X msg 41 336 \; \$1-fithide vis_size \$2 15;
+#X text 21 6 This is just eye candy feature - unused number boxes are
+hidden by smoothly moving canvas. Note position of "hiding" canvas
+is set hard \, so it has to be changed when changing layout of GOP
+module section.;
+#X text 343 360 canvas y position;
+#X text 298 181 1st number canvas x position;
+#X text 232 160 always add 200 to x canvas position;
+#X msg 234 334 \; \$1-fithide pos \$2 159;
+#X msg 299 199 350 200;
+#X msg 234 199 550 200;
+#X connect 0 0 5 0;
+#X connect 1 0 12 0;
+#X connect 2 0 3 0;
+#X connect 2 1 1 1;
+#X connect 3 0 1 0;
+#X connect 4 0 2 0;
+#X connect 5 0 11 0;
+#X connect 5 0 18 0;
+#X connect 5 1 6 0;
+#X connect 5 1 19 0;
+#X connect 6 0 4 0;
+#X connect 7 0 17 0;
+#X connect 8 0 9 0;
+#X connect 8 1 7 1;
+#X connect 9 0 7 0;
+#X connect 10 0 8 0;
+#X connect 11 0 4 0;
+#X connect 18 0 10 0;
+#X connect 19 0 10 0;
+#X restore 330 210 pd hide_numbers;
+#X obj 598 179 bng 15 250 50 0 empty empty play: -25 7 1 10 -262144
+-1 -1;
+#X text -55 464 bang;
+#X obj -80 447 r vt_seq_stop;
+#X text -448 441 Sends bang when sequenencer stop button is pressed.
+Next "play bang" should trigger the module to perform from beginning
+(STOP is not PAUSE). All modules should implement this immediate stop
+function... (fyi: Sequence number is set to 0 after STOP );
+#X obj 997 468 s \$0-10_reset_cnv_position;
+#X obj 1021 525 s \$0-11_reset_cnv_size;
+#X text 1072 482 bang;
+#X text 1172 520 Resizes current module canvas to defaul (create) size
+(= 0).Usualy used when unloading/reseting module;
+#X text 1071 539 bang;
+#X text 1174 14 Time stretch switch. 0 (off): duration of module event
+is original \, 1 (on): duration is calculated according current BPM
+\, number of bars and multi(plication). Graphical size of module canvas
+is recalculated according to the module event duration.;
+#X text 1172 465 Moves current module canvas to default (create) position
+in timeline window (x:0 \, y.-90). Usualy used when unloading/reseting
+module;
+#X text 387 31 message:;
+#X obj 501 160 nbx 5 14 1 1e+037 0 0 empty \$0-perc % -14 7 1 10 -233017
+-1 -1 1 256;
+#N canvas 185 68 411 255 percentage 0;
+#X obj 183 -12 * 100;
+#X obj 183 18 outlet sample percentage;
+#X obj 183 -122 inlet original duration;
+#X obj 40 -124 inlet current duration;
+#X obj 183 -39 /;
+#X obj 183 -70 t b f;
+#X connect 0 0 1 0;
+#X connect 2 0 5 0;
+#X connect 3 0 4 0;
+#X connect 4 0 0 0;
+#X connect 5 0 4 0;
+#X connect 5 1 4 1;
+#X restore 435 209 pd percentage;
+#X obj 350 159 cnv 1 200 15 empty \$0-fithide empty 20 12 0 14 -233017
+-1 0;
+#X obj -80 518 r from_bpm;
+#X text -75 537 integer;
+#X text -294 516 Receives global VisualTracker BPM;
+#X text 596 38 module_name;
+#X obj 799 -52 cnv 15 180 615 empty empty empty 3 6 0 10 -33289 -66577
+0;
+#X obj 800 -51 cnv 15 178 245 empty empty Basic_storage_abstractions
+3 6 0 10 -262144 -66577 0;
+#X obj 670 59 l2s;
+#X obj 99 33 delay 1000;
+#X text 806 -20 module name;
+#X text 809 9 module canvas x position;
+#X text 809 39 module canvas y position;
+#X text 805 78 color number;
+#X text 1171 299 Default name of module instance. This name is set
+after creating each module and can be changed later by [s \$0-05_symbol].
+THIS SEND ACTUALLY TRIGERS MODULE CANVAS CRETAION \, SO IT'S OBLIGATORY
+!;
+#X text 809 -4 1 inside connector;
+#X text 810 27 2 inside connector;
+#X obj 808 -33 abs/mstorage \$0 0 0 symbol;
+#X text 642 16 height od GOP (pix):;
+#X obj 246 160 bng 15 250 50 0 empty empty load: -24 7 1 10 -262144
+-1 -1;
+#X obj 293 160 bng 15 250 50 0 empty empty unld: -24 7 1 10 -262144
+-1 -1;
+#X msg 670 39 vt_audio_track_mono;
+#X text 804 113 fit switch;
+#X text 806 147 bars;
+#X text 806 178 multi;
+#X msg 438 32 no_sample;
+#N canvas 127 138 607 481 play_sample 0;
+#X obj 184 186 tabread4~;
+#X obj 137 148 line~;
+#X msg 142 108 \$1 \$2;
+#X obj 146 81 pack;
+#X msg 70 120 0;
+#X obj 53 26 t b b;
+#X obj 94 66 f;
+#X msg 185 162 set \$1;
+#X obj 39 -137 inlet play bang;
+#X obj 169 -134 inlet aray size;
+#X obj 413 -134 inlet table;
+#X obj 184 221 outlet~;
+#X obj 277 -134 inlet sample duration;
+#X obj 490 -134 inlet stop;
+#X msg 186 107 stop;
+#X connect 0 0 11 0;
+#X connect 1 0 0 0;
+#X connect 2 0 1 0;
+#X connect 3 0 2 0;
+#X connect 4 0 1 0;
+#X connect 5 0 6 0;
+#X connect 5 1 4 0;
+#X connect 6 0 3 0;
+#X connect 7 0 0 0;
+#X connect 8 0 5 0;
+#X connect 9 0 6 1;
+#X connect 10 0 7 0;
+#X connect 12 0 3 1;
+#X connect 13 0 14 0;
+#X connect 14 0 1 0;
+#X restore 283 495 pd play_sample;
+#N canvas 60 5 1165 525 read_sample 0;
+#X obj 581 319 soundfiler;
+#X msg 596 190 add \$1;
+#X obj 596 164 symbol;
+#X msg 581 267 read -resize -maxsize 1.5876e+008 E:/Backup/VisualTracker/Releases/BBT_Afro_126_Full_Fill_a.wav
+1149-table \;;
+#X obj 596 120 f \$0;
+#X obj 596 142 sprintf %d-table;
+#X obj 581 20 symbol;
+#X obj -30 -80 inlet filename;
+#X msg 826 226 set read -resize -maxsize 1.5876e+008 \$1;
+#X obj 359 -80 inlet reset array size;
+#X obj -30 -20 select no_sample;
+#X msg -30 79 symbol no_sample;
+#X obj -30 -50 l2s;
+#X obj 80 318 splitfilename .;
+#X obj 80 343 outlet name;
+#X obj -30 258 symbol;
+#X obj -30 343 outlet filename;
+#X obj 859 71 r vt_audio_path;
+#X obj 826 121 symbol;
+#X obj 859 96 symbol;
+#X msg 826 148 set \$1;
+#X msg 765 121 add2 \$1;
+#X msg 826 173 E:/Backup/VisualTracker/Releases BBT_Afro_126_Full_Fill_a.wav
+;
+#X obj 581 56 t b b b s b;
+#X obj 826 198 mergefilename /;
+#X obj 309 344 outlet table;
+#X obj 197 318 soundfiler;
+#X msg 255 238 add \$1;
+#X obj 375 168 symbol;
+#X obj 197 55 t b b s;
+#X msg 197 266 read -resize -maxsize 1.5876e+008 E:/VisualTracker/CnD_loops/African_Roots_DRM001.wav
+1153-table \;;
+#X obj 375 124 f \$0;
+#X obj 375 146 sprintf %d-table;
+#X obj 197 344 outlet array size;
+#X obj 197 19 symbol;
+#X msg 236 202 set read -resize -maxsize 1.5876e+008 \$1;
+#X obj 581 345 *outlet array size;
+#X obj 701 345 *outlet table;
+#X text 837 17 split path + filename for audio folder;
+#X obj 5 292 splitfilename;
+#X connect 0 0 36 0;
+#X connect 1 0 3 0;
+#X connect 2 0 1 0;
+#X connect 2 0 37 0;
+#X connect 3 0 0 0;
+#X connect 4 0 5 0;
+#X connect 5 0 2 0;
+#X connect 6 0 23 0;
+#X connect 7 0 12 0;
+#X connect 8 0 3 0;
+#X connect 9 0 33 0;
+#X connect 10 0 11 0;
+#X connect 10 1 34 0;
+#X connect 11 0 15 0;
+#X connect 12 0 10 0;
+#X connect 13 0 14 0;
+#X connect 15 0 16 0;
+#X connect 15 0 39 0;
+#X connect 17 0 19 0;
+#X connect 18 0 20 0;
+#X connect 19 0 18 1;
+#X connect 20 0 22 0;
+#X connect 21 0 22 0;
+#X connect 22 0 24 0;
+#X connect 23 0 3 0;
+#X connect 23 1 4 0;
+#X connect 23 2 22 0;
+#X connect 23 3 21 0;
+#X connect 23 4 18 0;
+#X connect 24 0 8 0;
+#X connect 26 0 33 0;
+#X connect 27 0 30 0;
+#X connect 28 0 27 0;
+#X connect 28 0 25 0;
+#X connect 29 0 30 0;
+#X connect 29 1 31 0;
+#X connect 29 2 35 0;
+#X connect 30 0 26 0;
+#X connect 31 0 32 0;
+#X connect 32 0 28 0;
+#X connect 34 0 29 0;
+#X connect 34 0 15 0;
+#X connect 35 0 30 0;
+#X connect 39 1 13 0;
+#X restore 256 449 pd read_sample;
+#N canvas 0 0 239 177 table 0;
+#N canvas 153 41 450 300 (subpatch) 0;
+#X array \$0-table 271103 float 2;
+#X coords 0 1 271103 -1 200 140 1;
+#X restore 12 18 graph;
+#X restore 529 515 pd table;
+#N canvas 90 150 838 534 load_action 0;
+#X obj 22 -144 inlet sample load bang;
+#X msg 696 311 0;
+#X obj 582 333 outlet reset to 1;
+#X msg 582 309 1;
+#X obj 49 -11 spigot;
+#X obj 82 -31 tgl 15 1 empty empty empty 17 7 0 10 -262144 -1 -1 1
+1;
+#X msg 64 -57 0;
+#X msg 95 -57 1;
+#X obj 22 -116 t b b;
+#X obj 95 -81 delay 1000;
+#X text 102 -33 avoid double click;
+#X obj 49 49 openpanel;
+#X obj 49 72 splitfilename space;
+#X obj 160 99 makefilename none%s;
+#X obj 160 125 select none;
+#X obj 16 174 symbol;
+#X obj 223 175 symbol;
+#X msg 223 150 LOADING_ERROR_-_no_spaces_in_path_or_filename_allowed
+;
+#X obj 223 250 symbol;
+#X msg 223 197 bang;
+#X obj 74 150 delay 100;
+#X obj 223 218 delay 2500;
+#X msg 302 218 symbol no_sample;
+#X obj 696 333 outlet reset to 0fit;
+#X obj 49 13 t b b;
+#X obj 582 58 t b b;
+#X obj 16 327 outlet filename;
+#X obj 302 -143 inlet loadbang;
+#X obj 137 327 outlet space error;
+#X obj 49 99 mergefilename;
+#X text 17 345 path + filename;
+#X connect 0 0 8 0;
+#X connect 1 0 23 0;
+#X connect 3 0 2 0;
+#X connect 4 0 24 0;
+#X connect 5 0 4 1;
+#X connect 6 0 5 0;
+#X connect 7 0 5 0;
+#X connect 8 0 6 0;
+#X connect 8 0 9 0;
+#X connect 8 1 4 0;
+#X connect 9 0 7 0;
+#X connect 11 0 12 0;
+#X connect 12 0 29 0;
+#X connect 12 1 13 0;
+#X connect 13 0 14 0;
+#X connect 14 0 20 0;
+#X connect 14 1 17 0;
+#X connect 15 0 18 1;
+#X connect 15 0 26 0;
+#X connect 16 0 19 0;
+#X connect 16 0 28 0;
+#X connect 17 0 16 0;
+#X connect 18 0 28 0;
+#X connect 19 0 21 0;
+#X connect 20 0 15 0;
+#X connect 21 0 18 0;
+#X connect 22 0 18 1;
+#X connect 24 0 11 0;
+#X connect 24 1 25 0;
+#X connect 25 0 3 0;
+#X connect 25 1 1 0;
+#X connect 27 0 22 0;
+#X connect 29 0 15 1;
+#X restore 374 385 pd load_action;
+#N canvas 83 282 611 300 unload_action 0;
+#X msg 207 39 bang;
+#X obj 440 140 outlet no sample;
+#X msg 440 94 no_sample;
+#X obj 32 140 outlet reset pos;
+#X msg 245 119 const 0;
+#X obj 245 144 s \$0-table;
+#X text 242 162 clear table;
+#X obj 180 205 outlet reset to 1;
+#X msg 180 174 1;
+#X obj 122 226 outlet reset fit;
+#X msg 122 202 0;
+#X obj 207 67 t b b b b b b b;
+#X obj 207 14 inlet unload;
+#X obj 27 249 outlet reset canvas size;
+#X obj 440 117 l2s;
+#X connect 0 0 11 0;
+#X connect 2 0 14 0;
+#X connect 4 0 5 0;
+#X connect 8 0 7 0;
+#X connect 10 0 9 0;
+#X connect 11 1 3 0;
+#X connect 11 2 13 0;
+#X connect 11 3 10 0;
+#X connect 11 4 8 0;
+#X connect 11 5 4 0;
+#X connect 11 6 2 0;
+#X connect 12 0 0 0;
+#X connect 14 0 1 0;
+#X restore 483 408 pd unload_action;
+#N canvas 0 0 450 300 original_duration 0;
+#X obj 174 -78 / 44.1;
+#X obj 174 -134 inlet array size;
+#X text 78 -78 samplerate / ms;
+#X obj 174 106 outlet sample duration;
+#X connect 0 0 3 0;
+#X connect 1 0 0 0;
+#X restore 406 509 pd original_duration;
+#X symbolatom 217 141 66 0 0 0 - - -;
+#X obj 324 -29 abs/visualtracker_connector1 \$0 \$1 \$2;
+#X obj 808 61 abs/mstorage \$0 3 \$3 number;
+#X obj 807 96 abs/mstorage \$0 4 \$4 number;
+#X obj 808 130 abs/mstorage \$0 5 \$5 number;
+#X obj 807 163 abs/mstorage \$0 6 \$6 number;
+#X obj 800 196 cnv 15 178 314 empty empty Custom_storage_abstractions
+3 6 0 10 -262144 -66577 0;
+#X obj 800 512 cnv 15 178 50 empty empty Obligatory_storage_abs 3 6
+0 10 -262144 -66577 0;
+#X text 804 544 end of the list identifier;
+#X text 800 230 path+filename;
+#X obj 803 214 abs/mstorage \$0 7 \$7 symbol;
+#X text -57 410 integer;
+#X obj -80 393 r \$0-07_output_track;
+#X obj 477 124 nbx 3 14 0 1e+037 0 0 GFZT65765E654E654 \$0-vis_moduleID
+output: -34 7 1 10 -233017 -1 -1 0 256;
+#X text -450 388 Shows the output of VisualTracker abstraction module
+output is adressed into. 0 means module output is muted.;
+#X text 996 565 built in Pd 0.42.5-extended;
+#X text -90 -73 This abstraction is optimised for VisualTracker 1 ALPHA
+2;
+#N canvas 785 0 558 810 timestretch 0;
+#X floatatom 29 97 0 0 0 0 - - -;
+#X obj 92 610 *~;
+#X obj 215 547 line~;
+#X text 27 -28 PITCH SHIFTER;
+#X obj 215 521 pack 0 200;
+#X obj 29 153 exp;
+#X floatatom 29 179 8 0 0 0 - - -;
+#X obj 29 511 /;
+#X obj 156 445 * 0.001;
+#X obj 324 617 line~;
+#X obj 324 592 pack 0 200;
+#X floatatom 324 541 0 0 0 0 - - -;
+#X obj 92 636 +~;
+#X obj 29 662 cos~;
+#X obj 29 689 *~;
+#X obj 29 718 +~;
+#X obj 116 569 wrap~;
+#X obj 261 612 *~;
+#X obj 261 645 +~;
+#X obj 198 672 cos~;
+#X obj 198 699 *~;
+#X obj 156 472 t b f;
+#X floatatom 29 537 6 0 0 0 - - -;
+#X obj 116 542 +~ 0.5;
+#X obj 29 610 -~ 0.5;
+#X obj 29 636 *~ 0.5;
+#X obj 198 611 -~ 0.5;
+#X obj 198 644 *~ 0.5;
+#X obj 29 446 - 1;
+#X obj 29 127 * 0.05776;
+#X obj 29 472 * -1;
+#X text 63 96 <-- transposition;
+#X text 106 109 (halftones);
+#X text 89 414 speed;
+#X text 88 426 change;
+#X text 424 122 <--window (msec);
+#X text 64 504 tape head;
+#X obj 29 568 phasor~;
+#X obj 324 568 max 1.5;
+#X text 327 474 delay;
+#X text 324 492 (msec);
+#X obj 380 150 max 1;
+#X text 65 517 rotation freq;
+#X obj 29 -7 inlet~;
+#X obj 29 743 outlet~;
+#X obj 380 -6 inlet loadbang;
+#X msg 29 67 0;
+#X msg 380 104 100;
+#X obj 29 41 delwrite~ \$0-delline 5000;
+#X obj 92 663 vd~ \$0-delline;
+#X obj 261 674 vd~ \$0-delline;
+#X msg 324 517 0;
+#X floatatom 380 127 0 0 0 0 - - -;
+#X obj 172 -7 inlet speedchange;
+#X obj 172 14 / 100;
+#X obj 74 -7 inlet finetune;
+#X obj 56 287 float;
+#X obj 29 311 +;
+#X floatatom 29 222 5 0 0 0 - - -;
+#X obj 29 265 t f b;
+#X floatatom 29 421 8 0 0 0 - - -;
+#X obj 29 201 bang;
+#X obj 29 244 * 0.001;
+#X obj 285 -7 inlet preserve;
+#X obj 102 364 float;
+#X msg 129 333 1;
+#X obj 102 287 sel 0;
+#X floatatom 29 391 5 0 0 0 - - -;
+#X obj 29 364 spigot;
+#X obj 102 313 bang;
+#X obj 285 40 reverse;
+#X msg 283 73 1;
+#X text 284 107 comment;
+#X connect 0 0 29 0;
+#X connect 1 0 12 0;
+#X connect 2 0 1 1;
+#X connect 2 0 17 1;
+#X connect 4 0 2 0;
+#X connect 5 0 6 0;
+#X connect 6 0 56 1;
+#X connect 6 0 61 0;
+#X connect 7 0 22 0;
+#X connect 8 0 21 0;
+#X connect 9 0 12 1;
+#X connect 9 0 18 1;
+#X connect 10 0 9 0;
+#X connect 11 0 38 0;
+#X connect 12 0 49 0;
+#X connect 13 0 14 0;
+#X connect 14 0 15 0;
+#X connect 15 0 44 0;
+#X connect 16 0 17 0;
+#X connect 16 0 26 0;
+#X connect 17 0 18 0;
+#X connect 18 0 50 0;
+#X connect 19 0 20 0;
+#X connect 20 0 15 1;
+#X connect 21 0 7 0;
+#X connect 21 1 7 1;
+#X connect 22 0 37 0;
+#X connect 23 0 16 0;
+#X connect 24 0 25 0;
+#X connect 25 0 13 0;
+#X connect 26 0 27 0;
+#X connect 27 0 19 0;
+#X connect 28 0 30 0;
+#X connect 29 0 5 0;
+#X connect 30 0 7 0;
+#X connect 37 0 1 0;
+#X connect 37 0 24 0;
+#X connect 37 0 23 0;
+#X connect 38 0 10 0;
+#X connect 41 0 8 0;
+#X connect 41 0 4 0;
+#X connect 43 0 48 0;
+#X connect 45 0 46 0;
+#X connect 45 0 47 0;
+#X connect 45 0 51 0;
+#X connect 45 0 71 0;
+#X connect 46 0 0 0;
+#X connect 47 0 52 0;
+#X connect 49 0 14 1;
+#X connect 50 0 20 1;
+#X connect 51 0 11 0;
+#X connect 52 0 41 0;
+#X connect 53 0 54 0;
+#X connect 54 0 6 0;
+#X connect 55 0 0 0;
+#X connect 56 0 57 1;
+#X connect 57 0 64 1;
+#X connect 57 0 68 0;
+#X connect 58 0 62 0;
+#X connect 59 0 57 0;
+#X connect 59 1 56 0;
+#X connect 60 0 28 0;
+#X connect 61 0 58 0;
+#X connect 62 0 59 0;
+#X connect 63 0 66 0;
+#X connect 63 0 70 0;
+#X connect 64 0 67 0;
+#X connect 65 0 67 0;
+#X connect 66 0 69 0;
+#X connect 66 1 65 0;
+#X connect 67 0 60 0;
+#X connect 68 0 67 0;
+#X connect 69 0 64 0;
+#X connect 70 0 68 1;
+#X connect 71 0 68 1;
+#X restore 289 522 pd timestretch;
+#X obj 418 179 nbx 3 14 -1e+037 1e+037 0 0 empty empty transp: -32
+7 1 10 -262144 -1 -1 0 256;
+#X obj 512 178 tgl 15 0 empty empty pitch_reset: -55 8 1 10 -262144
+-1 -1 0 1;
+#X msg 766 17 75;
+#X obj 330 179 nbx 4 14 -100 1e+037 0 0 empty empty gain+: -30 7 1
+10 -262144 -1 -1 100 256;
+#X text 800 263 preserve pitch;
+#X obj 803 247 abs/mstorage \$0 8 \$8 number;
+#X text 800 298 tune;
+#X obj 802 281 abs/mstorage \$0 9 \$9 number;
+#X text 800 332 gain;
+#X obj 802 315 abs/mstorage \$0 10 \$10 number;
+#N canvas 0 0 450 300 gain 0;
+#X obj 170 15 inlet numbox;
+#X obj 18 15 inlet~ audio stream;
+#X obj 19 184 outlet~ audio stream;
+#X obj 170 42 / 100;
+#X obj 19 113 *~;
+#X obj 34 89 + 1;
+#X connect 0 0 3 0;
+#X connect 1 0 4 0;
+#X connect 3 0 5 0;
+#X connect 4 0 2 0;
+#X connect 5 0 4 1;
+#X restore 612 487 pd gain;
+#X text 283 77 bars \, multi:;
+#X text 371 177 %;
+#X obj 804 528 abs/mstorage \$0 11 0 end;
+#X text 294 53 fit \, gain:;
+#X connect 15 0 109 0;
+#X connect 15 0 124 0;
+#X connect 16 0 23 0;
+#X connect 16 0 68 0;
+#X connect 16 0 117 0;
+#X connect 17 0 22 0;
+#X connect 17 0 118 0;
+#X connect 18 0 21 0;
+#X connect 18 0 119 0;
+#X connect 19 0 20 0;
+#X connect 19 0 116 0;
+#X connect 27 0 17 0;
+#X connect 27 0 18 0;
+#X connect 28 0 16 0;
+#X connect 28 0 135 0;
+#X connect 29 0 26 0;
+#X connect 29 0 15 0;
+#X connect 31 0 30 0;
+#X connect 50 0 107 0;
+#X connect 50 0 27 0;
+#X connect 50 0 28 0;
+#X connect 50 0 91 0;
+#X connect 50 0 111 1;
+#X connect 50 0 131 4;
+#X connect 51 0 69 0;
+#X connect 52 0 82 0;
+#X connect 52 0 108 2;
+#X connect 69 0 108 0;
+#X connect 71 0 108 4;
+#X connect 81 0 131 2;
+#X connect 82 0 81 0;
+#X connect 90 0 99 0;
+#X connect 91 0 103 0;
+#X connect 91 0 134 0;
+#X connect 91 0 15 0;
+#X connect 101 0 111 0;
+#X connect 102 0 112 0;
+#X connect 103 0 90 0;
+#X connect 107 0 29 0;
+#X connect 108 0 131 0;
+#X connect 109 0 114 0;
+#X connect 109 1 24 0;
+#X connect 109 2 108 1;
+#X connect 109 2 113 0;
+#X connect 109 3 108 3;
+#X connect 111 0 15 0;
+#X connect 111 1 114 0;
+#X connect 111 2 17 0;
+#X connect 111 2 18 0;
+#X connect 111 3 16 0;
+#X connect 111 3 109 1;
+#X connect 112 0 73 0;
+#X connect 112 1 74 0;
+#X connect 112 2 16 0;
+#X connect 112 3 18 0;
+#X connect 112 3 17 0;
+#X connect 112 4 24 0;
+#X connect 112 4 15 0;
+#X connect 112 4 114 0;
+#X connect 113 0 25 0;
+#X connect 113 0 82 1;
+#X connect 116 0 19 0;
+#X connect 117 0 16 0;
+#X connect 118 0 17 0;
+#X connect 119 0 18 0;
+#X connect 124 0 15 0;
+#X connect 126 0 127 0;
+#X connect 131 0 142 0;
+#X connect 132 0 131 1;
+#X connect 132 0 139 0;
+#X connect 133 0 131 3;
+#X connect 133 0 137 0;
+#X connect 134 0 145 0;
+#X connect 135 0 141 0;
+#X connect 135 0 142 1;
+#X connect 137 0 133 0;
+#X connect 139 0 132 0;
+#X connect 141 0 135 0;
+#X connect 142 0 32 0;
+#X coords 0 -1 1 1 410 77 2 212 120;

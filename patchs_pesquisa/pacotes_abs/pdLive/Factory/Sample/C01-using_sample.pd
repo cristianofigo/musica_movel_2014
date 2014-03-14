@@ -1,0 +1,463 @@
+#N canvas 458 425 583 508 10;
+#X text 38 29 This tutorial demonstrates the process of using audio
+samples in Pd;
+#N canvas 361 95 804 820 1-loading_sample 0;
+#X text 45 39 Before we can play back a sample \, we need to load it
+into Pd first. so let's see how this is done.;
+#N canvas 0 0 450 300 (subpatch) 0;
+#X array sample 96658 float 2;
+#X coords 0 1 96658 -1 200 140 1;
+#X restore 44 155 graph;
+#X text 299 151 step 1:;
+#X text 299 165 We will use an array object to hold the sample \, you
+can create an array object by going to the put menu \, then select
+Array. One very important thing is to give this array a unique name.
+;
+#X text 299 225 After the sample is loaded into the array \, we will
+be able to access by the unique name of the array.;
+#X obj 44 389 soundfiler;
+#X obj 44 662 openpanel;
+#X msg 44 367 read -resize funloop.wav sample;
+#X floatatom 44 411 10 0 0 0 - - -;
+#X text 299 361 step 2:;
+#X text 299 375 The object to load sample into array is called soundfiler.
+The message that it expects are in the following format:;
+#X text 326 409 action \, option \, path_to_sample \, name_of_array
+;
+#X text 299 433 In this example \, we tell it to *read* a sample called
+*funloop.wav* in the current directory \, and load it to an array called
+*sample with the option of *-resize*;
+#X text 299 483 The -resize option simply adjust the size of the array
+to fit the size of the sample automatically.;
+#X text 299 516 The outlet of soundfiler object will report the length
+of the sample in *samples*.;
+#X obj 44 704 soundfiler;
+#X msg 44 683 read -resize \$1 sample;
+#X obj 44 643 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X floatatom 44 725 10 0 0 0 - - -;
+#X text 299 550 soundfiler object accepts many other options \, look
+up its help file for additional information.;
+#X text 299 631 Tip:;
+#X text 60 642 <- click;
+#X text 299 645 Combined with the openpanel object \, you can then
+load a sample intractively. Note the \$1 construction in the message
+for soundfiler.;
+#X connect 5 0 8 0;
+#X connect 6 0 16 0;
+#X connect 7 0 5 0;
+#X connect 15 0 18 0;
+#X connect 16 0 15 0;
+#X connect 17 0 6 0;
+#X restore 42 83 pd 1-loading_sample;
+#N canvas 377 226 763 603 2-reading_sample_basic 0;
+#X text 7 5 Once a sample is loaded \, all we need to play it is just
+to read the content of the array.;
+#N canvas 0 0 450 300 (subpatch) 0;
+#X array sample_basic 96658 float 2;
+#X coords 0 1 96658 -1 100 70 1;
+#X restore 13 61 graph;
+#X obj 116 84 soundfiler;
+#X msg 116 62 read -resize funloop.wav sample_basic;
+#X text 388 62 <- click;
+#X obj 15 192 tabread sample_basic;
+#X floatatom 15 213 10 0 0 0 - - -;
+#X floatatom 15 174 5 0 0 0 - - -;
+#X text 332 170 step 1:;
+#X text 332 184 sample stored in array can be read by tabread object.
+the concept is that you give tabread an index value \, and it will
+return the actually value stored at the index. let's see how it works
+manually.;
+#X text 53 174 <- Index;
+#X text 89 214 <- value;
+#X text 332 300 step 2:;
+#X text 332 316 Once you understood the concept of using index to retrive
+sample value \, playing a sample is simply reading the content of the
+array in the same way \, *but* at the audio rate.;
+#X text 332 376 To do this \, we will use tabread~ and line~;
+#X obj 16 529 tabread~ sample_basic;
+#X obj 18 421 line~;
+#X obj 17 470 *~;
+#X obj 35 448 receive sam_basic_len;
+#X obj 116 103 send sam_basic_len;
+#X obj 15 559 dac~;
+#X msg 18 319 0 \, 1 2000;
+#X text 17 301 from 0 to 1 in 2 seconds;
+#X text 89 320 <- click;
+#X text 99 361 <- click;
+#X msg 28 360 0 \, 1 4000;
+#X text 27 342 from 0 to 1 in 4 seconds;
+#X text 109 401 <- click;
+#X msg 38 400 1 \, 0 2000;
+#X text 37 382 from 1 to 0 in 2 seconds;
+#X text 70 502 0<->the length of the sample;
+#X text 21 490 scale: 0<->1 to;
+#X text 250 104 send the length of the sample;
+#X connect 2 0 19 0;
+#X connect 3 0 2 0;
+#X connect 5 0 6 0;
+#X connect 7 0 5 0;
+#X connect 15 0 20 0;
+#X connect 15 0 20 1;
+#X connect 16 0 17 0;
+#X connect 17 0 15 0;
+#X connect 18 0 17 1;
+#X connect 21 0 16 0;
+#X connect 25 0 16 0;
+#X connect 28 0 16 0;
+#X restore 42 106 pd 2-reading_sample_basic;
+#N canvas 409 167 862 689 3-sample_in_time 0;
+#X text 6 5 OK \, now we know how to play back a sample. but you might
+have noticed that the sample sounded too fast (or too slow). We will
+now correct this problem.;
+#X obj 9 62 table sample_time;
+#X obj 9 143 soundfiler;
+#X text 281 121 <- click;
+#X text 143 163 send the length of the sample;
+#X msg 9 121 read -resize funloop.wav sample_time;
+#X obj 9 162 send sam_time_len;
+#X text 136 60 Look \, we have replace the array object with the table
+object \, both of them works the same way \, apart from that table
+has no graphical visulisation. However \, you can click on it.;
+#X obj 40 310 samplerate~;
+#X obj 8 287 t f b;
+#X obj 8 263 f;
+#X obj 8 241 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X obj 8 384 /;
+#X floatatom 37 387 10 0 0 0 - - -;
+#X obj 36 263 receive sam_time_len;
+#X obj 40 329 / 1000;
+#X text 253 230 step 1:;
+#X text 253 248 To be able to playback a sample at its original time/duration
+involves a bit of math \, but its quite simple.;
+#X text 253 288 From the soundfiler object \, we can know how many
+samples a sound file contains. From the samplerate~ object \, we can
+know what's the sample rate of Pd. Then \, dividing the number of samples
+by the sample rate will give us the original duration of the sound
+file in seconds.;
+#X text 253 368 Note that we also devided the sample rate by 1000 \,
+this is just to convert it from samples per second to samples per millisecond.
+This is because line~ object operates with millisecond.;
+#X obj 8 406 s sam_time_duration;
+#X text 37 358 samples/samplerate =;
+#X text 37 370 duration of a sound file;
+#X obj 9 592 tabread~ sample_time;
+#X obj 8 534 line~;
+#X msg 8 512 0 \, 1 \$1;
+#X obj 39 485 r sam_time_duration;
+#X obj 8 485 f;
+#X obj 8 466 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X obj 9 564 *~;
+#X obj 37 564 receive sam_time_len;
+#X obj 8 632 dac~;
+#X text 27 465 <- click;
+#X text 26 241 <- click;
+#X text 253 460 step 2:;
+#X text 253 478 After we have calculated the correct duration of a
+sound file. We can then incoporate this value into the message sent
+to line~ object. Now \, line~ will go from 0 to 1 in the correct amount
+time.;
+#X text 253 538 As we now have the duration of the sample \, we can
+accurately play back the sample in half time \, double time \, etc.
+Try it.;
+#X connect 2 0 6 0;
+#X connect 5 0 2 0;
+#X connect 8 0 15 0;
+#X connect 9 0 12 0;
+#X connect 9 1 8 0;
+#X connect 10 0 9 0;
+#X connect 11 0 10 0;
+#X connect 12 0 13 0;
+#X connect 12 0 20 0;
+#X connect 14 0 10 1;
+#X connect 15 0 12 1;
+#X connect 23 0 31 0;
+#X connect 23 0 31 1;
+#X connect 24 0 29 0;
+#X connect 25 0 24 0;
+#X connect 26 0 27 1;
+#X connect 27 0 25 0;
+#X connect 28 0 27 0;
+#X connect 29 0 23 0;
+#X connect 30 0 29 1;
+#X restore 42 129 pd 3-sample_in_time;
+#N canvas 523 203 791 779 4-sample-chops 0;
+#X text 9 6 We now have the ingredients to do something a bit more
+complicated \, so let's take a look of what we can do.;
+#X obj 9 44 table sample_chop;
+#X obj 176 128 soundfiler;
+#X msg 176 106 read -resize funloop.wav sample_chop;
+#N canvas 253 617 397 386 calc_sample_duration 0;
+#X obj 69 109 samplerate~;
+#X obj 37 86 t f b;
+#X obj 37 183 /;
+#X floatatom 66 186 10 0 0 0 - - -;
+#X obj 69 128 / 1000;
+#X text 66 157 samples/samplerate =;
+#X text 66 169 duration of a sound file;
+#X obj 37 27 inlet;
+#X obj 37 225 outlet;
+#X obj 37 56 value sam_chop_len;
+#X connect 0 0 4 0;
+#X connect 1 0 2 0;
+#X connect 1 1 0 0;
+#X connect 2 0 3 0;
+#X connect 2 0 8 0;
+#X connect 4 0 2 1;
+#X connect 7 0 9 0;
+#X connect 9 0 1 0;
+#X restore 9 106 pd calc_sample_duration;
+#X floatatom 10 212 5 0 0 0 - - -;
+#X obj 176 148 value sam_chop_len;
+#X obj 9 128 value sam_chop_duration;
+#X obj 10 257 value sam_chop_duration;
+#X obj 50 279 value sam_chop_len;
+#X obj 10 278 /;
+#X obj 50 302 /;
+#X obj 10 233 t b f b f;
+#X obj 10 545 line~;
+#X msg 10 522 0 \, 1 \$1;
+#X obj 10 327 value chop_duration;
+#X obj 50 355 value chop_length;
+#X obj 10 498 value chop_duration;
+#X obj 10 577 *~;
+#X obj 42 577 value chop_length;
+#X obj 11 672 +~;
+#X floatatom 22 608 5 0 0 0 - - -;
+#X obj 22 651 *;
+#X obj 22 629 t f b;
+#X obj 50 651 value chop_length;
+#X obj 11 694 tabread~ sample_chop;
+#X obj 10 730 dac~;
+#X obj 9 65 loadbang;
+#X obj 9 86 t b b;
+#X text 47 212 <- enter a value \, say \, 8;
+#X obj 10 451 hradio 15 1 0 8 empty empty empty 0 -8 0 10 -262144 -1
+-1 0;
+#X text 133 450 <- click;
+#X text 285 209 step 1:;
+#X text 285 229 What we have done here is to devide the sound file's
+duration in time and length in samples by a arbitrary value \, in this
+example \, let's say 8;
+#X text 285 279 The purpose of this is to "chop" the sample into N
+number of pieces defined by you.;
+#X obj 10 477 t b b f;
+#X text 285 419 step 2:;
+#X text 285 439 Now \, we will just need to incoporate these "choped"
+values into the part that plays back the sample.;
+#X text 285 479 First thing is to hook the choped duration to the line~
+object.;
+#X text 285 519 Second \, instead of scaling 0<->1 to the entire length
+of the file \, we just scale it to the lengh of a chop. Then \, we
+will add a offset \, so that we can choose which of the choped section
+we want to play.;
+#X text 39 673 Adding offset;
+#X text 65 630 Working out the offset;
+#X text 51 563 Scale to section;
+#X text 285 589 The end result is that you are able to chop a sample
+into arbitary number of sections and is able to select a specific section
+to play.;
+#X connect 2 0 6 0;
+#X connect 3 0 2 0;
+#X connect 4 0 7 0;
+#X connect 5 0 12 0;
+#X connect 8 0 10 0;
+#X connect 9 0 11 0;
+#X connect 10 0 15 0;
+#X connect 11 0 16 0;
+#X connect 12 0 8 0;
+#X connect 12 1 10 1;
+#X connect 12 2 9 0;
+#X connect 12 3 11 1;
+#X connect 13 0 18 0;
+#X connect 14 0 13 0;
+#X connect 17 0 14 0;
+#X connect 18 0 20 0;
+#X connect 19 0 18 1;
+#X connect 20 0 25 0;
+#X connect 21 0 23 0;
+#X connect 22 0 20 1;
+#X connect 23 0 22 0;
+#X connect 23 1 24 0;
+#X connect 24 0 22 1;
+#X connect 25 0 26 0;
+#X connect 25 0 26 1;
+#X connect 27 0 28 0;
+#X connect 28 0 4 0;
+#X connect 28 1 3 0;
+#X connect 30 0 35 0;
+#X connect 35 0 17 0;
+#X connect 35 1 19 0;
+#X connect 35 2 21 0;
+#X restore 42 152 pd 4-sample-chops;
+#N canvas 538 72 774 916 5-sample-stich 0;
+#X text 9 6 We now have the ingredients to do something a bit more
+complicated \, so let's take a look of what we can do.;
+#X obj 192 128 soundfiler;
+#N canvas 253 617 397 386 calc_sample_duration 0;
+#X obj 69 109 samplerate~;
+#X obj 37 86 t f b;
+#X obj 37 183 /;
+#X floatatom 66 186 10 0 0 0 - - -;
+#X obj 69 128 / 1000;
+#X text 66 157 samples/samplerate =;
+#X text 66 169 duration of a sound file;
+#X obj 37 27 inlet;
+#X obj 37 225 outlet;
+#X obj 37 56 value sam_stitch_len;
+#X connect 0 0 4 0;
+#X connect 1 0 2 0;
+#X connect 1 1 0 0;
+#X connect 2 0 3 0;
+#X connect 2 0 8 0;
+#X connect 4 0 2 1;
+#X connect 7 0 9 0;
+#X connect 9 0 1 0;
+#X restore 9 106 pd calc_sample_duration;
+#X floatatom 9 168 5 0 0 0 - - -;
+#X obj 9 615 line~;
+#X msg 9 592 0 \, 1 \$1;
+#X obj 9 737 *~;
+#X obj 10 822 +~;
+#X floatatom 28 758 5 0 0 0 - - -;
+#X obj 28 801 *;
+#X obj 28 779 t f b;
+#X obj 9 880 dac~;
+#X obj 9 65 loadbang;
+#X obj 9 86 t b b;
+#X obj 9 547 t b b f;
+#X text 38 823 Adding offset;
+#X obj 9 44 table sample_stitch;
+#X obj 9 128 value sam_stitch_duration;
+#X msg 192 106 read -resize funloop.wav sample_stitch;
+#X obj 192 148 value sam_stitch_len;
+#X obj 9 568 value stitch_duration;
+#X obj 27 695 value stitch_length;
+#X obj 60 801 value stitch_length;
+#X obj 10 843 tabread~ sample_stitch;
+#X obj 74 77 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#N canvas 250 269 450 300 calc_section 0;
+#X obj 15 81 /;
+#X obj 55 105 /;
+#X obj 15 36 t b f b f;
+#X obj 15 60 value sam_stitch_duration;
+#X obj 55 81 value sam_stitch_len;
+#X obj 15 130 value stitch_duration;
+#X obj 55 158 value stitch_length;
+#X obj 15 15 inlet;
+#X obj 89 37 value stitch_sections;
+#X connect 0 0 5 0;
+#X connect 1 0 6 0;
+#X connect 2 0 3 0;
+#X connect 2 1 0 1;
+#X connect 2 2 4 0;
+#X connect 2 3 1 1;
+#X connect 3 0 0 0;
+#X connect 4 0 1 0;
+#X connect 7 0 2 0;
+#X connect 7 0 8 0;
+#X restore 9 186 pd calc_section;
+#X text 45 168 <- numbers of slices;
+#X obj 41 254 value stitch_duration;
+#X obj 9 278 metro;
+#X obj 9 231 t f b;
+#X obj 9 209 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1
+;
+#X obj 9 659 wrap~;
+#X obj 27 715 / 1;
+#X obj 9 637 *~ 1;
+#X obj 437 412 select 0;
+#X obj 9 452 +;
+#X obj 9 491 % 8;
+#X msg 9 432 1;
+#X obj 437 390 random 4;
+#X obj 9 472 t f b;
+#X obj 36 491 value stitch_sections;
+#X obj 9 303 t b b b;
+#X obj 76 412 spigot;
+#X obj 72 348 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X obj 72 369 - 1;
+#X obj 72 390 abs;
+#X obj 9 411 spigot;
+#X obj 9 330 t b b;
+#X obj 76 454 random;
+#X obj 76 433 t b b;
+#X obj 125 454 value stitch_sections;
+#X text 89 347 randomize;
+#X obj 9 370 loadbang;
+#X msg 9 390 1;
+#X msg 490 431 1;
+#X text 499 389 wrap;
+#X obj 41 149 loadbang;
+#X msg 9 149 16;
+#X msg 436 432 4;
+#X connect 1 0 19 0;
+#X connect 2 0 17 0;
+#X connect 3 0 25 0;
+#X connect 4 0 33 0;
+#X connect 5 0 4 0;
+#X connect 6 0 7 0;
+#X connect 7 0 23 0;
+#X connect 8 0 10 0;
+#X connect 9 0 7 1;
+#X connect 10 0 9 0;
+#X connect 10 1 22 0;
+#X connect 12 0 13 0;
+#X connect 13 0 2 0;
+#X connect 13 1 18 0;
+#X connect 14 0 20 0;
+#X connect 14 1 21 0;
+#X connect 14 2 8 0;
+#X connect 18 0 1 0;
+#X connect 20 0 5 0;
+#X connect 21 0 32 0;
+#X connect 22 0 9 1;
+#X connect 23 0 11 0;
+#X connect 23 0 11 1;
+#X connect 24 0 13 0;
+#X connect 27 0 28 1;
+#X connect 28 0 41 0;
+#X connect 29 0 28 0;
+#X connect 29 1 27 0;
+#X connect 30 0 29 0;
+#X connect 31 0 6 0;
+#X connect 32 0 6 1;
+#X connect 33 0 31 0;
+#X connect 34 0 58 0;
+#X connect 34 1 54 0;
+#X connect 35 0 39 0;
+#X connect 36 0 35 1;
+#X connect 36 0 14 0;
+#X connect 37 0 35 0;
+#X connect 38 0 34 0;
+#X connect 39 0 36 0;
+#X connect 39 1 40 0;
+#X connect 40 0 36 1;
+#X connect 41 0 47 0;
+#X connect 41 1 38 0;
+#X connect 41 2 27 0;
+#X connect 42 0 49 0;
+#X connect 43 0 44 0;
+#X connect 43 0 42 1;
+#X connect 44 0 45 0;
+#X connect 45 0 46 1;
+#X connect 46 0 37 0;
+#X connect 47 0 46 0;
+#X connect 47 1 42 0;
+#X connect 48 0 14 0;
+#X connect 49 0 48 0;
+#X connect 49 1 50 0;
+#X connect 50 0 48 1;
+#X connect 52 0 53 0;
+#X connect 53 0 46 1;
+#X connect 54 0 33 1;
+#X connect 54 0 32 1;
+#X connect 56 0 57 0;
+#X connect 57 0 3 0;
+#X connect 58 0 33 1;
+#X connect 58 0 32 1;
+#X restore 42 176 pd 5-sample-stich;

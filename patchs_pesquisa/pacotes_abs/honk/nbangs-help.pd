@@ -1,0 +1,13 @@
+#N canvas 0 0 780 457 12;
+#X text 374 74 nbangs [number of bangs];
+#X text 363 33 nbangs - sequence incoming bangs;
+#X text 408 121 input: bangs;
+#X text 402 140 output: n bangs in order;
+#X text 307 266 honk abstractions -- kreidler 2007;
+#X text 368 297 www.kreidler-net.de;
+#X obj 52 48 metro 1000;
+#X obj 52 24 tgl 15 0 empty empty empty 0 -6 0 8 -262144 -1 -1 0 1
+;
+#X obj 52 74 nbangs 7;
+#X connect 6 0 8 0;
+#X connect 7 0 6 0;

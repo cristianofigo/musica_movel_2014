@@ -1,0 +1,25 @@
+#N canvas 10 22 980 643 10;
+#X obj 16 605 dac~ 1;
+#X obj 116 603 dac~ 2;
+#X text 13 8 pulse_amp_maker by Lawrence W. Moore - www.lawrencewmoore.com
+;
+#X text 14 50 This patch allows you to draw shapes intot he array that
+you can then use as an oscillating amplitude envelope. You can use
+the green and blue controls to draw line segments. The purple frequency
+control allows you to speed up and slow down the frequency of the oscillator.
+By turning it on \, you can hear the resulting sound through a sine
+tone. The phase control allows you to shift the phase of the oscillator.
+;
+#X text 402 151 You can save and open the nvelopes that you make. The
+buttons open up save and open panels to name them.;
+#X text 723 235 Use the green controls to move left and right across
+the array. As you do this \, the blue controls automatically set the
+value. The cyan controls below automatically create diagonal ramps
+up and down \, left and right \, as labelsd.;
+#X text 563 63 Use this patch witht he pulse_amp and pulse_amp_st patches
+to use the envelopes that you make with other audio signals.;
+#X text 16 151 Note - The frequency value is 0-2000 \, but the value
+is read internally as 0hz - 20hz with floating point.;
+#X obj 15 191 z_pulseampmaker_abs/pulse_amp_maker~;
+#X connect 8 0 0 0;
+#X connect 8 0 1 0;

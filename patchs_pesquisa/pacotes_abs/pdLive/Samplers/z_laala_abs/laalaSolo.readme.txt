@@ -1,0 +1,97 @@
+Thanks for trying out laalaSolo. Laala is kind of a slicer / granulizer / ambience
+creator. Apparently it works well for voice, instrument and field-recording samples. I 
+can't seem to get it to do something decent with beat samples but maybe you can.
+
+There's a large number of sliders, numbers and radios and many produce interesting 
+sound in conjunction with eachother. (For now) i'm not going to give a detailed 
+explanation what each widget does, but i'll give you a brief of what I usually do
+with it. If things still remain unclear you can always reach me direct at domxh@yhoo.com
+or on the pd forum puredata.hurleur.com). If you would create enhanced or altered
+version of laala (feel free to do so) or would record any music with it, feel free to
+let me now at domxh@yahoo.com.
+
+Enjoy it,
+
+Domien Holthof
+
+
+
+Laala needs a sample to work with, so here we go :
+
+- in the "SMP" section click "open" to load a sample
+- click run or press SPACE to start playing. The tempo is by default set to 250 (the big
+ orange number in the middle).
+ - in the "MIX" section move the "L" slider to hear laala output (the two blue "D" sliders
+  route the signal to the blue delay modules)
+  
+Now you should have a basic sound running. What happens now is that the sample is sliced
+in 16 parts. This is done by the "STEPS" number in the STEPS./.TIME section. Laala has 16
+internal samplers to play slices. These samplers can be turned of in the (green) LET_OUT 
+section. 
+	- The number of samplers used is the big green number. 
+	- the green hradio's are presets (implemented incomplete)
+	
+Grey "SHAPE" section is actually an envelope for each sampler and grey hradio is are again
+presets. actually all radio strips are preset systems for the module they belong to.
+
+- the pink "FROM" and "TO" sliders limits the range of the sample used. When crossed the
+seekwenser runs backwards over the sample
+
+
+To use the TIME_SLIDER do the following :
+	- click the orange FROM and TO bangs. These will borrow the current tempo value so that
+	  both yellow numbers have now the current tempo
+	- now change the TO number (e.g. set it from 250 to 434 something), set the SLIDE_TIME to
+	  a few second and press the big orange "SLIDE" bang and head how the current tempo slides
+	  from the FROM time to the TO time in SLIDE_TIME seconds and back.
+	- if you set the "HOLD_TIME" the slider will wait this number of second when at the TO value
+	  and then slide back to the FROM_TIME
+	
+So now we've covered some of the time options, a bit more about the STEPS/TIME section. This actually
+is the heart of the slicer :
+
+	- the big yellow toggle makes the slicer run or freeze (when frozen, you can use the olive slider
+	  bellow the sample view to manually change its position)
+	- sometimes the internal counter of the slicer goes berzerk, if this happens (the slicer doesn't
+	seem to move) press the yellow "R" bang
+	- the number of slices is defined in the yellow "STEPS" number. 
+	- with the very large yellow slider you can quickly increase to number of steps to 2000.
+	- the "DIR" radio sets the direction of the slicer
+	- another way to alter the number of steps is with the "X" and "/" bangs. When you press the "X"
+	the number of steps is doubled and the tempo halved (the "/" does the opposite).
+	- a large number of steps in combination with a fast tempo gives a granular character to laala.
+	  (tip  : set the tempo e.g. to 12 and the nr of steps to 1000 and now play with the envelope
+	   or the "LET_OUT" section to alter the character of the grains).
+	
+To further improve on the madness, you can route the "dry" laala signal through 2 pitch-shifter and
+two delay modules (the output of the pitchshifters can also be routed to the delay modules). 
+The pitchshifters are "borrowed" from the pd help (the one that uses two delay lines). Use the orange
+controls to alter the pitching, the green and blue sliders to route their signal to the main output and
+the delays respectively.
+
+The two delay modules are actually the same, only the value of their gui widget are different. S-DELAY 
+can be used to create short metallic delays, the L-DELAY to create long spacey ambiences. They are both
+8 tap delays, their controls are :
+	- LVL : their output
+	- S : the speed
+	- O : offset for the speed
+	- W : stereo width
+	- s : smears the delay
+	- the blue toggle : actives an internal feedback system for denser delays
+	- the horizontal blue slider routes the S-DELAY to the L-DELAY
+
+The blue controls in the "STEPS/TIME" section actually influence the speed parameter of the L-DELAY. The
+left vradio sets the speed to divisions of the tempo, the right one to multiplications. The toggle links
+the delay speed to the tempo.
+
+So, a few modules still need some explanation.
+
+- The "LFOS" module are indeed lfo's. They can be controlled to modulate the "FROM" and "TO" sliders in the 
+  "SLICER" section. The toggle turn them ON/OFF and the sliders are speed and depth. 
+
+- When you want to play a sample with its original length, use the brown toggles in the "STEPS/TIME" section.
+
+- You can store 8 FROM-TO-TEMPO combinations with the 4 controls located at the right in the "SLICER" section. 
+  Choose a memory slot with the pink vradio, press the red bang to save the current combination of the "FROM" and
+  "TO" sliders and the current tempo. Press the green bang to reload a combination. The purple "R" toggle 
+  randomizes the "FROM" and "TO" sliders.

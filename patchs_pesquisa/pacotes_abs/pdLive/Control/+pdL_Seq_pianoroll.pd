@@ -1,0 +1,113 @@
+#N canvas -27 22 1022 568 10;
+#X floatatom 65 360 5 0 0 0 - - -;
+#X floatatom 458 359 5 0 0 0 - - -;
+#X text 184 -52 (invoke with <right mouse>Properties );
+#X text 185 -63 You can set the following properties :;
+#X text 209 -23 * Width : graphical x size;
+#X text 209 -12 * Height : graphical y size;
+#X text 210 66 bugs and comments @ ydegoyon@free.fr;
+#X text 209 -35 * Name;
+#X text 104 361 Pitch;
+#X text 504 358 Volume ( scaled to [0 \, 1] );
+#X text 208 0 * Pitch min : minimum value delivered by left outlet
+;
+#X text 208 12 * Pitch max : maximum value delivered by left outlet
+;
+#X text 208 36 * Step number : number of steps;
+#X text 185 -85 ( pitch & volume originally but \, really \, anything
+you like );
+#X msg 645 64 transpose \$1;
+#X floatatom 645 47 5 0 0 0 - - -;
+#X text 647 81 You can transpose the melody ( ?? );
+#X text 648 92 with a float value;
+#X text 209 47 * Default value : must be in [min \, max];
+#X obj 65 165 pianoroll pianoroll1 400 192 -15 15 32 16 0 0 1 -3.3871
+1 2.41935 0.612903 4.35484 1 8.22581 1 4.35484 1 2.41935 1 2.41935
+1 5.32258 1 9.19355 1 10.1613 1 8.22581 1 5.32258 1 2.41935 1 -2.41936
+1 -5.32258 1 -5.32258 1;
+#X text 188 -99 Pianoroll controls two parameters for a sequencer;
+#X text 209 24 * Pitch grades : number of grades for the pitch;
+#X msg 645 148 init;
+#X text 685 153 init to default values;
+#X msg 645 131 load pattern#1;
+#X text 739 113 load and save the patterns;
+#X text 735 129 ( values as well as steps number .... );
+#X msg 645 113 save pattern#1;
+#X text 526 197 you can set the pitch and;
+#X text 526 211 the volume with messages;
+#X text 526 223 ( positions start at zero );
+#X msg 526 183 volume 3 0.345;
+#X msg 526 166 pitch 3 -5;
+#N canvas 188 174 450 300 Propagation 0;
+#X msg 47 18 bang;
+#X obj 46 80 f;
+#X obj 76 80 + 1;
+#X obj 47 44 metro 500;
+#X msg 82 18 stop;
+#X text 83 -1 forward;
+#X text 144 0 backward;
+#X msg 136 15 bang;
+#X obj 135 77 f;
+#X obj 136 41 metro 500;
+#X msg 171 16 stop;
+#X obj 165 77 - 1;
+#X obj 97 -26 r Mmetro;
+#X obj -57 -37 inlet;
+#X obj 215 -67 inlet;
+#X obj -85 -10 z-armfloat;
+#X obj 192 -39 z-armfloat;
+#X obj 152 -72 r Mbang;
+#X obj 308 -14 inlet;
+#X obj 103 202 outlet;
+#X connect 0 0 3 0;
+#X connect 1 0 2 0;
+#X connect 1 0 19 0;
+#X connect 2 0 1 1;
+#X connect 3 0 1 0;
+#X connect 4 0 3 0;
+#X connect 7 0 9 0;
+#X connect 8 0 11 0;
+#X connect 8 0 19 0;
+#X connect 9 0 8 0;
+#X connect 10 0 9 0;
+#X connect 11 0 8 1;
+#X connect 12 0 3 1;
+#X connect 12 0 9 1;
+#X connect 13 0 15 1;
+#X connect 14 0 16 1;
+#X connect 15 0 0 0;
+#X connect 16 0 7 0;
+#X connect 17 0 16 0;
+#X connect 17 0 15 0;
+#X connect 18 0 10 0;
+#X connect 18 0 4 0;
+#X restore 65 145 pd Propagation;
+#X obj 65 129 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X obj 105 129 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1
+1;
+#X obj 146 129 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X text 62 112 Fwd;
+#X text 96 112 Bckwd;
+#X text 142 112 Stop;
+#X obj 645 19 knob 25 25 0 127 0 0 empty empty empty 0 -8 32 8 -1 -260097
+-260097 0 1;
+#X obj 65 380 s note;
+#X obj 458 379 s vel;
+#X connect 0 0 41 0;
+#X connect 1 0 42 0;
+#X connect 14 0 19 0;
+#X connect 15 0 14 0;
+#X connect 19 0 0 0;
+#X connect 19 1 1 0;
+#X connect 22 0 19 0;
+#X connect 24 0 19 0;
+#X connect 27 0 19 0;
+#X connect 31 0 19 0;
+#X connect 32 0 19 0;
+#X connect 33 0 19 0;
+#X connect 34 0 33 0;
+#X connect 35 0 33 1;
+#X connect 36 0 33 2;
+#X connect 40 0 15 0;

@@ -1,0 +1,79 @@
+Johannes Kreidler 2007 // www.kreidler-net.de
+
+honk abstractions    
+
+collection of abstractions for pd (requires at least pd-extended 0.39)
+
+
+download: http://www.kreidler-net.de/honk.zip
+
+
+
+help-files are in the same folder, but also included inside the absctractions themselves. 
+
+
+----GLUE----
+
+linvert		- inverts order of atoms of a list
+listerize-fifo	- like "serialize" but for symbols, turns a list of symbols into a list, in order: first in first out
+listerize-lifo	- like "serialize" but for symbols, turns a list of symbols into a list, in order: last in first out
+mergerize-fifo	- turns a stream of symbols into one symbol, in order: first in first out
+mergerize-lifo	- turns a stream of symbols into one symbol, in order: last in first out
+nbangs		- sequence incoming bangs
+prae		- glues a praefix and an input together to one list
+schange		- like "change" but for symbols, outputs its input only when it changes
+serialize-fifo	- like "serialize" but for any number of floats. turns a list of floats into a list, in order: first in first out
+serialize-lifo	- like "serialize" but for any number of floats. turns a list of floats into a list, in order: last in first out
+
+----TIME----
+	
+malibu		- counts in a certain speed
+zetro		- random metronome
+
+
+----MATH----
+
+noreprand	- (almost) exactly like "random", but without repetitions. outputs random numbers in given range.
+rondom		- like "random" but with offset as argument
+
+----TABLES----
+
+ntables		- creates a certain number of tables in subpatch
+
+
+----GUI-----
+
+bak		- like bang, but size can be given by argument
+dac		- comfortable control of audio output
+display		- displays a number or symbol in variable size
+hamp		- comfortable horizontal potentiometer
+hr		- like horizontal radio, but number of buttons can be given by argument
+gop		- comfortable graph-on-parent control
+hs		- horizontal slider with range as arguments
+playwav		- easy sf-player
+sf		- soundfile-player for different formats (wav, mp3, ogg)
+tok		- like toggle, but size can be given by argument
+vamp		- comfortable vertical potentiometer
+vr		- like vertical radio, but number of buttons can be given by argument
+vs		- vertical slider with range as arguments
+vum		- quick-to-build VU-Meter
+
+
+----MISC----
+
+
+klist		- text-based sequencer with absolute time destinations
+midi2symbol	- MIDI tone numbers to german tone name conversion
+
+
+----AUDIO GLUE----
+
+compress~	- every amplitude that lies under a certain threshold will be amplified to a reference amplitude
+limit~		- every amplitude that lies over a certain threshold will be dampened to a reference amplitude
+pitchshift~	- granular transposition
+
+
+----AUDIO OSCILLATORS----
+
+sinesum~	- oscillator with various partials
+waveform~	- waveform oscillator (sine/saw/triangle/square/pulse/random)

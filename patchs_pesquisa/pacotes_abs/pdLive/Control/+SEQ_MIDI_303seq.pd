@@ -1,0 +1,18 @@
+#N canvas 355 41 498 440 10;
+#X declare -path z_303_abs;
+#X text 211 322 accent/notelength/pitch/time(packed);
+#X obj 274 6 declare -path z_303_abs;
+#X obj 83 68 303_seq3;
+#X obj 83 33 303_trig;
+#X obj 83 298 unpack f f f f;
+#X obj 8 355 s 303_acc;
+#X obj 78 353 s 303_nl;
+#X obj 139 352 s 303_pitch;
+#X obj 220 354 s 303_time;
+#X connect 2 0 4 0;
+#X connect 3 0 2 0;
+#X connect 3 1 2 1;
+#X connect 4 0 5 0;
+#X connect 4 1 6 0;
+#X connect 4 2 7 0;
+#X connect 4 3 8 0;

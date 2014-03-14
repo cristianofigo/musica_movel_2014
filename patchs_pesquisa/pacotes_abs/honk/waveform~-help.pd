@@ -1,0 +1,3 @@
+#N canvas 262 107 989 658 10;
+#X obj 301 48 waveform~;
+#X coords 0 0 1 1 280 45 0;

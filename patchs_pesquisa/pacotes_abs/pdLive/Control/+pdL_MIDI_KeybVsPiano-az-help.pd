@@ -1,0 +1,45 @@
+#N canvas 0 25 659 388 10;
+#X declare -path z_keyboardVsPiano_abs;
+#X obj 452 210 r pdkb-kb1-out;
+#X obj 452 259 unpack f f;
+#X floatatom 509 288 5 0 0 1 velocity - -;
+#X floatatom 452 288 5 0 0 0 midi_note - -;
+#X text 27 289 If you want to play long notes \, unable key repetition
+on your OS.;
+#X text 210 235 Right/left : pitch+1/-1;
+#X text 29 235 Up/Down : vel+1/-1;
+#X text 29 255 Shift+Up/Down : vel+10/-10;
+#X text 209 255 Shift+Right/left : pitch+12/-12;
+#X obj 451 95 unpack f f;
+#X floatatom 508 124 5 0 0 1 velocity - -;
+#X floatatom 433 118 5 0 0 0 midi_note - -;
+#X text 27 70 It takes a symbol as argument for identification. pdkb-az
+outputs note-on and note-off messages by its outlet and by pdkb-ID-out
+\, where ID is the argument.;
+#X text 27 29 [pdkb-az] aims to turn your computer azerty keyboard
+to a basic virtual midi keyboard.;
+#X text 27 120 Tick the toggle to show and activate the keyboard window.
+This window must have the focus to capture your keyboard. Press escape
+to close it.;
+#X text 49 346 [pdkb-az] relies on [tot] by Krzysztof Czaja;
+#X text 27 170 On azerty \, notes range from "q" to "m" for Bn-1 to
+Dn+1 \, centered on A440 (69) by default. For qwerty \, please edit
+the azerty routing in pdkb-az on the basis of qwerty key numbers.;
+#X text 573 42 <-- tick me;
+#X obj 451 43 z-pdkb-az kb1;
+#X obj 457 159 s note;
+#X obj 512 160 s vel;
+#X obj 109 314 declare -path z_keyboardVsPiano_abs;
+#X obj 415 177 noteout;
+#X obj 552 99 s midinote;
+#X connect 0 0 1 0;
+#X connect 1 0 3 0;
+#X connect 1 1 2 0;
+#X connect 9 0 11 0;
+#X connect 9 1 10 0;
+#X connect 10 0 20 0;
+#X connect 10 0 22 1;
+#X connect 11 0 19 0;
+#X connect 11 0 22 0;
+#X connect 18 0 9 0;
+#X connect 18 0 23 0;

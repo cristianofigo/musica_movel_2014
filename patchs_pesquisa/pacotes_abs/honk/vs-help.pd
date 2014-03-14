@@ -1,0 +1,12 @@
+#N canvas 476 364 598 454 10;
+#X text 277 42 2 arguments: left border / right border;
+#X text 349 119 Honk Abstractions -- Kreidler 2007;
+#X text 390 144 www.kreidler-net.de;
+#X floatatom 28 420 5 0 0 0 - - -;
+#X text 269 17 vs: vertical slider with range as arguments;
+#X text 26 21 write the object "vs 5 10":;
+#X text 23 240 works like the ordinary vertical slider;
+#X obj 29 44 vs 5 10;
+#X obj 28 265 vs 5 10;
+#X connect 8 0 3 0;
+#X coords 0 0 1 1 140 35 0;

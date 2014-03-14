@@ -1,0 +1,14 @@
+#N canvas 620 216 814 629 12;
+#X text 395 481 honk abstractions -- kreidler 2007;
+#X text 461 524 www.kreidler-net.de;
+#X floatatom 120 352 5 0 0 0 - - -;
+#X floatatom 120 479 5 0 0 0 - - -;
+#X obj 121 210 vr 6;
+#X obj 120 377 vr 6;
+#X text 123 66 vr - easy vertical radio;
+#X text 117 100 like vertical radio \, but number of buttons can be
+given by argument (by default 8);
+#X text 119 171 write the object "vr 6":;
+#X text 118 319 works like the ordinary vertical radio;
+#X connect 2 0 5 0;
+#X connect 5 0 3 0;

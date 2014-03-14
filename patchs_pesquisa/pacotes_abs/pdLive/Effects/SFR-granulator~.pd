@@ -1,0 +1,109 @@
+#N canvas 0 325 1375 443 10;
+#X obj 11 11 cnv 15 270 260 empty empty SFR-Granulator~ 55 10 0 12
+-1 -195568 0;
+#X obj 45 52 vsl 15 128 0 100 0 0 \$0-density_randomness \$0-density_randomness_OSC
+Density_Randomness(%) 0 -8 0 8 -98368 -1 -114752 0 1;
+#X obj 26 43 vsl 15 128 1 20000 1 0 \$0-density \$0-density_OSC Density(Hz)
+0 -8 0 8 -64 -1 -64 0 1;
+#X obj 117 89 vsl 15 128 1 99 0 0 \$0-grain_length \$0-grain_length_OSC
+Grain_Length(%) 0 -8 0 8 -259073 -1 -259073 0 1;
+#X obj 99 80 vsl 15 128 0 3000 0 0 \$0-max_delay \$0-max_delay_OSC
+Max_Delay(ms) 0 -8 0 8 -258049 -1 -258049 0 1;
+#X obj 153 108 vsl 15 128 1 10 0 0 \$0-envelope_sharpness \$0-envelope_sharpness_OSC
+Envelope_Sharpness 0 -8 0 8 -262081 -1 -262081 0 1;
+#X obj 135 99 vsl 15 128 0 2 0 0 \$0-amplitude \$0-amplitude_OSC Amplitude
+0 -8 0 8 -260417 -1 -260417 0 1;
+#X obj 81 71 vsl 15 128 0 100 0 0 \$0-pitch_randomness \$0-pitch_randomness_OSC
+Pitch_Randomness(%) 0 -8 0 8 -258071 -1 -258071 0 1;
+#X obj 63 62 vsl 15 128 -200 500 0 0 \$0-pitch \$0-pitch_OSC Pitch(%)
+0 -8 0 8 -184384 -1 -184384 0 1;
+#X obj 27 177 bng 15 250 50 0 \$0-reset \$0-reset_OSC Reset 0 20 0
+6 -24198 -1 -24198;
+#X obj 171 118 vsl 15 128 0 1 0 0 \$0-stereo_spread \$0-stereo_spread_OSC
+Stereo_Spread 0 -8 0 8 -171969 -1 -171969 0 1;
+#X obj 271 266 cnv 5 10 5 empty empty R 2 -7 0 10 -258699 -62784 0
+;
+#X obj 341 76 inlet~;
+#X obj 397 11 inlet;
+#X obj 271 11 cnv 5 10 5 empty empty OSC -18 12 0 10 -258699 -62784
+0;
+#X obj 11 266 cnv 5 10 5 empty empty L 3 -7 0 10 -258699 -62784 0;
+#X obj 11 11 cnv 5 10 5 empty empty Audio 3 10 0 10 -258699 -62784
+0;
+#N canvas 0 349 1375 272 OSC-control 0;
+#X obj 8 8 inlet;
+#X obj 256 182 s \$0-stereo_spread_OSC;
+#X obj 225 206 s \$0-envelope_sharpness_OSC;
+#X obj 195 229 s \$0-amplitude_OSC;
+#X obj 164 252 s \$0-grain_length_OSC;
+#X obj 134 275 s \$0-max_delay_OSC;
+#X obj 103 297 s \$0-pitch_randomness_OSC;
+#X obj 73 321 s \$0-pitch_OSC;
+#X obj 42 344 s \$0-density_randomness_OSC;
+#X obj 66 396 s \$0-density_OSC;
+#X obj 286 160 s \$0-reset_OSC;
+#X obj 345 116 s \$0-remove_voice_OSC;
+#X obj 317 139 s \$0-add_voice_OSC;
+#X obj 9 373 moses 0.34;
+#X obj 9 30 OSCroute /density /density_randomness /pitch /pitch_randomness
+/max_delay /grain_length /amplitude /envelope_sharpness /stereo_spread
+/reset /add_voice /remove_voice /display;
+#X obj 358 91 s \$0-display_OSC;
+#X connect 0 0 14 0;
+#X connect 13 1 9 0;
+#X connect 14 0 13 0;
+#X connect 14 1 8 0;
+#X connect 14 2 7 0;
+#X connect 14 3 6 0;
+#X connect 14 4 5 0;
+#X connect 14 5 4 0;
+#X connect 14 6 3 0;
+#X connect 14 7 2 0;
+#X connect 14 8 1 0;
+#X connect 14 9 10 0;
+#X connect 14 10 12 0;
+#X connect 14 11 11 0;
+#X connect 14 12 15 0;
+#X restore 397 34 pd OSC-control;
+#X obj 343 126 outlet~;
+#X obj 401 126 outlet~;
+#N canvas 0 498 1375 270 voices 0;
+#X obj 115 417 outlet~;
+#X obj 484 417 outlet~;
+#X obj 96 18 inlet~;
+#X obj 183 85 z_SFR-granulator_abs/grainvoice~ 1 \$0;
+#X obj 187 111 z_SFR-granulator_abs/grainvoice~ 1 \$0;
+#X obj 182 138 z_SFR-granulator_abs/grainvoice~ 1 \$0;
+#X obj 181 164 z_SFR-granulator_abs/grainvoice~ 1 \$0;
+#X obj 180 187 z_SFR-granulator_abs/grainvoice~ 1 \$0;
+#X obj 182 211 z_SFR-granulator_abs/grainvoice~ 1 \$0;
+#X obj 182 239 z_SFR-granulator_abs/grainvoice~ 1 \$0;
+#X connect 2 0 3 0;
+#X connect 2 0 4 0;
+#X connect 2 0 5 0;
+#X connect 2 0 6 0;
+#X connect 2 0 7 0;
+#X connect 2 0 8 0;
+#X connect 2 0 9 0;
+#X connect 3 0 0 0;
+#X connect 3 1 1 0;
+#X connect 4 0 0 0;
+#X connect 4 1 1 0;
+#X connect 5 0 0 0;
+#X connect 5 1 1 0;
+#X connect 6 0 0 0;
+#X connect 6 1 1 0;
+#X connect 7 0 0 0;
+#X connect 7 1 1 0;
+#X connect 8 0 0 0;
+#X connect 8 1 1 0;
+#X connect 9 0 0 0;
+#X connect 9 1 1 0;
+#X restore 342 100 pd voices;
+#X obj 27 217 tgl 15 0 \$0-display \$0-display_OSC Display 17 7 0 10
+-204786 -1 -204786 0 1;
+#X connect 12 0 20 0;
+#X connect 13 0 17 0;
+#X connect 20 0 18 0;
+#X connect 20 1 19 0;
+#X coords 0 0 1 1 270 260 1 11 11;
