@@ -1,0 +1,165 @@
+#N canvas 0 22 1009 705 10;
+#X declare -path z_musicalScales_abs;
+#X floatatom 6 501 5 0 0 0 - - -;
+#X msg 182 162 0 2 4 5 7 9 11;
+#X text 277 162 major;
+#X msg 191 184 0 1 4 5 7 8 11;
+#X msg 203 207 0 2 4 6 7 9 10;
+#X msg 214 229 0 2 3 5 7 8 11;
+#X msg 237 274 0 2 4 6 8 10;
+#X msg 247 296 0 2 3 5 6 8 9 11;
+#X msg 646 295 0 0.5 1 1.5 2 2.5 3 3.5 4;
+#X text 289 184 middle-east-like minor;
+#X text 300 208 lydian-dominant (jazzy);
+#X text 312 231 harmonic minor;
+#X msg 225 252 0 2 3 4 5 6 7 9 10 11;
+#X text 363 253 chromatic blues;
+#X text 323 276 whole-tones scale;
+#X text 355 298 diminished scale;
+#X msg 255 318 0 2 4 7 9;
+#X text 323 319 pentatonic;
+#X text 355 340 pentatonic blues;
+#X msg 263 340 0 2 3 4 7 8 9;
+#X msg 651 317 0 0.33 0.66 1 1.33 1.66 2;
+#X floatatom 6 459 5 0 0 0 - - -;
+#X msg 657 340 0 1.5 3 4.5 6 7.5 9 10.5;
+#X text 430 496 Argument: the list of the current chord.;
+#X text 429 479 inlets: note offset to play \, scale/chord list (any
+length);
+#X floatatom 282 441 5 0 0 0 - - -;
+#X msg 727 244 22 20 25 22 18 17 22 18 10 13 17 15;
+#X msg 192 33 set \$1;
+#X msg 192 55 1;
+#X text 766 -322 States machine looping through a sequence of states
+;
+#X text 767 -309 Mainly for musical forms;
+#X text 769 -287 Does not use arguments \, but the right inlet;
+#X text 769 -266 2nd inlet : list representing the form;
+#X text 657 -154 Rondo;
+#X text 639 -291 Ternary;
+#X text 633 -237 Arch form;
+#X text 647 -206 Binary;
+#X msg 98 -6 reset;
+#X msg 27 -5 behave \$1;
+#X obj 28 -23 tgl 15 0 empty empty empty 0 -6 0 8 -262144 -1 -1 0 1
+;
+#X text 769 -245 behave : (1 0) reset when the moment you change the
+form. Defaults to false;
+#X text 769 -212 reset : resets to the first part of the form (0);
+#X text 754 -173 For instance \, you could have a set of chords for
+each part of the form. You could bang this to get the current part
+\, looping through all the parts of the form you set it to use. You
+might want to use a sequencer with this \, with a different use of
+it in each part.;
+#X msg 540 -154 1 2 1 3 1 4 1;
+#X obj 180 -60 f;
+#X obj 209 -60 + 1;
+#X obj 180 -36 mod 8;
+#X obj 181 104 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 180 -16 select 0;
+#X obj 180 -85 spigot;
+#X obj 213 -104 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1
+1 1;
+#X floatatom 242 -88 5 0 0 0 - - -;
+#X obj 180 -125 r Mbang;
+#X obj 201 104 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 221 104 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 241 104 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 181 77 select 1 2 3 4;
+#X msg 538 -291 1 1 2 1;
+#X msg 539 -267 1 2 1;
+#X msg 540 -236 1 2 1 3 1 2 1;
+#X msg 540 -208 1 2;
+#X msg 539 -183 1 1 2 2;
+#X text 241 -106 Set the bar depth;
+#X text 279 105 Just bang the scale you want for each form then receive
+random notes this patch will just send the closest note in the form/scale
+selected.;
+#X obj 181 12 z-musical.form;
+#X obj 183 460 z-musical.transpose;
+#X obj 6 482 z-musical.closest.note 0 2 4 7 9;
+#X obj 5 525 s ScaledNote;
+#X obj 6 436 r InputNote;
+#X obj 762 -92 declare -path z_musicalScales_abs;
+#X obj 20 188 random 12;
+#X floatatom 20 211 5 0 0 0 - - -;
+#X obj 14 144 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X obj 11 77 metro 500;
+#X obj 10 53 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1
+;
+#X floatatom 62 37 5 0 0 0 - - -;
+#X floatatom 84 209 5 0 0 0 - - -;
+#X obj 84 186 random 20;
+#X obj 76 152 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X obj 68 309 noteout;
+#X obj 110 511 + 50;
+#X obj 83 230 + 90;
+#X connect 0 0 67 0;
+#X connect 0 0 80 0;
+#X connect 1 0 65 0;
+#X connect 3 0 65 0;
+#X connect 4 0 65 0;
+#X connect 5 0 65 0;
+#X connect 6 0 65 0;
+#X connect 7 0 65 0;
+#X connect 8 0 65 0;
+#X connect 12 0 65 0;
+#X connect 16 0 65 0;
+#X connect 19 0 65 0;
+#X connect 20 0 65 0;
+#X connect 21 0 66 0;
+#X connect 22 0 65 0;
+#X connect 25 0 65 1;
+#X connect 26 0 65 0;
+#X connect 27 0 28 0;
+#X connect 37 0 64 0;
+#X connect 38 0 64 0;
+#X connect 39 0 38 0;
+#X connect 43 0 64 1;
+#X connect 44 0 45 0;
+#X connect 44 0 46 0;
+#X connect 45 0 44 1;
+#X connect 46 0 48 0;
+#X connect 47 0 1 0;
+#X connect 48 0 64 0;
+#X connect 49 0 44 0;
+#X connect 50 0 49 1;
+#X connect 51 0 46 1;
+#X connect 52 0 49 0;
+#X connect 52 0 70 0;
+#X connect 53 0 5 0;
+#X connect 54 0 7 0;
+#X connect 55 0 3 0;
+#X connect 56 0 47 0;
+#X connect 56 1 53 0;
+#X connect 56 2 54 0;
+#X connect 56 3 55 0;
+#X connect 57 0 64 1;
+#X connect 58 0 64 1;
+#X connect 59 0 64 1;
+#X connect 60 0 64 1;
+#X connect 61 0 64 1;
+#X connect 64 0 27 0;
+#X connect 64 0 56 0;
+#X connect 65 0 66 1;
+#X connect 66 0 0 0;
+#X connect 68 0 21 0;
+#X connect 70 0 71 0;
+#X connect 71 0 66 0;
+#X connect 72 0 70 0;
+#X connect 73 0 72 0;
+#X connect 73 0 78 0;
+#X connect 73 0 44 0;
+#X connect 74 0 73 0;
+#X connect 75 0 73 1;
+#X connect 76 0 81 0;
+#X connect 77 0 76 0;
+#X connect 78 0 77 0;
+#X connect 80 0 79 0;
+#X connect 81 0 79 1;

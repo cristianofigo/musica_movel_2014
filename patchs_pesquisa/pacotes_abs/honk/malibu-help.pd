@@ -1,0 +1,34 @@
+#N canvas 458 186 718 798 12;
+#X text 207 61 counts in certain speed;
+#X text 212 93 input:;
+#X text 199 219 output:;
+#X text 202 245 number / bang when finished;
+#X text 196 161 start point / end point / duration of delay also as
+arguments;
+#X obj 107 363 bng 15 250 50 0 empty empty empty 0 -6 0 8 -262144 -1
+-1;
+#X obj 107 443 print a;
+#X obj 222 435 print b;
+#X text 207 120 start (bang) / start point / end point / duration of
+delay (ms);
+#X msg 222 358 333;
+#X msg 180 358 4;
+#X msg 140 358 1;
+#X text 205 37 Malibu:;
+#X text 227 689 Honk Abstractions -- Kreidler 2007;
+#X text 293 725 www.kreidler-net.de;
+#X obj 107 405 malibu;
+#X obj 344 370 bng 15 250 50 0 empty empty empty 0 -6 0 8 -262144 -1
+-1;
+#X obj 344 409 malibu 0 10 500;
+#X obj 344 447 print aa;
+#X obj 459 440 print bb;
+#X connect 5 0 15 0;
+#X connect 9 0 15 3;
+#X connect 10 0 15 2;
+#X connect 11 0 15 1;
+#X connect 15 0 6 0;
+#X connect 15 1 7 0;
+#X connect 16 0 17 0;
+#X connect 17 0 18 0;
+#X connect 17 1 19 0;

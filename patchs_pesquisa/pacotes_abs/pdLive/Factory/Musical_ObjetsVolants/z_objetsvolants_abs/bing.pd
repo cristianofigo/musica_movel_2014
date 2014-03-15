@@ -1,0 +1,14 @@
+#N canvas 169 77 355 286 12;
+#X obj 27 15 inlet;
+#X obj 27 108 outlet;
+#X obj 27 39 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X obj 27 58 random 1000;
+#X obj 27 83 / 1000;
+#X text 28 153 input: bang or any event;
+#X text 27 172 output: number between 0 and 1;
+#X text 29 207 Les Objets Volants 2008;
+#X connect 0 0 2 0;
+#X connect 2 0 3 0;
+#X connect 3 0 4 0;
+#X connect 4 0 1 0;

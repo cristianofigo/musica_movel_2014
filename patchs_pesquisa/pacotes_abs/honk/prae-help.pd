@@ -1,0 +1,12 @@
+#N canvas 627 510 600 232 12;
+#X text 111 11 prae: glues a praefix and an input together to one list
+;
+#X text 251 143 honk abstractions -- kreidler 2007;
+#X text 314 183 www.kreidler-net.de;
+#X obj 50 140 prae read;
+#X obj 50 168 print;
+#X msg 173 91 symbol soundfile.wav;
+#X msg 50 64 soundfile.wav -resize;
+#X connect 3 0 4 0;
+#X connect 5 0 3 0;
+#X connect 6 0 3 0;

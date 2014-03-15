@@ -1,0 +1,319 @@
+#N canvas 76 7 1074 686 10;
+#X text 1027 504 .;
+#X obj 95 -52 cnv 15 700 62 empty empty empty 3 6 0 10 -33289 -66577
+0;
+#X obj 96 -51 cnv 15 698 60 empty empty VisualTracker_section 3 6 0
+10 -262144 -66577 0;
+#X text 914 584 More info code.google.com/p/visualtracker;
+#X obj -88 -52 cnv 15 180 615 empty empty empty 3 6 0 10 -33289 -66577
+0;
+#X obj -87 -51 cnv 15 178 613 empty empty Receive_from_VisualTracker
+3 6 0 10 -262144 -66577 0;
+#X obj 983 -52 cnv 15 180 615 empty empty empty 3 6 0 10 -33289 -66577
+0;
+#X obj 984 -51 cnv 15 178 613 empty empty Send_to_VisualTracker 3 6
+0 10 -262144 -66577 0;
+#X obj 95 110 cnv 15 700 250 empty empty empty 3 6 0 10 -33289 -66577
+0;
+#X obj 95 13 cnv 15 700 94 empty empty empty 3 6 0 10 -33289 -66577
+0;
+#X obj 95 363 cnv 15 700 200 empty empty empty 3 6 0 10 -33289 -66577
+0;
+#X obj 96 14 cnv 15 698 92 empty empty Custom_creation_values 3 6 0
+10 -262144 -66577 0;
+#X obj 96 364 cnv 15 698 198 empty empty Custom_program 3 6 0 10 -262144
+-66577 0;
+#X obj 96 111 cnv 15 698 248 empty empty GOP_section 3 6 0 10 -262144
+-66577 0;
+#X obj 213 121 cnv 15 408 55 empty \$0-background vt_toggle 5 8 1 12
+-233017 -1 0;
+#X obj 330 160 tgl 15 0 empty empty fit: -13 8 1 10 -262144 -1 -1 0
+1;
+#X obj 383 160 nbx 3 14 1 1e+037 0 0 empty empty bars: -30 7 1 10 -262144
+-1 -1 1 256;
+#X obj 656 164 nbx 3 14 1 1e+037 0 0 empty empty mult: -30 7 1 10 -262144
+-1 -1 1 256;
+#X obj 409 123 nbx 3 14 0 19 0 0 empty empty color: -29 7 1 10 -262144
+-1 -1 0 256;
+#X obj 1074 -32 s \$0-01_color;
+#X obj 1073 142 s \$0-04_multi;
+#X obj 1080 87 s \$0-03_bars;
+#X obj 1087 22 s \$0-02_fit;
+#X obj 1070 187 s \$0-05_symbol;
+#X obj 1003 247 s \$0-06_original_duration;
+#X obj 1025 304 s \$0-07_create_symbol;
+#X text 270 74 bars / multi:;
+#X msg 352 74 1;
+#X msg 352 53 0;
+#X text 325 53 fit:;
+#X obj 438 55 symbol;
+#X obj 575 123 nbx 4 14 1 1e+037 0 0 GFZT65765E654E654 \$0-vis_moduleID
+module_ID: -57 7 1 10 -233017 -1 -1 29 256;
+#X obj -80 335 r \$0-06_moduleID;
+#X obj 991 357 s~ \$0-08_audio_track_output;
+#X obj 1003 409 s \$0-09_data_track_output;
+#X text 1073 -15 integer 0-14;
+#X text 1176 -36 Color of module background and appropriate module
+canvas. Color is defined by preset - see vt subpatch [pd colortable].
+On loadbang random preset is loaded.;
+#X text 1087 41 logical 0/1;
+#X text 1081 106 integer > 0;
+#X text 1175 85 Defines how many bars last the module event. Active
+only when fit switch is on. Duration of module event is stretched to
+[bar time] * [numebr of bars].;
+#X text 1075 159 integer > 0;
+#X text 1173 137 Defines multiplication of module event. Active only
+when fit switch is on. Each next event starts from beginning right
+after another.;
+#X text 1171 189 Name of each module instance. It appears also in module
+canvas. Usually typed manually or generated for example from file name.
+IMPORTANT: do not use spaces !;
+#X text 1092 210 symbol;
+#X text 1034 265 real number [ms];
+#X text 1170 244 Original duration of module event in milliseconds.
+Set manually or calculate for example from sample table.;
+#X text 1083 321 symbol;
+#X text 1052 375 audio stream;
+#X text 1048 429 real number;
+#X text 1172 352 Address module audio output to the audio channel defined
+in vt track properties (track properties are set in timeline window)
+according to the module canvas vertical position.;
+#X text 1172 405 Address module data output (stream of numbers) to
+the data channel defined in vt track properties (track properties are
+set in timeline window) according to the module canvas vertical position.
+;
+#X obj -84 -19 r \$0-01_creationbang;
+#X obj -81 47 r \$0-02_bangs;
+#X obj -81 135 r \$0-03_duration;
+#X obj -80 199 r \$0-04_position;
+#X obj -79 263 r \$0-05_track;
+#X text -472 -45 .;
+#X text -85 -1 bang;
+#X text -82 63 bang;
+#X text -83 149 real number [ms];
+#X text -451 194 Horizontal position of module canvas on timeline;
+#X text -69 215 integer [bars];
+#X text -84 279 integer [tracks];
+#X text -452 260 Vertical position of module canvas on timeline. Could
+be used for sending data to different outputs according to the particular
+track settings.;
+#X text -449 130 Duration of module in milliseconds according to the
+switch "fit" (original or fited to current BPM). Rely on global BPM
+and "bars" value. Multi(plication) does not affect this value;
+#X text -57 352 integer;
+#X text -449 330 Number generated uniquely for each instance of any
+module. Could be used for referring to particular module. Module ID
+can not be changed.;
+#X text -449 -22 Sends bang only once when module instance is created.
+IMPORTANT: do not use object [loadbang] in module program \, due to
+vt architecture it will bang every time ANY module is created.;
+#X text -451 44 Sends bang at the beginning of every module event according
+to the horizontal position of module canvas on time line. When module
+is for example 2 bars long \, multiplicated 3 times and begining is
+placed at the beginning of 5th bar then vt sends bang on 5th \, 7th
+and 9th sequence. It means when BPM is 6O bangs are send 16 \, 24 and
+32 seconds from the start.;
+#N canvas 422 367 515 393 hide_numbers 0;
+#X obj 170 78 inlet switch;
+#X obj 41 309 pack f f;
+#X obj 41 251 t b f;
+#X obj 41 277 f \$0;
+#X obj 41 224 line;
+#X obj 170 101 sel 0;
+#X msg 103 197 0 200;
+#X obj 234 309 pack f f;
+#X obj 234 255 t b f;
+#X obj 234 283 f \$0;
+#X obj 234 228 line;
+#X msg 41 197 200 200;
+#X msg 41 336 \; \$1-fithide vis_size \$2 15;
+#X text 21 6 This is just eye candy feature - unused number boxes are
+hidden by smoothly moving canvas. Note position of "hiding" canvas
+is set hard \, so it has to be changed when changing layout of GOP
+module section.;
+#X text 343 360 canvas y position;
+#X text 298 181 1st number canvas x position;
+#X text 232 160 always add 200 to x canvas position;
+#X msg 234 334 \; \$1-fithide pos \$2 159;
+#X msg 299 199 350 200;
+#X msg 234 199 550 200;
+#X connect 0 0 5 0;
+#X connect 1 0 12 0;
+#X connect 2 0 3 0;
+#X connect 2 1 1 1;
+#X connect 3 0 1 0;
+#X connect 4 0 2 0;
+#X connect 5 0 11 0;
+#X connect 5 0 18 0;
+#X connect 5 1 6 0;
+#X connect 5 1 19 0;
+#X connect 6 0 4 0;
+#X connect 7 0 17 0;
+#X connect 8 0 9 0;
+#X connect 8 1 7 1;
+#X connect 9 0 7 0;
+#X connect 10 0 8 0;
+#X connect 11 0 4 0;
+#X connect 18 0 10 0;
+#X connect 19 0 10 0;
+#X restore 330 187 pd hide_numbers;
+#X text -55 472 bang;
+#X obj -80 455 r vt_seq_stop;
+#X text -448 449 Sends bang when sequenencer stop button is pressed.
+Next "play bang" should trigger the module to perform from beginning
+(STOP is not PAUSE). All modules should implement this immediate stop
+function... (fyi: Sequence number is set to 0 after STOP );
+#X obj 997 468 s \$0-10_reset_cnv_position;
+#X obj 1021 525 s \$0-11_reset_cnv_size;
+#X text 1072 482 bang;
+#X text 1172 520 Resizes current module canvas to defaul (create) size
+(= 0).Usualy used when unloading/reseting module;
+#X text 1071 539 bang;
+#X text 1174 14 Time stretch switch. 0 (off): duration of module event
+is original \, 1 (on): duration is calculated according current BPM
+\, number of bars and multi(plication). Graphical size of module canvas
+is recalculated according to the module event duration.;
+#X text 1172 465 Moves current module canvas to default (create) position
+in timeline window (x:0 \, y.-90). Usualy used when unloading/reseting
+module;
+#X text 387 31 message:;
+#X obj 507 160 nbx 4 14 1 1e+037 0 0 empty \$0-perc % -14 7 1 10 -233017
+-1 -1 100 256;
+#N canvas 185 68 411 255 percentage 0;
+#X obj 183 -12 * 100;
+#X obj 183 18 outlet sample percentage;
+#X obj 183 -122 inlet original duration;
+#X obj 40 -124 inlet current duration;
+#X obj 183 -39 /;
+#X obj 183 -70 t b f;
+#X connect 0 0 1 0;
+#X connect 2 0 5 0;
+#X connect 3 0 4 0;
+#X connect 4 0 0 0;
+#X connect 5 0 4 0;
+#X connect 5 1 4 1;
+#X restore 435 226 pd percentage;
+#X obj 350 159 cnv 1 200 15 empty \$0-fithide empty 20 12 0 14 -233017
+-1 0;
+#X obj -80 526 r from_bpm;
+#X text -75 545 integer;
+#X text -294 524 Receives global VisualTracker BPM;
+#X text 654 40 module_name;
+#X obj 799 -52 cnv 15 180 615 empty empty empty 3 6 0 10 -33289 -66577
+0;
+#X obj 800 -51 cnv 15 178 274 empty empty Basic_storage_abstractions
+3 6 0 10 -262144 -66577 0;
+#X obj 730 61 l2s;
+#X text 806 -20 module name;
+#X text 809 9 module canvas x position;
+#X text 809 39 module canvas y position;
+#X text 805 78 color number;
+#X text 1171 299 Default name of module instance. This name is set
+after creating each module and can be changed later by [s \$0-05_symbol].
+THIS SEND ACTUALLY TRIGERS MODULE CANVAS CRETAION \, SO IT'S OBLIGATORY
+!;
+#X text 809 -4 1 inside connector;
+#X text 810 27 2 inside connector;
+#X obj 808 -33 abs/mstorage \$0 0 0 symbol;
+#X text 642 16 height od GOP (pix):;
+#X msg 766 17 55;
+#X text 804 112 fit switch;
+#X text 806 146 bars;
+#X text 806 177 multi;
+#X symbolatom 259 141 59 0 0 0 - - -;
+#X obj 324 -29 abs/visualtracker_connector1 \$0 \$1 \$2;
+#X obj 808 61 abs/mstorage \$0 3 \$3 number;
+#X obj 807 95 abs/mstorage \$0 4 \$4 number;
+#X obj 808 129 abs/mstorage \$0 5 \$5 number;
+#X obj 807 162 abs/mstorage \$0 6 \$6 number;
+#X obj 800 225 cnv 15 178 285 empty empty Custom_storage_abstractions
+3 6 0 10 -262144 -66577 0;
+#X obj 800 512 cnv 15 178 50 empty empty Obligatory_storage_abs 3 6
+0 10 -262144 -66577 0;
+#X text 804 544 end of the list identifier;
+#X obj 100 35 delay 1000;
+#X text 805 207 module name;
+#X obj 807 194 abs/mstorage \$0 7 \$7 symbol;
+#X obj 218 138 tgl 35 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X obj 340 123 nbx 3 14 0 1e+037 0 0 empty empty on_time(sec): -63
+7 1 10 -262144 -1 -1 3 256;
+#X obj 510 195 * 1000;
+#X msg 386 413 1;
+#X msg 386 493 0;
+#X msg 386 441 bang;
+#X obj 386 469 delay;
+#X text 271 31 duration [s]:;
+#X msg 352 31 3;
+#X msg 438 32 toggle;
+#X obj 806 242 abs/mstorage \$0 8 \$8 number;
+#X text 805 257 on_time;
+#X obj 804 528 abs/mstorage \$0 9 0 end;
+#X text 99 521 This module sets on toggle for time specified by its
+module canvas. Mult(iplication) does not have sense in this module
+therefore it's disabled from GOP.;
+#X msg 730 40 vt_toggle;
+#X text 98 53 wait for storage init;
+#X text -59 418 integer;
+#X obj -79 402 r \$0-07_output_track;
+#X obj 480 123 nbx 3 14 0 1e+037 0 0 GFZT65765E654E654 \$0-vis_moduleID
+output: -34 7 1 10 -233017 -1 -1 0 256;
+#X text -451 398 Shows the output of VisualTracker abstraction module
+output is adressed into. 0 means module output is muted.;
+#X text -89 -72 This abstraction is optimised for VisualTracker 1 ALPHA
+2;
+#X text 996 565 built in Pd 0.42.5-extended;
+#X connect 15 0 22 0;
+#X connect 15 0 69 0;
+#X connect 15 0 107 0;
+#X connect 16 0 21 0;
+#X connect 16 0 108 0;
+#X connect 17 0 20 0;
+#X connect 17 0 109 0;
+#X connect 18 0 19 0;
+#X connect 18 0 106 0;
+#X connect 27 0 16 0;
+#X connect 27 0 17 0;
+#X connect 28 0 15 0;
+#X connect 30 0 25 0;
+#X connect 30 0 104 0;
+#X connect 32 0 31 0;
+#X connect 51 0 125 0;
+#X connect 51 0 27 0;
+#X connect 51 0 28 0;
+#X connect 51 0 113 0;
+#X connect 51 0 124 0;
+#X connect 52 0 119 0;
+#X connect 53 0 82 0;
+#X connect 53 0 122 1;
+#X connect 71 0 120 0;
+#X connect 82 0 81 0;
+#X connect 90 0 98 0;
+#X connect 100 0 128 0;
+#X connect 104 0 115 0;
+#X connect 106 0 18 0;
+#X connect 107 0 15 0;
+#X connect 108 0 16 0;
+#X connect 109 0 17 0;
+#X connect 113 0 130 0;
+#X connect 113 0 100 0;
+#X connect 113 0 104 0;
+#X connect 113 0 117 0;
+#X connect 115 0 104 0;
+#X connect 116 0 34 0;
+#X connect 117 0 118 0;
+#X connect 117 0 126 0;
+#X connect 118 0 82 1;
+#X connect 118 0 24 0;
+#X connect 118 0 122 1;
+#X connect 119 0 121 0;
+#X connect 119 0 116 0;
+#X connect 120 0 116 0;
+#X connect 121 0 122 0;
+#X connect 122 0 120 0;
+#X connect 124 0 117 0;
+#X connect 125 0 30 0;
+#X connect 126 0 117 0;
+#X connect 130 0 90 0;
+#X connect 133 0 134 0;
+#X coords 0 -1 1 1 410 57 2 212 120;

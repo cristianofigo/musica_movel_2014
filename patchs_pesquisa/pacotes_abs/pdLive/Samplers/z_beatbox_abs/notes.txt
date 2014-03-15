@@ -1,0 +1,33 @@
+
+    beatBox:
+    -------
+
+    Premier rang:
+
+    Le premier bouton déclenche la lecture aléatoire des échantillons.
+    La boîte à nombre suivante, contrôle le tempo, en bpm.
+    Le deuxième bouton, pour déclencher aléatoirement les échantillons à la souris.
+    Le troisième bouton active/désactive l'audio.
+    Le slider contrôle l'amplitude globale.
+    Les deux boîtes à nombre suivantes contrôlent la durée du délai droite/gauche.
+
+    Enregistrement:
+
+    (moteur audio activé)
+
+    W, pour créer un fichier wave.
+    R, pour lancer l'enregistrement.
+    S, pour arrêter celui-ci.
+
+    A chaque création de fichier wave, le nom de celui-ci est incrémenté,
+    rec01.wav, rec02.wav, etc. Le fichier est créée dans le dossier où se
+    trouve le patch.
+
+    Deuxième rang:
+
+    Les sliders contrôlent le volume individuel des échantillons.
+    Les boutons au-dessous permettent de déclencher les échantillons correspondants.
+
+    Troisième rang:
+
+    Les boutons permettent de charger les échantillons dans les tables au-dessous.

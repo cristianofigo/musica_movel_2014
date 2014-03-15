@@ -1,0 +1,272 @@
+#N canvas 712 332 544 349 10;
+#X text 7 8 One of the ways to make music in Pd is to synthesize the
+sound. In this tutorial \, we will look at some simple examples of
+making our own drum sounds.;
+#N canvas 466 174 744 829 1-envelope 0;
+#X text 4 5 One of the most basic thing to understand is something
+called envelopes.;
+#X text 4 35 An envelope is essentially a series of points in time
+\, that when the envelope is in action \, it will go from one point
+to another "smoothly".;
+#X text 4 85 For example \, you have point A equals to 0 \, and point
+B equals to 1 when the envelop is triggered it will give you something
+like 0 \, 0.1 \, 0.2 \, 0.3 \, 0.4 \, .... till 1;
+#X text 4 135 Besides the points (or stages) \, another important factor
+in an envelope is time (in duration). So \, for each stage \, you tell
+the envelope to go from one point to another in certain amount of time.
+;
+#X obj 8 284 line;
+#X floatatom 8 308 5 0 0 0 - - -;
+#X msg 8 257 0 \, 1 1000;
+#X text 4 195 let's look at a (very simple) example:;
+#X obj 8 561 line;
+#X floatatom 8 585 5 0 0 0 - - -;
+#X msg 92 491 0 \, 1 1000;
+#X obj 8 491 delay 1000;
+#X msg 8 511 0 1000;
+#X obj 8 447 t b b;
+#X obj 8 428 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X text 204 252 Here \, we have a *one* stage envelope \, with the
+starting point of 0 and end point of 1 and it will take 1000ms to complete
+this emvelope;
+#X text 204 422 Here \, we have added a *second* stage to the previous
+envelop. So now it will go from 0 to 1 in one second \, then go from
+1 to 0 in a second.;
+#X text 3 656 Please note that \, in some ways \, envelope implies
+the start and end point are the same \, so it always comes back to
+where it started. As a result \, such thing as one stage emvelope don't
+really exists \, its only here to demonstrate the notion of going from
+one valye to another in certain amount of time.;
+#X connect 4 0 5 0;
+#X connect 6 0 4 0;
+#X connect 8 0 9 0;
+#X connect 10 0 8 0;
+#X connect 11 0 12 0;
+#X connect 12 0 8 0;
+#X connect 13 0 11 0;
+#X connect 13 1 10 0;
+#X connect 14 0 13 0;
+#X restore 18 82 pd 1-envelope;
+#N canvas 426 149 861 725 2-envelope-dsp 0;
+#X text 3 4 ok \, so we had a look at the basic princeple of how envelope
+works \, but there was a problem in the previous example.;
+#X text 3 44 The problem was that the line object can't really give
+us high enough resolution to be used on the audio signle. We need something
+that operates at the audio rate (samplerate) rather then control rate.
+;
+#X obj 6 179 line~;
+#X msg 6 155 0 \, 1 1000;
+#X obj 7 228 snapshot~;
+#X floatatom 7 258 5 0 0 0 - - -;
+#X obj 53 198 metro 40;
+#X obj 53 179 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X text 306 153 So the one stage envelope we had before still works.
+But just that in order to see the result \, we need additional objects
+(snapshor~ metro).;
+#X text 3 104 But the solution is simple \, just use line~ object;
+#X text 306 203 You can try to modify the previous two stage envelope
+using line~ and examine its result.;
+#X text 3 294 However \, there are other objects that can make audio
+rate envelope too. let's look at the vline~ object;
+#X obj 7 513 vline~;
+#X obj 6 558 snapshot~;
+#X obj 61 528 metro 40;
+#X obj 61 509 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X floatatom 6 585 5 0 0 0 - - -;
+#X msg 22 447 0 \, 1 1000 \, 0.5 1000 1000 \, 0 1000 3000;
+#X msg 7 386 0 \, 1 1000 \, 0 1000 1000;
+#X text 306 371 The advantage of using vline~ is that you can specify
+a multi-stage envelope using just one pd message. This can be very
+convenient.;
+#X text 306 421 Each stage of the envelope is separated by a comma
+" \, " and within each stage \, the following format is used:;
+#X text 336 460 destination value \, time taken \, time delay;
+#X text 306 485 for example:;
+#X text 337 553 1 1000 \, = a pair of values will cause vline~ to go
+to the destination value (1) \, in 1000ms \, with no delay.;
+#X text 337 511 0 \, = single value will cause vline~ to jump to that
+value (0) immediately;
+#X text 337 592 0.5 1000 1000 \, = In this case \, vline~ will go to
+0.5 in 1000ms \, after 1000ms of delay.;
+#X text 5 369 Simple two stage emvelope;
+#X text 20 429 Simple four stage envelope (aka \, ADSR);
+#X connect 2 0 4 0;
+#X connect 3 0 2 0;
+#X connect 4 0 5 0;
+#X connect 6 0 4 0;
+#X connect 7 0 6 0;
+#X connect 12 0 13 0;
+#X connect 13 0 16 0;
+#X connect 14 0 13 0;
+#X connect 15 0 14 0;
+#X connect 17 0 12 0;
+#X connect 18 0 12 0;
+#X restore 18 105 pd 2-envelope-dsp;
+#N canvas 280 267 772 655 3-envelope-applied 0;
+#X obj 26 186 vline~;
+#X obj 9 237 dac~;
+#X obj 7 108 osc~ 100;
+#X obj 8 210 *~;
+#X msg 26 164 0 \, 1 50 \, 0 100 50;
+#X text 150 164 <- click;
+#X text 266 157 In this case \, the 100Hz sine wave will last 150ms
+\, with the first 50ms being the attack \, and the last 100ms as the
+decay.;
+#X obj 26 466 vline~;
+#X obj 9 517 dac~;
+#X obj 8 490 *~;
+#X msg 26 444 0 \, 1 50 \, 0 100 50;
+#X obj 8 419 osc~;
+#X obj 8 396 vline~;
+#X obj 8 342 t b b;
+#X obj 8 314 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X msg 8 374 0 \, 500 50 \, 0 100 50;
+#X text 5 4 Now that we have seen how envelopes can be made \, let's
+see how they can be applied.;
+#X text 55 357 frequency envelope;
+#X text 266 107 What we have here is an ampltude envelope. It simply
+means that we are using an envlope to control the changes in amptitude
+of a sound over time.;
+#X text 25 147 amplitude envelope;
+#X text 55 426 amplitude envelope;
+#X text 266 307 In addition to controlling the amplitude \, we can
+also use the envelope to control the frequency of the oscillator that
+we are using.;
+#X text 266 537 In general \, any audio signal can be controlled using
+envelopes. Envelopes are just a way to controlling audio signal over
+a certain period of time. For example \, you can use it to control
+filters \, or even how a audio sample is played back.;
+#X connect 0 0 3 1;
+#X connect 2 0 3 0;
+#X connect 3 0 1 0;
+#X connect 3 0 1 1;
+#X connect 4 0 0 0;
+#X connect 7 0 9 1;
+#X connect 9 0 8 0;
+#X connect 9 0 8 1;
+#X connect 10 0 7 0;
+#X connect 11 0 9 0;
+#X connect 12 0 11 0;
+#X connect 13 0 15 0;
+#X connect 13 1 10 0;
+#X connect 14 0 13 0;
+#X connect 15 0 12 0;
+#X restore 18 128 pd 3-envelope-applied;
+#N canvas 544 90 695 529 4-simple-kick 0;
+#X text 4 4 With just amplitude and frequency envelopes \, we can alreay
+start making;
+#X obj 8 157 osc~;
+#X obj 8 137 vline~;
+#X obj 8 254 dac~;
+#X obj 9 220 *~;
+#X obj 26 197 vline~;
+#X obj 8 91 t b b;
+#X obj 8 66 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X msg 8 117 100 \, 0 150;
+#X msg 26 177 0 \, 1 5 \, 0 145 5;
+#X text 172 60 Using the same sets of objects as in the previous example
+\, simply be changing the shape of the envelope \, we can make a simple
+kick drum sound.;
+#X connect 1 0 4 0;
+#X connect 2 0 1 0;
+#X connect 4 0 3 0;
+#X connect 4 0 3 1;
+#X connect 5 0 4 1;
+#X connect 6 0 8 0;
+#X connect 6 1 9 0;
+#X connect 7 0 6 0;
+#X connect 8 0 2 0;
+#X connect 9 0 5 0;
+#X restore 18 148 pd 4-simple-kick;
+#N canvas 694 514 757 542 5-simple-snare 0;
+#X obj 8 137 vline~;
+#X obj 11 387 dac~;
+#X obj 9 220 *~;
+#X obj 26 197 vline~;
+#X obj 8 66 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X text 4 4 now let's try to make a simple snare sound;
+#X obj 153 149 noise~;
+#X obj 173 219 vline~;
+#X obj 154 251 *~;
+#X obj 8 91 t b b b;
+#X obj 10 316 +~;
+#X msg 26 177 0 \, 1 1 \, 0 99 1;
+#X msg 172 199 0 \, 1 5 \, 0 100 5;
+#X obj 8 157 phasor~;
+#X text 298 57 following the same setup \, we can turn it into a simple
+snare drum sound by adding an additionl noise generator.;
+#X text 298 96 We now have 2 amplitude envelope \, one frequency envelope
+\, two oscillators (phasor~ and noise~) and a low pass filter (lop~)
+;
+#X msg 8 115 450 \, 0 200;
+#X obj 154 169 lop~ 1000;
+#X obj 9 249 *~ 0.5;
+#X connect 0 0 13 0;
+#X connect 2 0 18 0;
+#X connect 3 0 2 1;
+#X connect 4 0 9 0;
+#X connect 6 0 17 0;
+#X connect 7 0 8 1;
+#X connect 8 0 10 1;
+#X connect 9 0 16 0;
+#X connect 9 1 11 0;
+#X connect 9 2 12 0;
+#X connect 10 0 1 0;
+#X connect 10 0 1 1;
+#X connect 11 0 3 0;
+#X connect 12 0 7 0;
+#X connect 13 0 2 0;
+#X connect 16 0 0 0;
+#X connect 17 0 8 0;
+#X connect 18 0 10 0;
+#X restore 18 168 pd 5-simple-snare;
+#N canvas 468 336 757 542 6-simple-hats 0;
+#X obj 14 221 dac~;
+#X obj 14 48 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X obj 13 69 noise~;
+#X obj 33 149 vline~;
+#X obj 14 181 *~;
+#X text 4 4 then \, the hi-hats should be simple;
+#X msg 30 128 0 \, 1 1 \, 0 49 5;
+#X obj 14 412 dac~;
+#X obj 14 250 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X obj 13 271 noise~;
+#X obj 33 334 vline~;
+#X obj 14 366 *~;
+#X obj 14 201 *~ 0.5;
+#X obj 14 391 *~ 0.5;
+#X obj 14 103 hip~ 5000;
+#X obj 13 292 hip~ 3000;
+#X msg 28 311 0 \, 1 1 \, 0 149 1;
+#X text 264 264 Open hi-hat \, on the other hand \, has a relatively
+longer period of sound (whilst the hi-hat is open after being hit).
+;
+#X text 264 74 You can think of the closed hi-hat as a very short peak
+of amplitude envelope over essentially white noise. Note that we also
+can add a high-pass filter (hip~) to get a sharper sound out of noise~.
+;
+#X connect 1 0 6 0;
+#X connect 2 0 14 0;
+#X connect 3 0 4 1;
+#X connect 4 0 12 0;
+#X connect 6 0 3 0;
+#X connect 8 0 16 0;
+#X connect 9 0 15 0;
+#X connect 10 0 11 1;
+#X connect 11 0 13 0;
+#X connect 12 0 0 1;
+#X connect 12 0 0 0;
+#X connect 13 0 7 0;
+#X connect 13 0 7 1;
+#X connect 14 0 4 0;
+#X connect 15 0 11 0;
+#X connect 16 0 10 0;
+#X restore 18 188 pd 6-simple-hats;

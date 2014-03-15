@@ -1,0 +1,233 @@
+#N canvas 0 22 1041 577 10;
+#X declare -path z_rjdj_abs;
+#X obj 373 92 mtof;
+#X floatatom 388 71 5 0 0 0 - - -;
+#X floatatom 379 121 5 0 0 0 - - -;
+#X obj 481 157 r \$0-feedback;
+#X obj 714 61 inlet;
+#X obj 714 108 route save;
+#X obj 714 85 list trim;
+#X obj 714 154 outlet;
+#X obj 373 46 r \$0-bpitch;
+#X obj 533 301 r \$0-basedur;
+#X obj 80 213 inlet~;
+#X obj 56 505 outlet~;
+#X obj 377 214 inlet~;
+#X obj 355 506 outlet~;
+#X obj 460 302 r \$0-delr;
+#X obj 159 314 r \$0-dell;
+#X obj 460 354 swap 1000;
+#X obj 159 365 swap 1000;
+#X obj 460 382 /;
+#X obj 159 395 /;
+#X floatatom 473 404 5 0 0 0 - - -;
+#X floatatom 171 417 5 0 0 0 - - -;
+#X obj 167 225 bp~ 5400 2;
+#X obj 442 238 bp~ 5400 2;
+#X obj 481 182 / 2;
+#X obj 207 147 r \$0-feedback;
+#X obj 207 172 / 2;
+#X text 511 182 because of 2 delaylines;
+#X obj 442 215 *~ 0.1;
+#X obj 168 202 *~ 0.1;
+#X obj 509 215 r \$0-bq;
+#X obj 234 205 r \$0-bq;
+#X obj 460 422 vd~ \$0-dubby-r;
+#X obj 159 434 vd~ \$0-dubby-l;
+#X obj 118 482 r \$0-dry;
+#X obj 118 504 pack 0 10;
+#X obj 421 481 r \$0-dry;
+#X obj 421 503 pack 0 10;
+#X obj 533 323 t b a;
+#X obj 233 314 r \$0-basedur;
+#X obj 233 336 t b a;
+#X obj 440 271 delwrite~ \$0-dubby-r 6000;
+#X obj 167 271 delwrite~ \$0-dubby-l 6000;
+#N canvas 172 83 586 377 LICENSE-GPL 0;
+#X text 57 88 This program is free software: you can redistribute it
+and/or modify it under the terms of the GNU General Public License
+as published by the Free Software Foundation \, either version 3 of
+the License \, or (at your option) any later version.;
+#X text 58 168 This program is distributed in the hope that it will
+be useful \, but WITHOUT ANY WARRANTY \; without even the implied warranty
+of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+General Public License for more details.;
+#X text 57 261 You should have received a copy of the GNU General Public
+License along with this program. If not \, see <http://www.gnu.org/licenses/>.
+;
+#X text 61 54 Copyright (C) 2009 \, Reality Jockey Ltd.;
+#X text 60 325 See the file LICENSE.txt for the full license text.
+;
+#X restore 912 29 pd LICENSE-GPL;
+#X obj 57 481 z-c_xfade;
+#X obj 355 482 z-c_xfade;
+#X obj 714 129 z-u_loader e_dubdel-\$1 \$0;
+#X obj 781 160 z-u_dispatch \$0 delr;
+#X obj 781 184 z-u_dispatch \$0 dell;
+#X obj 781 209 z-u_dispatch \$0 feedback;
+#X obj 781 232 z-u_dispatch \$0 bpitch;
+#X obj 781 255 z-u_dispatch \$0 basedur;
+#X obj 781 277 z-u_dispatch \$0 bq;
+#X obj 781 298 z-u_dispatch \$0 dry;
+#X text -417 63 e_dubdel - beat synchronized pingpong or dub delay
+;
+#N canvas 537 164 740 697 REFERENCE 0;
+#X text 114 161 Argument 0: name for state saving (required);
+#X text 114 141 Summary: beat synchronized pingpong or dub delay;
+#X text 114 121 Name: e_dubdel;
+#X text 114 181 Inlet 0: left audio signal to apply effect on;
+#X text 114 201 Inlet 1: right audio signal to apply effect on;
+#X text 114 332 Outlet 0: left audio signal.;
+#X text 114 352 Outlet 1: right audio signal.;
+#X text 115 393 Description: e_dubdel is a pingpong delay line with
+a bandpass filter in the delay path. Left and right delay times are
+set using in reference to a base duration to ease beat synchronization.
+Just set the time of your beats and use the dell and delr methods to
+set beat divisions. The feedback is applied to both delay paths.;
+#X text 122 529 Tags: delay \, effect \, pingpong;
+#X text 114 371 Outlet 2: on "save" \, the current state is reported
+here.;
+#X text 114 221 Inlet 2: Many method messages. dry <x>: dry/wet mix
+\, 0=all dry. bq <freq>: frequency of bandpass filter in delay path.
+bpitch <pitch>: bandpass pitch in midi units (0-127). basedur <time>:
+reference delay duration in msec. dell <divisor>: delay divisor left
+\, actual delay will be basedur/dell. delr <divisor>: delay divisor
+right \, actual delay will be basedur/delr. feedback <amount>: delay
+feedback. save: report current settings to last outlet.;
+#X coords 0 -1 1 1 450 450 1 100 100;
+#X restore -414 81 pd REFERENCE;
+#N canvas 0 22 450 300 HowTO 0;
+#X msg 596 494 dry 0.2 \, bq 2 \, basedur 500 \, bpitch 83 \, feedback
+0.99 \, dell 2 \, delr 3 \,;
+#X msg 613 425 help;
+#X obj 480 425 e_dubdel mydubdel;
+#X msg 640 366 save;
+#X obj 640 393 t a b;
+#X obj 479 377 tgl 15 0 empty empty empty 17 7 0 10 -204786 -1 -1 0
+1;
+#X obj 481 22 loadbang;
+#X text 750 218 feedback - delay feedback;
+#X text 674 253 bq - bandpass Q: resonance (default 2);
+#X text 689 365 e_dubdel is saveable;
+#X text 692 112 basedur - base duration for delays;
+#X msg 481 49 dry 0.2 \, bq 2 \, basedur 500 \, bpitch 83 \, feedback
+0.99 \, dell 2 \, delr 3 \,;
+#N canvas 0 22 377 419 test__ 0;
+#X obj 45 168 pack 0 0;
+#X obj 45 87 random 7;
+#X obj 45 60 metro 1000;
+#X obj 45 141 makenote 80 50;
+#X obj 109 238 hsl 50 15 0 1 0 0 empty empty pan 20 8 1 10 -262144
+-86277 -1 0 1;
+#X obj 45 17 inlet;
+#X obj 45 38 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1
+;
+#X obj 45 292 outlet~;
+#X obj 105 292 outlet~;
+#X obj 45 206 z-s_rhodey mypiano;
+#X obj 45 114 z-m_majorscale 60;
+#X obj 46 261 e_pan 0.5;
+#X connect 0 0 9 0;
+#X connect 1 0 10 0;
+#X connect 2 0 1 0;
+#X connect 3 0 0 0;
+#X connect 3 1 0 1;
+#X connect 4 0 11 1;
+#X connect 5 0 6 0;
+#X connect 6 0 2 0;
+#X connect 9 0 11 0;
+#X connect 10 0 3 0;
+#X connect 11 0 7 0;
+#X connect 11 1 8 0;
+#X restore 479 397 pd test__;
+#X text 744 319 dry - amount of dry signal;
+#X text 743 337 dry=0 means fully wet (default);
+#X text 693 141 dell - delay divisor left.;
+#X text 693 155 Actual delay: basedur/dell;
+#X text 695 175 delr - delay divisor right.;
+#X text 695 189 Actual delay: basedur/delr;
+#X text 672 285 bandpass pitch in midi units (0-127);
+#X obj 596 108 z-g_nbx basedur;
+#X obj 596 143 z-g_nbx dell;
+#X obj 596 178 z-g_nbx delr;
+#X obj 596 213 z-g_nhsl feedback 0 1;
+#X obj 596 248 z-g_nbx bq;
+#X obj 596 283 z-g_nbx bpitch;
+#X obj 596 323 z-g_nhsl dry 0 1;
+#X obj 596 451 z-u_cocollect;
+#X connect 1 0 2 2;
+#X connect 2 2 27 0;
+#X connect 3 0 4 0;
+#X connect 4 0 2 2;
+#X connect 4 1 27 1;
+#X connect 5 0 12 0;
+#X connect 6 0 11 0;
+#X connect 11 0 20 0;
+#X connect 12 0 2 0;
+#X connect 12 1 2 1;
+#X connect 20 0 21 0;
+#X connect 21 0 22 0;
+#X connect 22 0 23 0;
+#X connect 23 0 24 0;
+#X connect 24 0 25 0;
+#X connect 25 0 26 0;
+#X connect 26 0 2 2;
+#X connect 27 0 0 0;
+#X restore -18 61 pd HowTO;
+#X obj 108 44 declare -path z_rjdj_abs;
+#X connect 0 0 2 0;
+#X connect 0 0 22 1;
+#X connect 0 0 23 1;
+#X connect 1 0 0 0;
+#X connect 3 0 24 0;
+#X connect 4 0 6 0;
+#X connect 5 0 46 0;
+#X connect 5 1 47 0;
+#X connect 6 0 5 0;
+#X connect 8 0 0 0;
+#X connect 9 0 38 0;
+#X connect 10 0 42 0;
+#X connect 10 0 44 1;
+#X connect 12 0 41 0;
+#X connect 12 0 45 1;
+#X connect 14 0 16 0;
+#X connect 15 0 17 0;
+#X connect 16 0 18 0;
+#X connect 16 1 18 1;
+#X connect 17 0 19 0;
+#X connect 17 1 19 1;
+#X connect 18 0 20 0;
+#X connect 18 0 32 0;
+#X connect 19 0 21 0;
+#X connect 19 0 33 0;
+#X connect 22 0 42 0;
+#X connect 23 0 41 0;
+#X connect 24 0 28 1;
+#X connect 25 0 26 0;
+#X connect 26 0 29 1;
+#X connect 28 0 23 0;
+#X connect 29 0 22 0;
+#X connect 30 0 23 2;
+#X connect 31 0 22 2;
+#X connect 32 0 29 0;
+#X connect 32 0 45 0;
+#X connect 33 0 28 0;
+#X connect 33 0 44 0;
+#X connect 34 0 35 0;
+#X connect 35 0 44 2;
+#X connect 36 0 37 0;
+#X connect 37 0 45 2;
+#X connect 38 0 16 0;
+#X connect 38 1 16 1;
+#X connect 39 0 40 0;
+#X connect 40 0 17 0;
+#X connect 40 1 17 1;
+#X connect 44 0 11 0;
+#X connect 45 0 13 0;
+#X connect 46 0 7 0;
+#X connect 47 0 48 0;
+#X connect 48 0 49 0;
+#X connect 49 0 50 0;
+#X connect 50 0 51 0;
+#X connect 51 0 52 0;
+#X connect 52 0 53 0;

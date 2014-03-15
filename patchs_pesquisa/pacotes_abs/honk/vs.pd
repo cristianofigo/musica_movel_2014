@@ -1,0 +1,26 @@
+#N canvas 660 439 603 249 10;
+#X obj 12 144 outlet;
+#X msg 165 145 range \$1 \$2;
+#X obj 165 119 pack f f;
+#X obj 178 29 ii \$1;
+#X obj 183 50 ii \$2;
+#X obj 183 73 t b f;
+#X obj 165 98 f;
+#X obj 12 8 vsl 15 128 0 0 0 0 empty \$0-vs empty 0 -8 0 8 -262144
+-1 -1 0 0;
+#X obj 165 171 s \$0-vs;
+#X text 277 42 2 arguments: left border / right border;
+#X text 349 119 Honk Abstractions -- Kreidler 2007;
+#X text 390 144 www.kreidler-net.de;
+#X text 269 17 vs: vertical slider with range as arguments;
+#X obj 60 22 inlet;
+#X connect 1 0 8 0;
+#X connect 2 0 1 0;
+#X connect 3 0 6 1;
+#X connect 4 0 5 0;
+#X connect 5 0 6 0;
+#X connect 5 1 2 1;
+#X connect 6 0 2 0;
+#X connect 7 0 0 0;
+#X connect 13 0 7 0;
+#X coords 0 -1 1 1 20 150 1 9 -10;

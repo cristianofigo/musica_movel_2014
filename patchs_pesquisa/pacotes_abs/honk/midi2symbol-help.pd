@@ -1,0 +1,13 @@
+#N canvas 633 447 671 439 12;
+#X symbolatom 108 190 10 0 0 0 - - -;
+#X floatatom 108 134 5 0 0 0 - - -;
+#X text 195 190 german tone names (symbol);
+#X text 155 135 MIDI-number (integer);
+#X text 257 58 input: MIDI-number (integer);
+#X text 255 84 output: german tone name;
+#X text 240 268 honk abstractions -- kreidler 2007;
+#X text 294 304 www.kreidler-net.de;
+#X text 210 11 midi2symbol - MIDI to german tone name conversion;
+#X obj 108 162 midi2symbol;
+#X connect 1 0 9 0;
+#X connect 9 0 0 0;

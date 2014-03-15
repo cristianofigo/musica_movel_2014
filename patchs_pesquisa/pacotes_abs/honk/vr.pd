@@ -1,0 +1,36 @@
+#N canvas 363 430 1101 511 12;
+#X obj 60 426 outlet;
+#X obj 60 89 inlet;
+#X floatatom 311 257 5 0 0 0 - - -;
+#X obj 454 239 s \$0-cv;
+#X obj 259 83 namecanvas \$0-cv;
+#X floatatom 566 117 5 0 0 0 - - -;
+#X obj 310 148 \$1;
+#X obj 308 120 loadbang;
+#X obj 308 175 route 0;
+#X text 600 402 honk abstractions -- kreidler 2007;
+#X text 666 445 www.kreidler-net.de;
+#X msg 311 291 number \$1;
+#X msg 315 212 8;
+#X msg 454 210 donecanvasdialog 1 -1 1 0 -1 1 1 16 \$1 59 120;
+#X obj 60 122 vradio 15 1 0 11 \$0-vr1 \$0-vr empty 0 -6 0 8 -262144
+-1 -1 0;
+#X obj 311 321 s \$0-vr;
+#X text 560 288 hr - easy vertical radio;
+#X text 554 322 like vertical radio \, but number of buttons can be
+given by argument (by default 8);
+#X obj 564 153 expr (15 * $f1)+4;
+#X connect 1 0 14 0;
+#X connect 2 0 11 0;
+#X connect 2 0 5 0;
+#X connect 5 0 18 0;
+#X connect 6 0 8 0;
+#X connect 7 0 6 0;
+#X connect 8 0 12 0;
+#X connect 8 1 2 0;
+#X connect 11 0 15 0;
+#X connect 12 0 2 0;
+#X connect 13 0 3 0;
+#X connect 14 0 0 0;
+#X connect 18 0 13 0;
+#X coords 0 -1 1 1 16 168 1 59 120;

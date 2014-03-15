@@ -1,0 +1,44 @@
+TUNER - An enveloping sampler with 4 (stereo) wavetable crossfading and two independent panels 
+
+- Requirements: 
+Grid from "Unauthorized" library (Pd Extended it's fine)
+
+- How to play: 
+on startup the patch loads four+four default samples. Activate the start/stop dsp button
+and start moving the "TUNER" control in the center of the patch. This gives
+more weight to each of the four samples. With the control in the middle all samples 
+are mixed together. If you move the second slider on the right the second set of samples
+are activated now. Simple, isn't it?
+
+There is the possibility to manually load a set of four samples, and you can do it 
+while the other panel is active. For example, if the left panel is active load 4 sample
+on the right panel (and don't forget to resynch after loading if needed!).  
+ 
+The name "Tuner" comes from the fact that if you load four "independent" samples and 
+you crossfade between them the effect is like an old tuner.
+ 
+- Known problems: 
+- closing the patch crashes Pd (at least on my Pd extended 0.41-5). This is 
+due to the fact that some object like "grid" withing a GoP abstraction crash 
+Pd when closing
+ a patch. This is known (I saw it on the Pd list).
+- gain is not uniform when passing from one sample to a mix of the four. Some normalization 
+is needed.
+- I'm not very happy with the envelope of each sample. The fade out effect at the end 
+is too evident. So you can remove it by toggling the envelope buttons. 
+ 
+All the samples come from the freesound project (http://www.freesound.org/). 
+In particular the following samples are loaded by default:
+
+18567__sonicfire__ambienza_sequencer_07_120bpm_cmin.wav sonicfire
+18550__sonicfire__ambienza_beatloop_04_120.wav by sonicfire
+18573__sonicfire__ambienza_synthetic_line_02_Cmin.wav by sonicfire
+18571__sonicfire__ambienza_synthetic_line_01_Cmin.wav by sonicfire
+19786__Jovica__Aerobic_Loop_01.wav by Jovica
+19788__Jovica__Aerobic_Loop_03.wav by Jovica
+19943__Jovica__Aerobic_Loop_13.wav by Jovica
+19945__Jovica__Aerobic_Loop_15.wav by Jovica
+
+Have fun!
+
+Alberto Zin 2009

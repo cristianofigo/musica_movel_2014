@@ -1,0 +1,33 @@
+#N canvas 0 22 771 297 10;
+#X obj -13 -10 notein;
+#X floatatom -13 14 5 0 0 0 - - -;
+#X floatatom 29 13 5 0 0 0 - - -;
+#X floatatom 72 13 5 0 0 0 - - -;
+#X obj -13 76 select 36 37 38 39 40 41 42 43;
+#X obj -13 37 stripnote;
+#X obj -13 105 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj -13 131 timer;
+#X obj 9 105 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X floatatom -13 154 0 0 0 0 - - -;
+#X obj -13 179 s TapMetro;
+#X obj 108 154 expr (60*1000)/$f1;
+#X floatatom 109 177 0 0 0 0 - - -;
+#X text 188 72 You'll need to tap 36 et 37 midi notes alternatively
+;
+#X text 170 179 Bpm conv for info;
+#X connect 0 0 1 0;
+#X connect 0 1 2 0;
+#X connect 0 2 3 0;
+#X connect 1 0 5 0;
+#X connect 2 0 5 1;
+#X connect 4 0 6 0;
+#X connect 4 1 8 0;
+#X connect 5 0 4 0;
+#X connect 6 0 7 0;
+#X connect 7 0 9 0;
+#X connect 8 0 7 1;
+#X connect 9 0 10 0;
+#X connect 9 0 11 0;
+#X connect 11 0 12 0;

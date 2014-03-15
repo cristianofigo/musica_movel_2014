@@ -1,0 +1,208 @@
+#N canvas 0 0 1276 730 10;
+#X obj 225 542 samphold~;
+#X obj 260 623 hsl 128 15 0 127 0 0 empty empty empty -2 -8 0 10 -262144
+-1 -1 7400 1;
+#X obj 257 643 / 127;
+#X obj 223 684 dac~;
+#X obj 226 502 osc~;
+#X obj 57 207 hsl 128 15 0 127 0 0 empty empty empty -2 -8 0 10 -262144
+-1 -1 8700 1;
+#X obj 54 236 mtof~;
+#X obj 226 470 +~;
+#X obj 279 421 nbx 5 14 -1e+037 1e+037 0 0 empty empty empty 0 -8 0
+10 -262144 -1 -1 100 256;
+#X obj 240 419 osc~;
+#X obj 480 249 mtof~;
+#X obj 479 431 +~;
+#X obj 699 351 nbx 5 14 -1e+037 1e+037 0 0 empty empty empty 0 -8 0
+10 -262144 -1 -1 17 256;
+#X obj 654 318 osc~;
+#X obj 281 504 expr~ $v1 > 0.5;
+#X obj 479 458 phasor~;
+#X obj 483 224 hsl 128 15 0 127 0 0 empty empty empty -2 -8 0 10 -262144
+-1 -1 11100 1;
+#X obj 54 183 random 128;
+#X obj 54 161 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X obj 54 119 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X obj 480 198 random 128;
+#X obj 480 170 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 105 120 nbx 5 14 -1e+037 1e+037 0 0 empty empty empty 0 -8 0
+10 -262144 -1 -1 2000 256;
+#X obj 480 122 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X obj 531 124 nbx 5 14 -1e+037 1e+037 0 0 empty empty empty 0 -8 0
+10 -262144 -1 -1 2000 256;
+#X obj 655 205 hsl 128 15 0 127 0 0 empty empty empty -2 -8 0 10 -262144
+-1 -1 2300 1;
+#X obj 652 151 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 652 103 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X obj 703 104 nbx 5 14 -1e+037 1e+037 0 0 empty empty empty 0 -8 0
+10 -262144 -1 -1 2000 256;
+#X obj 697 155 nbx 5 14 -1e+037 1e+037 0 0 empty empty empty 0 -8 0
+10 -262144 -1 -1 0 256;
+#X obj 239 254 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 239 206 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X obj 290 200 nbx 5 14 -1e+037 1e+037 0 0 empty empty empty 0 -8 0
+10 -262144 -1 -1 50 256;
+#X obj 309 312 nbx 5 14 -1e+037 1e+037 0 0 empty empty empty 0 -8 0
+10 -262144 -1 -1 10000 256;
+#X obj 343 -1 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X obj 337 52 nbx 5 14 -1e+037 1e+037 0 0 empty empty empty 0 -8 0
+10 -262144 -1 -1 2000 256;
+#X obj 537 176 nbx 5 14 -1e+037 1e+037 0 0 empty empty empty 0 -8 0
+10 -262144 -1 -1 99 256;
+#X obj 109 162 nbx 5 14 -1e+037 1e+037 0 0 empty empty empty 0 -8 0
+10 -262144 -1 -1 0 256;
+#X obj 249 574 hsl 128 15 0 127 0 0 empty empty empty -2 -8 0 10 -262144
+-1 -1 10900 1;
+#X obj 225 615 lop~;
+#X obj 246 594 mtof;
+#X obj 654 254 nbx 5 14 -1e+037 1e+037 0 0 empty empty empty 0 -8 0
+10 -262144 -1 -1 30.8677 256;
+#X obj 653 274 / 1000;
+#X obj 654 297 nbx 5 14 -1e+037 1e+037 0 0 empty empty empty 0 -8 0
+10 -262144 -1 -1 0.0308677 256;
+#X obj 653 230 mtof;
+#X obj 239 357 nbx 5 14 -1e+037 1e+037 0 0 empty empty empty 0 -8 0
+10 -262144 -1 -1 1971 256;
+#X obj 238 377 / 1000;
+#X obj 239 400 nbx 5 14 -1e+037 1e+037 0 0 empty empty empty 0 -8 0
+10 -262144 -1 -1 1.971 256;
+#X obj 90 270 hsl 128 15 0 127 0 0 empty empty empty -2 -8 0 10 -262144
+-1 -1 2600 1;
+#X obj 65 310 lop~;
+#X obj 86 289 mtof;
+#X obj 239 331 random 10000;
+#X obj 239 229 metro 450;
+#X obj 54 139 metro 250;
+#X obj 480 145 metro 1800;
+#X obj 652 126 metro 870;
+#X obj 652 179 random 6;
+#X obj 654 372 *~ 10000;
+#X obj 224 664 *~ 0.7;
+#X obj 388 521 loadbang;
+#X msg 388 543 127;
+#X msg 557 31 \; pd dsp 1;
+#X msg 624 31 \; pd dsp 0;
+#X obj 99 226 loadbang;
+#X msg 99 248 40;
+#X obj 121 45 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X obj 121 -3 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X obj 172 -9 nbx 5 14 -1e+037 1e+037 0 0 empty empty empty 0 -8 0
+10 -262144 -1 -1 6 256;
+#X obj 184 49 nbx 5 14 -1e+037 1e+037 0 0 empty empty empty 0 -8 0
+10 -262144 -1 -1 20 256;
+#X obj 121 20 metro 450;
+#X obj 121 68 random 1000;
+#X text 125 289 Slew Limiter;
+#X text -37 17 You can random the tempo;
+#X text 338 421 Modulation Amt;
+#X text 762 366 The other input the Phasor has not much impact if this
+is high;
+#X text 761 350 Mod Amt;
+#X obj 505 324 hsl 128 15 0 127 0 0 empty empty empty -2 -8 0 10 -262144
+-1 -1 4200 1;
+#X obj 480 364 lop~;
+#X obj 501 343 mtof;
+#X obj 514 280 loadbang;
+#X msg 514 302 40;
+#X text 540 343 Slew Limiter;
+#X obj 242 440 *~ 1000;
+#X text 328 -21 Turn Me On;
+#X obj 559 0 sel 1;
+#X connect 0 0 39 0;
+#X connect 1 0 2 0;
+#X connect 2 0 58 1;
+#X connect 4 0 0 0;
+#X connect 5 0 6 0;
+#X connect 6 0 49 0;
+#X connect 7 0 4 0;
+#X connect 8 0 82 1;
+#X connect 9 0 82 0;
+#X connect 10 0 77 0;
+#X connect 11 0 15 0;
+#X connect 12 0 57 1;
+#X connect 13 0 57 0;
+#X connect 14 0 0 1;
+#X connect 15 0 14 0;
+#X connect 16 0 10 0;
+#X connect 17 0 5 0;
+#X connect 18 0 17 0;
+#X connect 19 0 53 0;
+#X connect 20 0 16 0;
+#X connect 21 0 20 0;
+#X connect 22 0 53 1;
+#X connect 23 0 54 0;
+#X connect 24 0 54 1;
+#X connect 25 0 44 0;
+#X connect 26 0 56 0;
+#X connect 27 0 55 0;
+#X connect 28 0 55 1;
+#X connect 29 0 56 1;
+#X connect 30 0 51 0;
+#X connect 31 0 52 0;
+#X connect 32 0 52 1;
+#X connect 33 0 51 1;
+#X connect 34 0 19 0;
+#X connect 34 0 31 0;
+#X connect 34 0 23 0;
+#X connect 34 0 27 0;
+#X connect 34 0 66 0;
+#X connect 34 0 84 0;
+#X connect 35 0 22 0;
+#X connect 35 0 32 0;
+#X connect 35 0 24 0;
+#X connect 35 0 28 0;
+#X connect 36 0 20 1;
+#X connect 37 0 17 1;
+#X connect 38 0 40 0;
+#X connect 39 0 58 0;
+#X connect 40 0 39 1;
+#X connect 41 0 42 0;
+#X connect 42 0 43 0;
+#X connect 43 0 13 0;
+#X connect 44 0 41 0;
+#X connect 45 0 46 0;
+#X connect 46 0 47 0;
+#X connect 47 0 9 0;
+#X connect 48 0 50 0;
+#X connect 49 0 7 0;
+#X connect 50 0 49 1;
+#X connect 51 0 45 0;
+#X connect 52 0 30 0;
+#X connect 53 0 18 0;
+#X connect 54 0 21 0;
+#X connect 55 0 26 0;
+#X connect 56 0 25 0;
+#X connect 57 0 11 1;
+#X connect 58 0 3 0;
+#X connect 58 0 3 1;
+#X connect 59 0 60 0;
+#X connect 60 0 38 0;
+#X connect 60 0 1 0;
+#X connect 63 0 64 0;
+#X connect 64 0 48 0;
+#X connect 65 0 70 0;
+#X connect 66 0 69 0;
+#X connect 67 0 69 1;
+#X connect 68 0 70 1;
+#X connect 69 0 65 0;
+#X connect 70 0 22 0;
+#X connect 76 0 78 0;
+#X connect 77 0 11 0;
+#X connect 78 0 77 1;
+#X connect 79 0 80 0;
+#X connect 80 0 76 0;
+#X connect 82 0 7 1;
+#X connect 84 0 61 0;
+#X connect 84 1 62 0;

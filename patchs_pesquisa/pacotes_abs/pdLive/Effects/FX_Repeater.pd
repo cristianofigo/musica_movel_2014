@@ -1,0 +1,149 @@
+#N canvas 301 52 673 411 10;
+#X declare -path z_rjdj_abs;
+#X declare -path z_rjdj_abs;
+#X obj 86 41 inlet~;
+#X obj 70 411 outlet~;
+#X obj 394 101 inlet;
+#X obj 452 45 loadbang;
+#X msg 452 70 freq 0.8 \, mod 1.8;
+#X floatatom 253 61 5 0 0 0 - - -;
+#X obj 148 186 *~;
+#X obj 166 162 vline~;
+#X msg 167 139 1 10 \, 0 10 \$1;
+#X msg 254 37 250;
+#X obj 254 348 *~;
+#X obj 272 323 vline~;
+#X msg 115 368 \$1 10;
+#X obj 116 347 r \$0-dry;
+#X obj 285 36 r \$0-float;
+#X obj 339 79 r \$0-feedback;
+#X obj 273 162 pack 200 1;
+#X obj 254 375 delwrite~ \$0-del 1000;
+#X obj 252 195 delread~ \$0-del;
+#X msg 273 299 0 \, \$2 10 \$1;
+#X obj 339 98 min 1;
+#X obj 340 118 max 0;
+#X msg 450 371 0 10;
+#X obj 405 258 * 0;
+#X obj 423 217 r \$0-num;
+#X obj 450 351 del;
+#X obj 450 329 t b f;
+#X obj 405 278 moses 1;
+#X obj 264 87 t f f;
+#X obj 422 237 - 1;
+#N canvas 172 83 586 377 LICENSE-GPL 0;
+#X text 57 88 This program is free software: you can redistribute it
+and/or modify it under the terms of the GNU General Public License
+as published by the Free Software Foundation \, either version 3 of
+the License \, or (at your option) any later version.;
+#X text 58 168 This program is distributed in the hope that it will
+be useful \, but WITHOUT ANY WARRANTY \; without even the implied warranty
+of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+General Public License for more details.;
+#X text 57 261 You should have received a copy of the GNU General Public
+License along with this program. If not \, see <http://www.gnu.org/licenses/>.
+;
+#X text 61 54 Copyright (C) 2009 \, Reality Jockey Ltd.;
+#X text 60 325 See the file LICENSE.txt for the full license text.
+;
+#X restore 532 19 pd LICENSE-GPL;
+#X obj 453 98 z-u_loader e_repeater-\$1 \$0;
+#X obj 393 128 z-u_dispatch \$0 feedback;
+#X obj 394 149 z-u_dispatch \$0 num;
+#X obj 393 170 z-u_dispatch \$0 dry;
+#X obj 393 191 z-u_dispatch \$0 float;
+#X obj 70 390 z-c_xfade;
+#N canvas 161 72 722 672 REFERENCE 0;
+#X text 114 135 Summary: repeat a chunks of the incoming signal.;
+#X text 114 115 Name: e_repeater;
+#X text 114 155 Argument 0: name for state saving \, required.;
+#X text 113 174 Inlet 0: audio signal to repeat;
+#X text 112 274 Outlet 0: repeated audio signal.;
+#X text 112 198 Inlet 1: float: sets length of the chunk repeated in
+ms and triggers new recording \, maximung length is 1000 ms. feedback
+<float>: feedback level \, if 1 the chunk gets repeated endlessly.
+dry <float>: dry/wet control - dry signal is 1 \, all wet signal is
+0 (default). num <float>: number of repetitions \, default or 0 is
+endless.;
+#X text 112 302 Description: e_repeater samples up to 1 second of the
+incoming audio signal and repeats it as many times as specified with
+the "num" parameter. Each repetition is attenuated by the value of
+the "feedback" parameter.;
+#X text 114 578 Tags: delay \, repetition \, echo;
+#X coords 0 -1 1 1 450 500 1 100 100;
+#X restore -413 56 pd REFERENCE;
+#X text -411 22 e_repeater - repeat a chunks of the incoming signal.
+;
+#N canvas 0 22 567 316 HowToUse 0;
+#X floatatom 127 52 5 0 1000 0 - - -;
+#X msg 133 104 feedback 1;
+#X obj 127 32 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X text 140 84 feedback level. If 1 the chunk gets repeated endlessly.
+;
+#X msg 215 145 dry 1;
+#X msg 262 153 dry 0.5;
+#X msg 324 153 dry 0;
+#X text 215 125 dry signal (1) - wet signal (0);
+#X msg 296 233 num 4;
+#X msg 249 233 num 0;
+#X msg 343 233 num 16;
+#X msg 215 104 feedback 0.9;
+#X text 243 211 number of repetitions (default (0) is endless);
+#X obj 154 27 hsl 128 15 0 1000 0 0 empty empty empty -2 -8 0 10 -262144
+-1 -1 0 1;
+#X text 170 51 length of the chunk repeated in ms triggers new recording.
+Max 1000!;
+#X obj 5 278 FX_repeater;
+#X connect 0 0 15 1;
+#X connect 1 0 15 1;
+#X connect 2 0 0 0;
+#X connect 4 0 15 1;
+#X connect 5 0 15 1;
+#X connect 6 0 15 1;
+#X connect 8 0 15 1;
+#X connect 9 0 15 1;
+#X connect 10 0 15 1;
+#X connect 11 0 15 1;
+#X connect 13 0 0 0;
+#X restore -48 68 pd HowToUse;
+#X obj -2 9 declare -path z_rjdj_abs;
+#X connect 0 0 6 0;
+#X connect 0 0 36 1;
+#X connect 2 0 32 0;
+#X connect 3 0 4 0;
+#X connect 4 0 32 0;
+#X connect 5 0 8 0;
+#X connect 5 0 18 0;
+#X connect 5 0 28 0;
+#X connect 6 0 17 0;
+#X connect 6 0 36 0;
+#X connect 7 0 6 1;
+#X connect 8 0 7 0;
+#X connect 9 0 5 0;
+#X connect 10 0 17 0;
+#X connect 11 0 10 1;
+#X connect 12 0 36 2;
+#X connect 13 0 12 0;
+#X connect 14 0 5 0;
+#X connect 15 0 20 0;
+#X connect 16 0 19 0;
+#X connect 18 0 10 0;
+#X connect 18 0 36 0;
+#X connect 19 0 11 0;
+#X connect 20 0 21 0;
+#X connect 21 0 16 1;
+#X connect 22 0 11 0;
+#X connect 23 0 27 0;
+#X connect 24 0 29 0;
+#X connect 25 0 22 0;
+#X connect 26 0 25 0;
+#X connect 26 1 25 1;
+#X connect 27 1 26 0;
+#X connect 28 0 23 0;
+#X connect 28 1 16 0;
+#X connect 29 0 23 1;
+#X connect 32 0 33 0;
+#X connect 33 0 34 0;
+#X connect 34 0 35 0;
+#X connect 36 0 1 0;

@@ -1,0 +1,44 @@
+#N canvas 384 127 620 500 10;
+#X obj 227 82 inlet;
+#X obj 401 287 *;
+#X obj 149 300 del;
+#X obj 67 232 r reset-stop;
+#X obj 144 441 outlet;
+#X obj 338 437 outlet;
+#X obj 222 354 pointer;
+#X obj 227 112 t b p;
+#X obj 417 228 r time-of-last-evt;
+#X obj 401 246 -;
+#X obj 145 354 s next-evt;
+#X obj 273 202 s time-of-last-evt;
+#X obj 417 269 r delay-multiplier;
+#X text 49 10 This is an abstraction used by the sequencer example.
+;
+#X text 49 29 Here we carry out the actual sequencing. Argument is
+template of the scalar. Note the sends and receives which must agree
+with the rest of the patch.;
+#X text 74 460 pointer (delayed appropriately);
+#X text 335 456 y-value;
+#X obj 149 320 trigger b b;
+#X obj 273 179 trigger float float;
+#X obj 273 140 get \$1 x y height;
+#X obj 453 437 outlet;
+#X text 450 457 grains array height;
+#X connect 0 0 7 0;
+#X connect 1 0 2 1;
+#X connect 2 0 17 0;
+#X connect 3 0 2 0;
+#X connect 6 0 4 0;
+#X connect 7 0 2 0;
+#X connect 7 1 6 1;
+#X connect 7 1 19 0;
+#X connect 8 0 9 1;
+#X connect 9 0 1 0;
+#X connect 12 0 1 1;
+#X connect 17 0 10 0;
+#X connect 17 1 6 0;
+#X connect 18 0 11 0;
+#X connect 18 1 9 0;
+#X connect 19 0 18 0;
+#X connect 19 1 5 0;
+#X connect 19 2 20 0;

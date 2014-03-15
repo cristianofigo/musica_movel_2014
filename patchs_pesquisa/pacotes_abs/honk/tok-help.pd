@@ -1,0 +1,21 @@
+#N canvas 58 366 1019 511 12;
+#X text 324 232 honk abstractions -- kreidler 2007;
+#X text 390 275 www.kreidler-net.de;
+#X text 100 140 ...;
+#X obj 113 319 tgl 15 0 empty empty empty 0 -6 0 8 -262144 -1 -1 0
+1;
+#X obj 113 419 tgl 15 0 empty empty empty 0 -6 0 8 -262144 -1 -1 0
+1;
+#X obj 113 441 tgl 15 0 empty empty empty 0 -6 0 8 -262144 -1 -1 0
+1;
+#X text 27 293 works like an ordinary toggle;
+#X text 282 118 tok - quick-to-build toggle with variable size;
+#X text 278 152 like toggle \, but size can be given by argument (by
+default 55);
+#X obj 114 175 tok 66;
+#X obj 113 341 tok 66;
+#X text 30 110 write the object "tok 66";
+#X connect 3 0 10 0;
+#X connect 4 0 5 0;
+#X connect 10 0 4 0;
+#X coords 0 0 1 1 59 59 0;

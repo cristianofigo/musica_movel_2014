@@ -1,0 +1,13 @@
+#N canvas 69 49 564 527 10;
+#X text 4 9 pulse_amp by Lawrence W. Moore - www.lawrencewmoore.com
+;
+#X text 75 61 This patch allows you to load amplitude env elopes that
+you make with pulse_amp_maker. You route your audio signal into the
+left inlet \, and hook up the outlet to your dac. You can open \, save
+\, and rest the array. The purple controls are for the frequency of
+the oscillating envelope \, and the grey box is for the phase. The
+2nd and 3rd inlets are for routing the frequency and phase values into
+the patch from another source if you want to.;
+#X text 93 438 NOTE - The frequncy values are 0 - 2000 \, which are
+read internally as 0hz - 20hz with floating point.;
+#X obj 49 181 z_pulseamp_abs/pulse_amp~;

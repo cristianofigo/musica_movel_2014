@@ -1,0 +1,72 @@
+#N canvas 104 172 488 507 12;
+#X obj 32 67 inlet~;
+#X obj 32 360 outlet~;
+#X obj 53 165 vd~ \$0-d;
+#X obj 119 232 delwrite~ \$0-d 10000;
+#X obj 244 321 nbx 5 14 0 10000 0 0 \$0-fromdelay \$0-todelay delay
+-40 5 1 10 -262144 -1 -1 10000 256;
+#X obj 33 335 +~;
+#X obj 123 206 *~;
+#X obj 53 310 *~;
+#X obj 243 300 nbx 5 14 0 1 0 0 \$0-fromfeedback \$0-tofeedback feedback
+-45 4 1 10 -262144 -1 -1 1 256;
+#X obj 242 280 nbx 5 14 0 1 0 0 \$0-frommix \$0-tomix mix -30 4 1 10
+-262144 -1 -1 1 256;
+#X obj 53 119 pack f 10;
+#X obj 53 142 line~;
+#X obj 53 92 inlet time;
+#X obj 151 131 inlet feedback;
+#X obj 207 192 inlet mix;
+#X obj 111 64 \$1;
+#X obj 144 64 \$2;
+#X obj 178 64 \$3;
+#X obj 144 32 loadbang;
+#X obj 73 262 pack f 10;
+#X obj 73 285 line~;
+#X obj 144 159 pack f 10;
+#X obj 144 182 line~;
+#X text 259 480 Les Objets Volants 2008;
+#X text 36 381 input 1: signal;
+#X text 35 412 input 3 & creation argument 2: feedback between 0 and
+1;
+#X text 35 428 input 4 & creation argument 3: mix between 0 and 1;
+#X text 34 396 input 2 & creation argument 1: time up to 10000 ms;
+#X obj 211 64 \$4;
+#X text 34 445 input 5 & creation argument 4: time of reaction for
+variability;
+#X obj 243 341 nbx 5 14 0 10000 0 0 \$0-fromdelay \$0-todelay variability
+-50 5 1 10 -262144 -1 -1 0 256;
+#X obj 266 159 inlet variability;
+#X connect 0 0 5 0;
+#X connect 0 0 3 0;
+#X connect 2 0 6 0;
+#X connect 2 0 7 0;
+#X connect 5 0 1 0;
+#X connect 6 0 3 0;
+#X connect 7 0 5 1;
+#X connect 10 0 11 0;
+#X connect 11 0 2 0;
+#X connect 12 0 4 0;
+#X connect 12 0 10 0;
+#X connect 13 0 8 0;
+#X connect 13 0 21 0;
+#X connect 14 0 9 0;
+#X connect 14 0 19 0;
+#X connect 15 0 10 0;
+#X connect 15 0 4 0;
+#X connect 16 0 21 0;
+#X connect 16 0 8 0;
+#X connect 17 0 19 0;
+#X connect 17 0 9 0;
+#X connect 18 0 15 0;
+#X connect 18 0 16 0;
+#X connect 18 0 17 0;
+#X connect 18 0 28 0;
+#X connect 19 0 20 0;
+#X connect 20 0 7 1;
+#X connect 21 0 22 0;
+#X connect 22 0 6 1;
+#X connect 28 0 10 1;
+#X connect 28 0 30 0;
+#X connect 31 0 10 1;
+#X coords 0 0 1 1 100 70 0;

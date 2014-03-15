@@ -1,0 +1,133 @@
+#N canvas 82 34 317 443 10;
+#N canvas 0 22 838 464 (subpatch) 0;
+#X obj 0 0 cnv 15 200 317 empty empty empty 20 12 0 14 -162280 -260097
+0;
+#X msg 790 191 write test1.mid;
+#X msg 362 -45 bang;
+#X msg 651 190 record;
+#X msg 430 -36 stop;
+#X obj 64 5 bng 20 250 50 0 empty empty Loop 23 10 1 12 -228856 -1
+-1;
+#X msg 706 190 stop record;
+#X msg 790 214 read test1.mid;
+#X msg 304 -16 pause;
+#X msg 383 8 continue;
+#X text 549 -4 cyclone's [seq] input accepts midi files and realtime
+midi messages through [midiin]. All trakcs of a multi-track midi file
+are merged into one. [notein] doesn't work. Left inlet outputs midi
+data to [midiout]. [noteout] doesn't work. Right inlet outputs a bang
+message at the sequence's end \, useful for loops. [seq] has his own
+midi list editor.;
+#X text 720 162 recording;
+#X text 679 384 jkant.altervista.org;
+#X text 679 360 ver 0.1 05-07;
+#X text 349 78 <-- click object to open list editor;
+#X text 731 287 save in patch folder;
+#X obj 205 3 openpanel;
+#X msg 205 23 read \$1;
+#X obj 4 5 bng 20 250 50 0 empty empty Load 23 10 1 12 -1 -260097 -1
+;
+#X obj 291 103 midiparse;
+#X obj 260 291 unpack f f;
+#X floatatom 5 108 5 0 0 1 Pitch - -;
+#X floatatom 157 108 5 0 0 0 Velocity - -;
+#X text 367 293 note on messages;
+#X obj 294 224 unpack f f;
+#X floatatom 5 145 5 0 0 1 Aftert - -;
+#X floatatom 158 145 5 0 0 0 Pitch - -;
+#X text 372 224 poly aftertouch messages;
+#X obj 304 161 unpack f f;
+#X floatatom 6 181 5 0 0 1 Value - -;
+#X floatatom 158 181 5 0 0 0 Ctrl_nr - -;
+#X text 383 161 controller messages;
+#X floatatom 6 219 5 0 0 1 Program_Change - -;
+#X floatatom 6 238 5 0 0 1 Aftertouch - -;
+#X floatatom 6 257 5 0 0 1 Pitch_Bend - -;
+#X floatatom 6 276 5 0 0 1 Channel_Number - -;
+#X obj 290 78 seq;
+#X msg 668 126 next;
+#X symbolatom 4 73 30 0 0 0 - - -;
+#X obj 283 53 splitfilename /;
+#X obj 132 5 bng 20 250 50 0 empty empty Stop 23 10 1 12 -228856 -1
+-1;
+#X obj 4 29 bng 20 250 50 0 empty empty Pause 23 10 1 12 -228856 -1
+-1;
+#X obj 64 30 bng 20 250 50 0 empty empty Continue 23 10 1 12 -228856
+-1 -1;
+#X obj -49 -30 inlet;
+#X obj -45 440 outlet;
+#X obj 4 91 cnv 15 185 15 empty empty Note-on_messages 20 9 1 12 -1
+-260097 0;
+#X obj 5 128 cnv 15 185 15 empty empty After_touch_messages 20 9 1
+12 -1 -260097 0;
+#X obj 5 164 cnv 15 185 15 empty empty Controller_Messages 20 9 1 12
+-1 -260097 0;
+#X obj 6 200 cnv 15 185 15 empty empty Other_Messages 20 9 1 12 -1
+-260097 0;
+#X obj 4 56 cnv 15 185 15 empty empty File 20 9 1 12 -1 -260097 0;
+#X obj 3 419 outlet;
+#X obj 57 418 outlet;
+#X obj 106 426 outlet;
+#X obj 160 425 outlet;
+#X obj 212 419 outlet;
+#X obj 266 418 outlet;
+#X obj 315 419 outlet;
+#X obj 369 418 outlet;
+#X obj 421 412 outlet;
+#X obj 475 411 outlet;
+#X connect 1 0 36 0;
+#X connect 2 0 36 0;
+#X connect 3 0 36 0;
+#X connect 4 0 36 0;
+#X connect 5 0 2 0;
+#X connect 6 0 36 0;
+#X connect 7 0 36 0;
+#X connect 8 0 36 0;
+#X connect 9 0 36 0;
+#X connect 16 0 17 0;
+#X connect 16 0 39 0;
+#X connect 17 0 36 0;
+#X connect 18 0 16 0;
+#X connect 19 0 20 0;
+#X connect 19 1 24 0;
+#X connect 19 2 28 0;
+#X connect 19 3 32 0;
+#X connect 19 4 33 0;
+#X connect 19 5 34 0;
+#X connect 19 6 35 0;
+#X connect 20 0 21 0;
+#X connect 20 1 22 0;
+#X connect 21 0 50 0;
+#X connect 22 0 51 0;
+#X connect 24 0 25 0;
+#X connect 24 1 26 0;
+#X connect 25 0 52 0;
+#X connect 26 0 53 0;
+#X connect 28 0 29 0;
+#X connect 28 1 30 0;
+#X connect 29 0 54 0;
+#X connect 30 0 55 0;
+#X connect 32 0 56 0;
+#X connect 33 0 57 0;
+#X connect 34 0 58 0;
+#X connect 35 0 59 0;
+#X connect 36 0 19 0;
+#X connect 36 0 44 0;
+#X connect 36 1 5 0;
+#X connect 37 0 36 0;
+#X connect 39 1 38 0;
+#X connect 40 0 4 0;
+#X connect 41 0 8 0;
+#X connect 42 0 9 0;
+#X connect 43 0 36 0;
+#X connect 43 0 44 0;
+#X coords 0 1 100 -1 200 320 1 0 0;
+#X restore 43 20 graph;
+#X obj 4 3 midiin;
+#X obj 3 340 midiout;
+#X obj 59 381 s pitch;
+#X obj 78 399 s velocity;
+#X connect 0 0 2 0;
+#X connect 0 1 3 0;
+#X connect 0 2 4 0;
+#X connect 1 0 0 0;

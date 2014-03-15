@@ -1,0 +1,11 @@
+#N canvas 0 0 592 564 12;
+#X msg 251 203 now order new my;
+#X obj 251 260 print;
+#X text 24 31 linvert: inverts order of atoms of a list;
+#X text 247 159 inlet: list;
+#X text 242 331 outlet: new list;
+#X text 168 434 Honk Abstractions -- Kreidler 2007;
+#X text 250 483 www.kreidler-net.de;
+#X obj 251 229 linvert;
+#X connect 0 0 7 0;
+#X connect 7 0 1 0;

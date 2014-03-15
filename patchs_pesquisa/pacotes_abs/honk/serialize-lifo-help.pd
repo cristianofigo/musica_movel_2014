@@ -1,0 +1,26 @@
+#N canvas 774 204 618 625 12;
+#X msg 386 314 clear;
+#X msg 420 350 flush;
+#X obj 244 425 print;
+#X text 316 203 right inlet: clear: empty list;
+#X text 420 223 flush: output list;
+#X text 251 515 Honk Abstractions -- Kreidler 2007;
+#X text 331 566 www.kreidler-net.de;
+#X text 50 22 serialize-fifo: like "serialize" but for any number of
+floats. turns a stream of floats into a list \, in order: last in first
+out.;
+#X msg 217 225 5;
+#X msg 237 261 3;
+#X msg 256 291 2;
+#X msg 271 326 1;
+#X msg 291 362 44;
+#X text 100 169 left inlet: various floats;
+#X obj 244 400 serialize-lifo;
+#X connect 0 0 14 1;
+#X connect 1 0 14 1;
+#X connect 8 0 14 0;
+#X connect 9 0 14 0;
+#X connect 10 0 14 0;
+#X connect 11 0 14 0;
+#X connect 12 0 14 0;
+#X connect 14 0 2 0;

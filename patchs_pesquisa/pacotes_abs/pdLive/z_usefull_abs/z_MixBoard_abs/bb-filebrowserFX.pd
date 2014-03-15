@@ -1,0 +1,58 @@
+#N canvas 0 22 450 300 10;
+#X declare -path z_bbfilebrowser_abs;
+#N canvas 0 22 1024 720 (subpatch) 0;
+#X obj 604 -86 cnv 15 360 114 empty empty empty 20 12 0 14 -203904
+-66577 0;
+#X obj 1 188 print FILE;
+#X floatatom 1 -43 5 0 0 1 index - -;
+#X text 119 261 currently lists a maximum of 200 files;
+#X text 119 283 to increase capacity \, change bottom value;
+#X text 119 296 of slider \, and the "200" in the expr below it;
+#X text 742 -66 separated by spaces ex:;
+#X text 621 -78 creation arguments: file extensions to display;
+#X symbolatom -1 228 50 0 0 0 - - -;
+#X text 608 -3 not specifying a creation argument will list all files
+;
+#X obj 602 -196 cnv 15 160 50 empty empty empty 20 12 0 14 -262130
+-66577 0;
+#X text 613 -170 Ben Baker-Smith - 2010;
+#X text 623 -187 bb_filebrowser v1.1;
+#X obj -21 286 prepend load;
+#X obj 89 191 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X text 352 -99 <-- load root directory of pdlive in your system;
+#X obj 309 -34 r path;
+#X msg 311 -5 set \$1;
+#X obj 315 58 prepend load;
+#X obj -24 -125 loadbang;
+#X obj -96 -187 declare -path z_bbfilebrowser_abs;
+#X obj 0 0 bb_filebrowser;
+#X msg 86 477 \; pd-bb-filebrowser.pd obj 10 10 \$1;
+#X msg 313 17 /Users/Berenger/Documents/Programmation_audio/PureData/Sets/pdLive/FX
+;
+#X symbolatom 166 456 80 0 0 0 - - -;
+#X obj 121 369 splitfilename .;
+#X obj 88 309 splitfilename /;
+#X symbolatom 202 329 80 0 0 0 - - -;
+#X msg -28 -101 load /Users/Berenger/Documents/Programmation_audio/PureData/Sets/pdLive/FX
+;
+#X connect 2 0 21 0;
+#X connect 8 0 13 0;
+#X connect 8 0 26 0;
+#X connect 13 0 21 0;
+#X connect 14 0 8 0;
+#X connect 16 0 17 0;
+#X connect 17 0 23 0;
+#X connect 18 0 21 0;
+#X connect 19 0 28 0;
+#X connect 21 0 1 0;
+#X connect 21 0 8 0;
+#X connect 21 2 23 0;
+#X connect 23 0 18 0;
+#X connect 25 0 22 0;
+#X connect 25 1 24 0;
+#X connect 26 1 25 0;
+#X connect 26 1 27 0;
+#X connect 28 0 21 0;
+#X coords 0 1 100 -1 270 161 1 0 0;
+#X restore 113 -17 graph;

@@ -1,0 +1,25 @@
+#N canvas 8 0 756 746 12;
+#X msg 287 255 honk;
+#X msg 307 291 new;
+#X msg 326 321 my;
+#X msg 341 356 is;
+#X msg 361 391 this;
+#X msg 456 344 clear;
+#X msg 490 380 flush;
+#X obj 314 455 print;
+#X text 170 199 left inlet: various symbols;
+#X text 386 233 right inlet: clear: empty list;
+#X text 490 253 flush: output list;
+#X text 273 601 Honk Abstractions -- Kreidler 2007;
+#X text 353 652 www.kreidler-net.de;
+#X text 49 22 listerize-lifo: like "serialize" but for symbols \, turns
+a stream of symbols into a list \, in order: last in first out.;
+#X obj 314 429 listerize-lifo;
+#X connect 0 0 14 0;
+#X connect 1 0 14 0;
+#X connect 2 0 14 0;
+#X connect 3 0 14 0;
+#X connect 4 0 14 0;
+#X connect 5 0 14 1;
+#X connect 6 0 14 1;
+#X connect 14 0 7 0;

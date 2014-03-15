@@ -1,0 +1,36 @@
+#N canvas 58 366 1007 499 12;
+#X obj 61 122 tgl 55 0 \$0-tok1 \$0-tok empty 0 -6 0 8 -233017 -1 -1
+0 1;
+#X obj 62 368 outlet;
+#X obj 62 96 inlet;
+#X obj 223 262 s \$0-tok;
+#X floatatom 223 198 5 0 0 0 - - -;
+#X msg 223 232 size \$1;
+#X obj 366 180 s \$0-cv;
+#X obj 171 24 namecanvas \$0-cv;
+#X floatatom 491 43 5 0 0 0 - - -;
+#X obj 222 89 \$1;
+#X obj 220 61 loadbang;
+#X msg 366 151 donecanvasdialog 1 -1 1 0 -1 1 1 \$1 \$1 59 120;
+#X text 466 263 like toggle \, but size can be given by argument (by
+default 55);
+#X obj 220 116 route 0;
+#X msg 227 153 55;
+#X text 512 343 honk abstractions -- kreidler 2007;
+#X text 578 386 www.kreidler-net.de;
+#X obj 476 94 expr 4 + $f1;
+#X text 482 235 tok - quick-to-build toggle with variable size;
+#X connect 0 0 1 0;
+#X connect 2 0 0 0;
+#X connect 4 0 5 0;
+#X connect 4 0 8 0;
+#X connect 5 0 3 0;
+#X connect 8 0 17 0;
+#X connect 9 0 13 0;
+#X connect 10 0 9 0;
+#X connect 11 0 6 0;
+#X connect 13 0 14 0;
+#X connect 13 1 4 0;
+#X connect 14 0 4 0;
+#X connect 17 0 11 0;
+#X coords 0 -1 1 1 59 59 1 59 120;

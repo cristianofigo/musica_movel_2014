@@ -1,0 +1,12 @@
+#N canvas 476 364 619 247 10;
+#X text 269 17 hs: horizontal slider with range as arguments;
+#X text 277 42 2 arguments: left border / right border;
+#X text 349 119 Honk Abstractions -- Kreidler 2007;
+#X text 390 144 www.kreidler-net.de;
+#X text 26 21 write the object "hs 5 10":;
+#X obj 24 69 hs 5 10;
+#X obj 25 156 hs 5 10;
+#X floatatom 25 201 5 0 0 0 - - -;
+#X text 23 134 works like the ordinary horizontal slider;
+#X connect 6 0 7 0;
+#X coords 0 0 1 1 140 35 0;

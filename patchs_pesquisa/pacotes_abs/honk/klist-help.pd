@@ -1,0 +1,44 @@
+#N canvas 387 245 760 599 12;
+#X text 167 19 klist: text-based sequencer with absolute time destinations
+;
+#X obj 195 250 bng 15 250 50 0 empty empty empty 0 -6 0 8 -262144 -1
+-1;
+#X obj 139 351 r mic;
+#X floatatom 139 379 5 0 0 0 - - -;
+#X floatatom 215 389 5 0 0 0 - - -;
+#X obj 215 361 r tic;
+#X floatatom 302 368 5 0 0 0 - - -;
+#X obj 302 340 r lic;
+#X text 145 226 then start!;
+#X text 342 212 it contains:;
+#X text 342 232 0 mic 2222 \; 1000 tic 3333 \; 3000 lic 5555 \; 3500
+mic 1111;
+#X obj 234 479 qlist;
+#X text 203 449 see also:;
+#X text 352 448 honk abstractions -- kreidler 2007;
+#X text 422 476 www.kreidler-net.de;
+#X obj 254 197 bng 15 250 50 0 empty empty empty 0 -6 0 8 -262144 -1
+-1;
+#X text 240 166 first load the textfile "klist.txt";
+#X obj 195 280 klist;
+#X obj 195 309 bng 15 250 50 0 empty empty empty 0 -6 0 8 -262144 -1
+-1;
+#X text 223 307 bang when finished;
+#X text 221 133 output: bang when finished;
+#X floatatom 241 256 5 0 0 0 - - -;
+#X text 233 237 offset (ms);
+#X obj 256 280 bng 15 250 50 0 empty empty empty 0 -6 0 8 -262144 -1
+-1;
+#X text 279 278 stop;
+#X text 224 45 first input: bang to start;
+#X text 224 71 second input: bang to select textfile;
+#X text 223 93 third input: offset (ms);
+#X text 222 114 fourth input: bang to stop;
+#X connect 1 0 17 0;
+#X connect 2 0 3 0;
+#X connect 5 0 4 0;
+#X connect 7 0 6 0;
+#X connect 15 0 17 1;
+#X connect 17 0 18 0;
+#X connect 21 0 17 2;
+#X connect 23 0 17 3;

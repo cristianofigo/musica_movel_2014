@@ -1,0 +1,8 @@
+#N canvas 812 398 469 499 10;
+#X text 161 21 gop: comfortable graph-on-parent control;
+#X text 223 297 Honk Abstractions -- Kreidler 2007;
+#X text 271 330 www.kreidler-net.de;
+#X text 131 52 argument: subpatch name or file name (if main patch)
+;
+#X obj 216 170 gop gop-help.pd;
+#X coords 0 -1 1 1 57 104 1 20 13;

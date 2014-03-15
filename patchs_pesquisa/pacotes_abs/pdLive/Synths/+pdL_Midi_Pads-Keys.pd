@@ -1,0 +1,147 @@
+#N canvas 290 80 302 143 10;
+#X floatatom 17 51 5 0 0 0 - - -;
+#X obj 17 22 knob 25 25 0 127 0 0 empty empty Q 0 -8 32 8 -1 -4034
+-260097 400 1;
+#N canvas 0 22 450 300 (subpatch) 0;
+#X obj 59 155 inlet;
+#X obj 3 89 inlet~;
+#X obj 58 182 change;
+#X msg 60 246 set \$1;
+#X obj 60 227 tosymbol;
+#X obj 59 204 sprintf Bus%d;
+#X obj 3 282 throw~ Bus0;
+#X obj 2 3 popup 124 25 #ffffff popup Bus0 Bus1 Bus2 Bus3 Bus4 Bus5
+;
+#X obj 1 32 route bang;
+#X obj 154 202 *~;
+#X obj 141 7 tgl 15 0 empty empty Dac 19 7 0 10 -262144 -1 -1 1 1;
+#X obj 155 238 dac~;
+#X obj 1 -50 loadbang;
+#X text 59 -53 Bus0 mutes;
+#X msg 1 -33 options Bus0 Bus1 Bus2 Bus3 Bus4 Bus5 Bus6 Bus7 Bus8 Bus9
+Bus10 Bus11 Bus12 Bus13 Bus14 Bus15 Bus16;
+#X connect 0 0 2 0;
+#X connect 1 0 6 0;
+#X connect 1 0 9 0;
+#X connect 2 0 5 0;
+#X connect 3 0 6 0;
+#X connect 4 0 3 0;
+#X connect 5 0 4 0;
+#X connect 7 0 8 0;
+#X connect 8 1 2 0;
+#X connect 9 0 11 0;
+#X connect 9 0 11 1;
+#X connect 10 0 9 1;
+#X connect 12 0 14 0;
+#X connect 14 0 7 0;
+#X coords 0 1 100 -1 180 30 1 0 0;
+#X restore 17 84 graph;
+#X text 118 66 INPUT BY KEYBOARD;
+#N canvas 0 22 450 300 KeyboardPads 0;
+#X obj 22 30 cnv 15 200 50 empty empty empty 20 12 0 14 -257985 -66577
+0;
+#X obj 22 86 cnv 15 200 50 empty empty empty 20 12 0 14 -4034 -66577
+0;
+#X obj 22 142 cnv 15 200 50 empty empty empty 20 12 0 14 -4032 -66577
+0;
+#X obj 22 198 cnv 15 200 100 empty empty empty 20 12 0 14 -258113 -66577
+0;
+#X text 155 31 INPUT STAGE;
+#X text 123 89 OSCILLATOR STAGE;
+#X text 150 148 FILTER STAGE;
+#X text 166 200 AMP STAGE;
+#N canvas 510 355 458 308 input_stage 0;
+#X obj 40 17 key;
+#X obj 40 43 trigger float float bang;
+#X text 212 32 For each key press \, [trigger] will first send a "bang"
+to the AMP STAGE \, then a "float" to the FILTER STAGE \, and another
+"float" the the OSCILLATOR STAGE.;
+#X obj 40 153 outlet float;
+#X obj 110 183 outlet float;
+#X obj 181 213 outlet bang;
+#X connect 0 0 1 0;
+#X connect 1 0 3 0;
+#X connect 1 1 4 0;
+#X connect 1 2 5 0;
+#X restore 30 52 pd input_stage;
+#N canvas 0 22 458 308 oscillator_stage 0;
+#X obj 40 168 phasor~;
+#X obj 122 168 phasor~;
+#X obj 40 207 *~ 0.5;
+#X obj 40 94 mtof;
+#X text 212 152 Change the float from [key] to a frequency in Hz \,
+send it to the first [osc~]. Multiply the frequency in Hz by 0.99 to
+get a slightly detuned frequency and send it to the second [osc~].
+Add the two [osc~] signals together and multiply by 0.5 to keep from
+clipping later.;
+#X obj 122 130 * 0.99;
+#X obj 40 50 inlet float;
+#X obj 40 265 outlet~ audio;
+#X connect 0 0 2 0;
+#X connect 1 0 2 0;
+#X connect 2 0 7 0;
+#X connect 3 0 0 0;
+#X connect 3 0 5 0;
+#X connect 5 0 1 0;
+#X connect 6 0 3 0;
+#X restore 30 110 pd oscillator_stage;
+#N canvas 414 391 458 308 filter_stage 0;
+#X obj 127 134 line~;
+#X obj 127 52 mtof;
+#X obj 127 108 pack 0 300;
+#X obj 127 80 * 1.5;
+#X obj 40 201 vcf~ 220 3;
+#X obj 141 163 nbx 5 14 -1e+37 1e+37 0 1 empty empty empty 0 -6 0 10
+-262144 -1 -1 21.1667 256;
+#X text 210 83 Change the float from [key] to a frequency in Hz \,
+and multiply it by 1.5 so the [vcf~] is a half octave above the [osc~]
+frequencies. [pack] makes a message with this frequency together with
+500 This tells [line~] "ramp to this number in 500 milliseconds". The
+output of [line~] sweeps the [vcf~] to the target frequency in 500ms.
+The Resonance of [vcf~] is set to "3".;
+#X obj 40 13 inlet~ audio;
+#X obj 127 13 inlet float;
+#X obj 40 244 outlet~ audio;
+#X obj 229 11 inlet float;
+#X connect 0 0 4 1;
+#X connect 1 0 3 0;
+#X connect 2 0 0 0;
+#X connect 3 0 2 0;
+#X connect 4 0 9 0;
+#X connect 5 0 4 2;
+#X connect 7 0 4 0;
+#X connect 8 0 1 0;
+#X connect 10 0 5 0;
+#X restore 30 162 pd filter_stage;
+#N canvas 0 22 458 308 amp_stage______ 0;
+#X obj 40 129 *~;
+#X obj 55 105 vline~;
+#X text 191 95 Attack = 150 \, Decay = 150 \, Sustain = 200 \, Release
+= 1000;
+#X text 193 120 Each "bang" from [trigger] sends a message to [vline~]
+which tells it to make a complex audio ramp. This ramp goes to the
+Audio Multiplication [*~] object and controls the gain of the audio
+stream.;
+#X msg 181 66 1 150 \, 0.9 150 150 \, 0 1000 500;
+#X obj 40 15 inlet~ audio;
+#X obj 40 171 outlet~ audio;
+#X obj 181 15 inlet bang;
+#X connect 0 0 6 0;
+#X connect 1 0 0 1;
+#X connect 4 0 1 0;
+#X connect 5 0 0 0;
+#X connect 7 0 4 0;
+#X restore 31 213 pd amp_stage______;
+#X obj 263 102 inlet;
+#X obj 272 258 outlet~;
+#X connect 8 0 9 0;
+#X connect 8 1 10 1;
+#X connect 8 2 11 1;
+#X connect 9 0 10 0;
+#X connect 10 0 11 0;
+#X connect 11 0 13 0;
+#X connect 12 0 10 2;
+#X restore 17 67 pd KeyboardPads;
+#X connect 0 0 4 0;
+#X connect 1 0 0 0;
+#X connect 4 0 2 0;

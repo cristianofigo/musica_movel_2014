@@ -1,0 +1,21 @@
+#N canvas 401 527 449 368 8;
+#X text 131 49 argument: font-size;
+#X text 145 127 outlet: just puts out again the inlet;
+#X text 166 290 www.kreidler-net.de;
+#X text 144 88 left inlet: float or symbol;
+#X text 144 103 right inlet: font-size;
+#X text 129 271 honk abstractions -- kreidler 2007;
+#X obj 119 222 print;
+#X floatatom 223 147 5 0 0 0 - - -;
+#X floatatom 84 116 5 0 0 0 - - -;
+#X msg 109 139 hello;
+#X msg 125 160 symbol hallo;
+#X text 57 15 display: displays a number or symbol in variable size
+;
+#X obj 119 190 display 55;
+#X connect 7 0 12 1;
+#X connect 8 0 12 0;
+#X connect 9 0 12 0;
+#X connect 10 0 12 0;
+#X connect 12 0 6 0;
+#X coords 0 0 1 1 20 20 0;

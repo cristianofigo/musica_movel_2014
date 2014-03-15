@@ -1,0 +1,166 @@
+#N struct moving-cursor float x float y float w;
+#N struct template-toplevel float x float y float voiceno array pitch
+template-pitch array amp template-amp;
+#N struct template-pitch float x float y float w;
+#N struct template-amp float x float y float w;
+#N canvas 404 22 591 410 12;
+#X declare -path z_dssynthold_abs;
+#X declare -path z_voicesynold_abs;
+#N canvas 0 22 883 416 template-toplevel 0;
+#X obj 25 86 plot pitch voiceno 3 10 0;
+#X obj 25 21 struct template-toplevel float x float y float voiceno
+array pitch template-pitch array amp template-amp;
+#X obj 27 61 filledpolygon 9 9 0 0 -2 0 2 5 2 5 -2;
+#X text 422 9 polygons: polygon <outline-color> <line-width> <x \,
+y> ... filled polygons: fpolygon <fill-color> <outline-color> <line-width>
+<x \, y> ... curves: curve <outline-color> <line-width> <x \, y> ...
+filled curves: fcurve <fill-color> <outline-color> <line-width> <x
+\, y> ... Each argument can either be a number or a symbol. If a symbol
+\, it's the name of a field (which must be a "float) which specifies
+the vaiue. So for instance in the "1.scalar.pd" example \, in the template
+"template1" \, the object "fpolygon 244 q 5 0 0 20 z 40 0" draws a
+filled polygon whose interior color is 244 (red 2 \, green 4 \, blue
+4) but whose outline color depends on the value of the field "q". Its
+coordinates describe a triangle whose altitude is given by "z.";
+#X obj 25 113 plot amp 112 3 10 0;
+#X restore 304 34 pd template-toplevel;
+#N canvas 0 22 419 102 template-amp 0;
+#X obj 15 41 struct template-amp float x float y float w;
+#X restore 304 57 pd template-amp;
+#N canvas 42 221 452 87 template-pitch 0;
+#X obj 21 29 struct template-pitch float x float y float w;
+#X restore 304 80 pd template-pitch;
+#X floatatom 172 60 0 0 0 0 - - -;
+#X msg -47 16 start;
+#X msg 4 16 stop;
+#N canvas 0 22 964 659 data 1;
+#X scalar moving-cursor 0 0 0 \;;
+#X scalar template-toplevel 2 245 90 \; -6 10.25 10.5 \; 172 10.5 9.25
+\; \; -5 0 0 \; 11 0.5 2.25 \; 146 0.5 2 \; 171 1 0 \; \;;
+#X scalar template-toplevel 39 389.5 99 \; 0 0 12 \; 10 0 12 \; \;
+0 0 0 \; 10 0 2.5 \; 11 0 0 \; \;;
+#X scalar template-toplevel 77 382.5 99 \; 0 0 12 \; 10 0 12 \; \;
+0 0 0 \; 10 0 2.5 \; 11 0 0 \; \;;
+#X scalar template-toplevel 86 302.25 900 \; 0 24 12 \; 131 8.75 12
+\; \; 0 0 0 \; 1 0 0.25 \; 8 0 2.25 \; 17 -0.25 0 \; 37 0 0.5 \; 20
+0 0 \; 30 0 0 \; 40 0 2.5 \; 50 0 0 \; 60 0 2.5 \; 70 0 0 \; 80 0 0
+\; 90 0 0 \; 100 0 2.5 \; 110 0 0 \; 120 0 2.5 \; 130 0 0 \; \;;
+#X scalar template-toplevel 109 390 99 \; 0 0 12 \; 10 0 12 \; \; 0
+0 0 \; 10 0 2.5 \; 11 0 0 \; \;;
+#X scalar template-toplevel 151 396.25 99 \; 0 0 12 \; 10 0 12 \; \;
+0 0 0 \; 10 0 2.5 \; 11 0 0 \; \;;
+#X scalar template-toplevel 176 256.5 958 \; -3 0 3.75 \; 124 9 12
+\; \; 0 0 2.5 \; 104 0 2.5 \; 123 0 0 \; \;;
+#X scalar template-toplevel 199 399.5 99 \; 0 0 12 \; 10 0 12 \; \;
+0 0 0 \; 10 0 2.5 \; 11 0 0 \; \;;
+#X scalar template-toplevel 307 244.5 90 \; -6 10.25 10.5 \; 172 10.5
+9.25 \; \; -5 0 0 \; 11 0.5 2.25 \; 146 0.5 2 \; 171 1 0 \; \;;
+#X scalar template-toplevel 330 305.75 750 \; 0 65 12 \; 100 10 0 \;
+100 10 12 \; 230 50 0 \; 230 10 3 \; 240 60 0 \; 240 25 10 \; 250 60
+0 \; 250 37 10 \; 260 65 0.5 \; 285 65 0.5 \; \; 1 0 2 \; 103 0 1 \;
+195 0 2 \; 220 0 0.75 \; 225 0 1.25 \; 248 0 2.5 \; 251 0 2.25 \; 255
+0 0 \; 256 0 1.5 \; 260 0 0 \; 261 0 2 \; 265 0 0 \; 266 0 2.5 \; 270
+0 0 \; 271 0 3 \; 275 0 0 \; \;;
+#X scalar template-toplevel 481 256 958 \; -3 0 3.75 \; 124 9 12 \;
+\; 0 0 2.5 \; 104 0 2.5 \; 123 0 0 \; \;;
+#X scalar template-toplevel 607 243.25 647 \; 1 14 8.25 \; 124 38.25
+2.75 \; 285 15.5 0 \; \; -5 3.75 0 \; 134 4.25 5 \; 303 4 0 \; \;;
+#X scalar template-toplevel 808 280.5 202 \; 4 14 0 \; 53 -15.75 3.5
+\; 76 -3.5 0 \; 118 -2.75 1.75 \; 221 -12.75 11.25 \; \; -5 3.75 0
+\; 49 4.25 1.75 \; 226 3.25 6.25 \; 248 -2.25 0 \; \;;
+#X scalar moving-cursor 1000 0 0 \;;
+#X coords 0 164.75 1 164.5 0 0 0;
+#X restore 304 11 pd data;
+#X obj 172 13 r tempo;
+#X msg 172 36 set \$1;
+#X obj 172 84 s tempo;
+#X text 205 60 <--- tempo;
+#X obj -47 98 output~;
+#N canvas 127 202 697 202 save-load 0;
+#X obj 208 7 loadbang;
+#X msg 208 34 \; tempo 60;
+#X msg 198 101 \; pd-data sort;
+#X msg 303 100 \; pd-data write xx.txt;
+#X msg 300 31 \; pd-data read score.txt;
+#X connect 0 0 1 0;
+#X restore 304 103 pd save-load;
+#X text -41 223 This patch shows an example of how to use data collections
+as musical sequences. Here the black traces show dynamics and the colored
+ones show pitch. The fatness of the pitch traces give bandwidth. Any
+of the three can change over the life of the event.;
+#X obj -47 41 get_data_from_structs;
+#N canvas 27 408 510 360 moving-cursor 0;
+#X obj 38 47 struct moving-cursor float x;
+#X obj 39 110 drawnumber x 0 400 449;
+#X obj 37 71 filledpolygon 0 9 1 0 100 2 100 2 800 0 900;
+#X restore 305 183 pd moving-cursor;
+#X obj -47 -36 key_commands;
+#X obj -47 -10 purepd/alternate;
+#X obj -47 -58 tgl 20 1 empty empty key_commands 22 10 1 9 -262144
+-1 -1 1 1;
+#N canvas 0 22 1024 720 HowTo 0;
+#X text -89 5 rigth click->propreties on each scalar;
+#X text -88 32 edit the "template-toplevel x y z \; " line and change
+z value according to thoses right there.;
+#X text -82 278 emerald green = 365 => sinesum;
+#X text -83 204 pink = 944 => detune osc;
+#X text -84 187 yellow = 990 => detuned 3 osc;
+#X text -84 170 magenta = 909 => cz10;
+#X text -86 152 cyan = 99 => cranks;
+#X text -87 135 red = 900 => classic synth;
+#X text -86 115 green = 90 => Bell synth;
+#X text -86 99 blue = 9 => 16waveforms;
+#X text -86 77 grey = 777 => osc~;
+#X text -84 222 olive green = 240 => filtered noise;
+#X text -85 243 lavender = 647 => rain;
+#X text -83 261 apple green = 582 => simpleFM;
+#X text -82 298 parm = 958 => square;
+#X text -83 318 egg = 993 => string synth;
+#X text -82 338 mustard = 750 => ugur phase;
+#X text -82 355 prun = 202 => wind;
+#X text -82 372 orange = 960 => xfm;
+#X text -89 -15 in pd data window;
+#X text 390 164 - You can cut \, copy \, paste \, and duplicate "scalars".
+;
+#X text 390 73 - You can edit the contents of a "scalar" within the
+Properties panel. When you select 'Properties' \, Pd will open a text
+editor with the contents of that "scalar". When you are done editing
+it \, hit "OK" and your changes will take effect.;
+#X text 368 149 In edit mode:;
+#X text 390 180 - You can move "scalars" by clicking and dragging.
+;
+#X text 366 56 In any mode:;
+#X text 372 200 In run mode:;
+#X text 363 3 "scalar" is the basic graphical component of Pd's data
+structures.;
+#X text 365 41 There are numerous ways to manually edit "scalars":
+;
+#X text 391 248 - Move breakpoints: Click near the breakpoint at the
+center of the width of the array \, but not so close that the mouse
+cursor changes to the resize cursor. The mouse cursor will change to
+an inverse arrow.;
+#X text 391 217 - Resize breakpoints: The mouse cursor will change
+to an up-down arrow when you can resize that breakpoint.;
+#X text 391 304 - Add breakpoints: Hold down the Alt key and click
+to the right of the breakpoint at the center of the width of the array.
+The mouse cursor will change to an outline of a + (plus symbol).;
+#X text 391 360 - Delete breakpoints: Hold down the Alt key and click
+to the left of the breakpoint at the center of the width of the array.
+The mouse cursor will change to same black X as when deleting cords.
+;
+#X text 376 420 for more info see 4.data.structures and the related
+docs:;
+#X obj 410 447 pddp/pddplink ../1.manual/x2.htm;
+#X restore 132 -36 pd HowTo;
+#X obj 305 128 declare -path z_dssynthold_abs;
+#X obj 306 153 declare -path z_voicesynold_abs;
+#X connect 3 0 9 0;
+#X connect 4 0 14 0;
+#X connect 5 0 14 0;
+#X connect 7 0 8 0;
+#X connect 8 0 3 0;
+#X connect 14 0 11 0;
+#X connect 16 0 17 0;
+#X connect 17 0 4 0;
+#X connect 17 1 5 0;
+#X connect 18 0 16 0;

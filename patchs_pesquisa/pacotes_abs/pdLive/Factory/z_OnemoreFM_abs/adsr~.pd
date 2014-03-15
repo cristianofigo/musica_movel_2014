@@ -1,0 +1,68 @@
+#N canvas 181 101 554 396 10;
+#N canvas 0 0 800 532 guts 0;
+#X obj 162 253 line~;
+#X msg 162 195 0 \, 1 \$1;
+#X obj 162 170 f;
+#X obj 161 298 *~;
+#X obj 177 142 r \$0-at;
+#X msg 238 198 1 \, \$1 \$2;
+#X obj 238 100 del 200;
+#X obj 139 19 > 0;
+#X obj 139 44 sel 1;
+#X obj 295 49 r \$0-dec;
+#X obj 238 152 pack 0 f f;
+#X obj 363 50 r \$0-sus;
+#X obj 238 174 route 0;
+#X obj 319 178 route 0;
+#X msg 319 202 \$1 \, 0 \$2;
+#X obj 319 153 pack 0 f f;
+#X obj 435 60 r \$0-rel;
+#X obj 160 324 outlet~;
+#X obj 139 -5 inlet;
+#X connect 0 0 3 0;
+#X connect 0 0 3 1;
+#X connect 1 0 0 0;
+#X connect 2 0 1 0;
+#X connect 3 0 17 0;
+#X connect 4 0 2 1;
+#X connect 4 0 6 1;
+#X connect 5 0 0 0;
+#X connect 6 0 10 0;
+#X connect 7 0 8 0;
+#X connect 8 0 2 0;
+#X connect 8 0 6 0;
+#X connect 8 1 15 0;
+#X connect 9 0 10 2;
+#X connect 10 0 12 0;
+#X connect 11 0 10 1;
+#X connect 11 0 15 1;
+#X connect 12 0 5 0;
+#X connect 13 0 14 0;
+#X connect 14 0 0 0;
+#X connect 15 0 13 0;
+#X connect 16 0 15 2;
+#X connect 18 0 7 0;
+#X restore 418 78 pd guts;
+#X obj 418 49 inlet;
+#X obj 417 105 outlet~;
+#X obj 358 71 init;
+#X obj 358 101 pack \$0;
+#X obj 102 102 cnv 15 64 92 empty empty empty 20 12 0 14 -1 -66577
+0;
+#X obj 104 104 cnv 15 60 88 empty empty empty 20 12 0 14 -262144 -66577
+0;
+#X obj 107 118 vsl 12 66 2 1000 0 0 \$0-at \$0-at_r a 0 -9 0 10 -228856
+-1 -1 0 1;
+#X obj 121 118 vsl 12 66 2 1000 0 0 \$0-dec \$0-dec_r d 0 -9 0 10 -191407
+-1 -1 5200 1;
+#X obj 135 118 vsl 12 66 0 1 0 0 \$0-sus \$0-sus_r s 0 -9 0 10 -162280
+-1 -1 2000 1;
+#X obj 149 118 vsl 12 66 0 2000 0 0 \$0-rel \$0-rel_r r 0 -9 0 10 -128992
+-1 -1 5200 1;
+#X msg 358 129 \; \$1-at_r 2 \; \$1-dec_r 1000 \; \$1-sus_r 0.8 \;
+\$1-rel_r 700 \;;
+#X connect 0 0 2 0;
+#X connect 1 0 0 0;
+#X connect 3 0 4 0;
+#X connect 4 0 11 0;
+#X coords 0 -1 1 1 68 96 2 100 100;
