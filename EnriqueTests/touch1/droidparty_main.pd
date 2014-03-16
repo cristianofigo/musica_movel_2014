@@ -1,0 +1,10 @@
+#N struct 1062template-marker float a float b;
+#N canvas 988 191 479 356 10;
+#X obj 165 221 unpack f f;
+#X floatatom 165 243 5 0 0 0 - - -;
+#X floatatom 222 243 5 0 0 0 - - -;
+#X obj 165 200 r test;
+#X obj 135 -13 touch 200 200 test;
+#X connect 0 0 1 0;
+#X connect 0 1 2 0;
+#X connect 3 0 0 0;

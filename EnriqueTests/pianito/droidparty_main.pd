@@ -1,0 +1,82 @@
+#N canvas 1095 246 478 319 10;
+#X obj 21 101 bng 50 250 50 0 do empty empty 17 7 0 10 -262144 -99865
+-1;
+#N canvas 1081 636 465 322 audio 0;
+#X obj 258 175 *~;
+#X floatatom 94 78 0 0 0 0 - - -;
+#X text 320 142 envelope;
+#X text 320 155 generator;
+#X text 256 66 amplitude controls:;
+#X text 255 222 audio output;
+#X text 146 80 change frequency;
+#X text 148 68 incoming numbers;
+#X obj 258 205 dac~;
+#X obj 94 107 osc~ 400;
+#X obj 30 12 loadbang;
+#X msg 30 34 \; pd dsp 1 \;;
+#X obj 138 40 mtof;
+#X msg 137 16 60;
+#X msg 165 17 62;
+#X msg 193 16 64;
+#X msg 221 17 65;
+#X msg 250 17 67;
+#X msg 281 15 69;
+#X msg 344 15 72;
+#X msg 312 16 71;
+#X obj 131 -6 r do;
+#X obj 163 -7 r re;
+#X obj 199 -9 r mi;
+#X obj 231 -10 r fa;
+#X obj 264 -11 r sol;
+#X obj 303 -11 r la;
+#X obj 339 -11 r si;
+#X obj 378 -11 r do4;
+#X obj 272 147 vline~;
+#X msg 272 91 1 100 \, 0 500 100;
+#X connect 0 0 8 0;
+#X connect 0 0 8 1;
+#X connect 1 0 9 0;
+#X connect 9 0 0 0;
+#X connect 10 0 11 0;
+#X connect 12 0 1 0;
+#X connect 13 0 12 0;
+#X connect 13 0 30 0;
+#X connect 14 0 12 0;
+#X connect 14 0 30 0;
+#X connect 15 0 12 0;
+#X connect 15 0 30 0;
+#X connect 16 0 12 0;
+#X connect 16 0 30 0;
+#X connect 17 0 12 0;
+#X connect 17 0 30 0;
+#X connect 18 0 12 0;
+#X connect 18 0 30 0;
+#X connect 19 0 12 0;
+#X connect 19 0 30 0;
+#X connect 20 0 12 0;
+#X connect 20 0 30 0;
+#X connect 21 0 13 0;
+#X connect 22 0 14 0;
+#X connect 23 0 15 0;
+#X connect 24 0 16 0;
+#X connect 25 0 17 0;
+#X connect 26 0 18 0;
+#X connect 27 0 20 0;
+#X connect 28 0 19 0;
+#X connect 29 0 0 1;
+#X connect 30 0 29 0;
+#X restore 289 245 pd audio;
+#X obj 78 101 bng 50 250 50 0 re empty empty 17 7 0 10 -228856 -99865
+-1;
+#X obj 135 101 bng 50 250 50 0 mi empty empty 17 7 0 10 -191407 -99865
+-1;
+#X obj 191 101 bng 50 250 50 0 fa empty empty 17 7 0 10 -261234 -99865
+-1;
+#X obj 246 101 bng 50 250 50 0 sol empty empty 17 7 0 10 -261682 -99865
+-1;
+#X obj 303 101 bng 50 250 50 0 la empty empty 17 7 0 10 -262130 -99865
+-1;
+#X obj 359 101 bng 50 250 50 0 si empty empty 17 7 0 10 -204786 -99865
+-1;
+#X obj 413 101 bng 50 250 50 0 do4 empty empty 17 7 0 10 -204800 -99865
+-1;

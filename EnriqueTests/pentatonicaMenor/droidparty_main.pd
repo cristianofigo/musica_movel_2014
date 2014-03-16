@@ -1,0 +1,110 @@
+#N canvas 1095 246 538 387 10;
+#X obj 31 321 bng 50 250 50 0 E3 empty empty 17 7 0 10 -262144 -99865
+-1;
+#N canvas 1081 636 598 340 audio 0;
+#X obj 258 175 *~;
+#X floatatom 94 78 0 0 0 0 - - -;
+#X text 334 142 envelope;
+#X text 334 155 generator;
+#X text 256 66 amplitude controls:;
+#X text 255 222 audio output;
+#X text 146 80 change frequency;
+#X text 148 68 incoming numbers;
+#X obj 258 205 dac~;
+#X obj 94 107 osc~ 400;
+#X obj 30 12 loadbang;
+#X msg 30 34 \; pd dsp 1 \;;
+#X obj 138 40 mtof;
+#X obj 135 -21 r E3;
+#X obj 167 -22 r G3;
+#X obj 203 -24 r A3;
+#X obj 235 -25 r B3;
+#X obj 268 -26 r D4;
+#X obj 307 -26 r E4;
+#X obj 347 -25 r G4;
+#X obj 386 -25 r A4;
+#X obj 424 -25 r B4;
+#X obj 460 -24 r D5;
+#X obj 496 -24 r E5;
+#X obj 535 -25 r G5;
+#X msg 137 16 52;
+#X msg 165 17 55;
+#X msg 193 16 57;
+#X msg 221 17 59;
+#X msg 250 17 62;
+#X msg 281 15 64;
+#X msg 312 16 67;
+#X msg 344 15 69;
+#X msg 378 15 71;
+#X msg 409 13 74;
+#X msg 440 14 76;
+#X msg 472 14 79;
+#X obj 272 147 vline~;
+#X msg 272 91 1 100 \, 0 400 50;
+#X connect 0 0 8 0;
+#X connect 0 0 8 1;
+#X connect 1 0 9 0;
+#X connect 9 0 0 0;
+#X connect 10 0 11 0;
+#X connect 12 0 1 0;
+#X connect 13 0 25 0;
+#X connect 14 0 26 0;
+#X connect 15 0 27 0;
+#X connect 16 0 28 0;
+#X connect 17 0 29 0;
+#X connect 18 0 30 0;
+#X connect 19 0 31 0;
+#X connect 20 0 32 0;
+#X connect 21 0 33 0;
+#X connect 22 0 34 0;
+#X connect 23 0 35 0;
+#X connect 24 0 36 0;
+#X connect 25 0 12 0;
+#X connect 25 0 38 0;
+#X connect 26 0 12 0;
+#X connect 26 0 38 0;
+#X connect 27 0 12 0;
+#X connect 27 0 38 0;
+#X connect 28 0 12 0;
+#X connect 28 0 38 0;
+#X connect 29 0 12 0;
+#X connect 29 0 38 0;
+#X connect 30 0 12 0;
+#X connect 30 0 38 0;
+#X connect 31 0 12 0;
+#X connect 31 0 38 0;
+#X connect 32 0 12 0;
+#X connect 32 0 38 0;
+#X connect 33 0 12 0;
+#X connect 33 0 38 0;
+#X connect 34 0 12 0;
+#X connect 34 0 38 0;
+#X connect 35 0 12 0;
+#X connect 35 0 38 0;
+#X connect 36 0 12 0;
+#X connect 36 0 38 0;
+#X connect 37 0 0 1;
+#X connect 38 0 37 0;
+#X restore 154 137 pd audio;
+#X obj 347 321 bng 50 250 50 0 G3 empty empty 17 7 0 10 -228856 -99865
+-1;
+#X obj 31 257 bng 50 250 50 0 A3 empty empty 17 7 0 10 -191407 -99865
+-1;
+#X obj 271 257 bng 50 250 50 0 B3 empty empty 17 7 0 10 -261234 -99865
+-1;
+#X obj 31 193 bng 50 250 50 0 D4 empty empty 17 7 0 10 -261682 -99865
+-1;
+#X obj 271 193 bng 50 250 50 0 E4 empty empty 17 7 0 10 -262130 -99865
+-1;
+#X obj 31 129 bng 50 250 50 0 G4 empty empty 17 7 0 10 -204786 -99865
+-1;
+#X obj 271 129 bng 50 250 50 0 A4 empty empty 17 7 0 10 -204800 -99865
+-1;
+#X obj 31 65 bng 50 250 50 0 B4 empty empty 17 7 0 10 -262144 -99865
+-1;
+#X obj 345 65 bng 50 250 50 0 D5 empty empty 17 7 0 10 -228856 -99865
+-1;
+#X obj 31 1 bng 50 250 50 0 E5 empty empty 17 7 0 10 -262144 -99865
+-1;
+#X obj 345 1 bng 50 250 50 0 G5 empty empty 17 7 0 10 -228856 -99865
+-1;
