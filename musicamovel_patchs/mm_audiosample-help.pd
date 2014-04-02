@@ -1,0 +1,114 @@
+#N canvas 133 130 931 567 10;
+#X declare -lib zexy -lib cyclone -lib iemlib;
+#X declare -lib zexy -lib cyclone -lib iemlib;
+#X obj 117 269 cnv 15 220 80 empty empty empty 20 12 0 14 -232576 -66577
+0;
+#X obj 28 25 cnv 15 860 160 empty empty empty 20 12 0 14 -204786 -66577
+0;
+#X obj 128 515 dac~;
+#X obj 128 279 mm_audiosample;
+#X obj 42 66 openpanel;
+#X obj 42 46 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X msg 42 95 caminho \$1;
+#X obj 188 310 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 209 310 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 237 377 prepend set;
+#X msg 237 400 fadeout 1;
+#X msg 128 105 play;
+#X msg 168 105 stop;
+#X msg 78 141 abre;
+#X msg 440 105 loop \$1;
+#X obj 440 85 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X obj 440 132 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X msg 440 152 loopmode \$1;
+#X text 186 326 bang inicio - bang fim;
+#X text 235 418 controles em cascata \, para outros mm_audiosample
+;
+#X obj 168 360 t a a;
+#X obj 168 447 mm_audiosample;
+#X obj 228 473 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 249 473 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 549 84 hsl 128 15 0 1 0 0 empty empty empty -2 -8 0 10 -262144
+-1 -1 0 1;
+#X floatatom 546 131 5 0 0 0 - - -;
+#X obj 549 104 hsl 128 15 0 1 0 0 empty empty empty -2 -8 0 10 -262144
+-1 -1 0 1;
+#X floatatom 616 131 5 0 0 0 - - -;
+#X msg 546 152 inicio \$1;
+#X msg 616 152 fim \$1;
+#X text 226 278 ------ PRINCIPAL;
+#X msg 321 105 pbspeed \$1;
+#X floatatom 321 84 5 0 0 0 - - -;
+#X obj 324 62 hsl 80 15 0.1 5 0 0 empty empty empty -2 -8 0 10 -262144
+-1 -1 0 1;
+#X text 360 84 0.1 - 5;
+#X floatatom 221 84 5 0 0 0 - - -;
+#X obj 224 62 hsl 80 15 0 1 0 0 empty empty empty -2 -8 0 10 -262144
+-1 -1 0 1;
+#X msg 221 105 volume \$1;
+#X text 260 84 0 - 1;
+#X floatatom 711 131 5 0 0 0 - - -;
+#X obj 714 84 hsl 80 15 0 1 0 0 empty empty empty -2 -8 0 10 -262144
+-1 -1 0 1;
+#X text 750 131 0 - 1;
+#X msg 711 152 fadein \$1;
+#X floatatom 801 131 5 0 0 0 - - -;
+#X obj 714 104 hsl 80 15 0 1 0 0 empty empty empty -2 -8 0 10 -262144
+-1 -1 0 1;
+#X text 840 131 0 - 1;
+#X msg 801 152 fadeout \$1;
+#X text 344 30 MENSAGENS QUE O mm_audiosample ACEITA;
+#X obj 78 121 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X obj 128 85 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X obj 168 85 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X connect 3 0 2 0;
+#X connect 3 1 2 1;
+#X connect 3 2 20 0;
+#X connect 3 3 7 0;
+#X connect 3 4 8 0;
+#X connect 4 0 6 0;
+#X connect 5 0 4 0;
+#X connect 6 0 3 0;
+#X connect 9 0 10 0;
+#X connect 11 0 3 0;
+#X connect 12 0 3 0;
+#X connect 13 0 3 0;
+#X connect 14 0 3 0;
+#X connect 15 0 14 0;
+#X connect 16 0 17 0;
+#X connect 17 0 3 0;
+#X connect 20 0 21 0;
+#X connect 20 1 9 0;
+#X connect 21 3 22 0;
+#X connect 21 4 23 0;
+#X connect 24 0 25 0;
+#X connect 25 0 28 0;
+#X connect 26 0 27 0;
+#X connect 27 0 29 0;
+#X connect 28 0 3 0;
+#X connect 29 0 3 0;
+#X connect 31 0 3 0;
+#X connect 32 0 31 0;
+#X connect 33 0 32 0;
+#X connect 35 0 37 0;
+#X connect 36 0 35 0;
+#X connect 37 0 3 0;
+#X connect 39 0 42 0;
+#X connect 40 0 39 0;
+#X connect 42 0 3 0;
+#X connect 43 0 46 0;
+#X connect 44 0 43 0;
+#X connect 46 0 3 0;
+#X connect 48 0 13 0;
+#X connect 49 0 11 0;
+#X connect 50 0 12 0;

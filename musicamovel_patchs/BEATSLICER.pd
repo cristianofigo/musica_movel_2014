@@ -1,0 +1,88 @@
+#N canvas 55 71 727 656 10;
+#X declare -lib zexy -lib cyclone -lib iemlib;
+#X declare -lib zexy -lib cyclone -lib iemlib;
+#X obj 58 475 mm_audiosample;
+#X obj 58 562 dac~;
+#X obj 58 27 mm_randomslice;
+#X msg 86 379 caminho \$1;
+#X obj 86 315 hradio 15 1 0 8 empty empty empty 0 -8 0 10 -262144 -1
+-1 4;
+#X obj 86 334 + 1;
+#X obj 86 355 makefilename audiosamples/drum_%i.wav;
+#X obj 378 562 dac~;
+#X msg 408 379 caminho \$1;
+#X obj 408 315 hradio 15 1 0 8 empty empty empty 0 -8 0 10 -262144
+-1 -1 3;
+#X obj 408 334 + 1;
+#X obj 408 355 makefilename audiosamples/bass_%i.wav;
+#X obj 253 245 hsl 80 15 0 1 0 0 empty empty empty -2 -8 0 10 -262144
+-1 -1 0 1;
+#X msg 250 280 fadein \$1;
+#X obj 253 260 hsl 80 15 0 1 0 0 empty empty empty -2 -8 0 10 -262144
+-1 -1 7900 1;
+#X msg 250 300 fadeout \$1;
+#X obj 378 27 mm_randomslice;
+#X obj 58 -27 tgl 35 0 empty empty empty 17 7 0 10 -258113 -1 -1 0
+1;
+#X obj 250 324 s \$0-control_1;
+#X obj 86 403 r \$0-control_1;
+#X obj 573 245 hsl 80 15 0 1 0 0 empty empty empty -2 -8 0 10 -262144
+-1 -1 0 1;
+#X msg 570 280 fadein \$1;
+#X obj 573 260 hsl 80 15 0 1 0 0 empty empty empty -2 -8 0 10 -262144
+-1 -1 7900 1;
+#X msg 570 300 fadeout \$1;
+#X obj 570 324 s \$0-control_2;
+#X obj 408 403 r \$0-control_2;
+#X msg 486 458 volume \$1;
+#X obj 489 433 hsl 100 20 0 1 0 0 empty empty empty -2 -8 0 10 -4032
+-1 -1 9900 1;
+#X text 103 -17 SINCRONIZA DOIS SLICERS;
+#X msg 607 458 pbspeed \$1;
+#X floatatom 607 440 5 0 0 0 - - -;
+#X msg 166 458 volume \$1;
+#X obj 169 433 hsl 100 20 0 1 0 0 empty empty empty -2 -8 0 10 -4032
+-1 -1 7700 1;
+#X msg 287 458 pbspeed \$1;
+#X floatatom 287 440 5 0 0 0 - - -;
+#X obj 58 507 tg~;
+#X obj 378 507 tg~;
+#X obj 378 475 mm_audiosample;
+#X connect 0 0 35 0;
+#X connect 0 1 35 1;
+#X connect 2 0 0 0;
+#X connect 3 0 0 0;
+#X connect 4 0 5 0;
+#X connect 5 0 6 0;
+#X connect 6 0 3 0;
+#X connect 8 0 37 0;
+#X connect 9 0 10 0;
+#X connect 10 0 11 0;
+#X connect 11 0 8 0;
+#X connect 12 0 13 0;
+#X connect 13 0 18 0;
+#X connect 14 0 15 0;
+#X connect 15 0 18 0;
+#X connect 16 0 37 0;
+#X connect 17 0 2 0;
+#X connect 17 0 16 0;
+#X connect 19 0 0 0;
+#X connect 20 0 21 0;
+#X connect 21 0 24 0;
+#X connect 22 0 23 0;
+#X connect 23 0 24 0;
+#X connect 25 0 37 0;
+#X connect 26 0 37 0;
+#X connect 27 0 26 0;
+#X connect 29 0 37 0;
+#X connect 30 0 29 0;
+#X connect 31 0 0 0;
+#X connect 32 0 31 0;
+#X connect 33 0 0 0;
+#X connect 34 0 33 0;
+#X connect 35 0 1 0;
+#X connect 35 1 1 1;
+#X connect 36 0 7 0;
+#X connect 36 1 7 1;
+#X connect 37 0 36 0;
+#X connect 37 1 36 1;
