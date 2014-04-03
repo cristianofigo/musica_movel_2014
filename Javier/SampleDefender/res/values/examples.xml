@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="samples_label">Escolhe um Sample</string>
+    <string-array name="samples">
+    	<item>cargaSample1</item>
+        <item>cargaSample2</item>
+        <item>cargaSample3</item>
+    </string-array>
+</resources>
