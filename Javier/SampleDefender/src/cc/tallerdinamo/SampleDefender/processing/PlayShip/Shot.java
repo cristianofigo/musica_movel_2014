@@ -17,7 +17,7 @@ public class Shot {
 	boolean flying;
 	public int bufferPos; 
 	public static int bufferOnPlay;
-	boolean som;
+	boolean Playsom;
 	
 	Shot (PApplet _p5, float px, float pyi,float pyf, int _bufferPos) {
 		p5 = _p5;
@@ -31,19 +31,29 @@ public class Shot {
 	    flying = true;
 	    bufferPos = _bufferPos; //posiçāo do som  no Buffer
 	    bufferOnPlay=0;
-	    som = false;
+	    Playsom = false;
 	}
 	
 	public void liveShot(int BufPlayStart, int BufPlayinfEnd) {
-		
+		boolean prevPlaySom = Playsom;
 		if (flying) {
 			posFinal.x = PApplet.map(bufferPos, BufPlayStart, BufPlayinfEnd, 0, p5.width);
 			shootTarget(posFinal.x, posFinal.y);
 		} else {
 			pos.x = PApplet.map(bufferPos, BufPlayStart, BufPlayinfEnd, 0, p5.width);
+			
 		}
-		if (bufferPos == bufferOnPlay)
-			PdBase.sendBang("SomClav01");
+		if (bufferPos > bufferOnPlay) {
+			Playsom = false;
+		} else  {
+			Playsom = true;
+		}
+		if (!prevPlaySom && Playsom)
+			PdBase.sendBang("SomKick01");
+	}
+	
+	public void setPlayingFalse() {
+		Playsom = false;
 	}
 	
 	public void shootTarget(float sx, float sy) {
@@ -72,12 +82,11 @@ public class Shot {
 	    PVector desired = PVector.sub(target,pos);  // A vector pointing from the location to the target
 	    float d = desired.mag();
 	    
-	    if (d < 100) { //escalada a una magnitud variable
-	      float m = PApplet.map (d, 0, 100, 0, maxspeed);
+	    if (d < 10) { //escalada a una magnitud variable
+	      float m = PApplet.map (d, 0, 10, 0, maxspeed);
 	      desired.normalize();
 	      desired.mult(m);
-	      if (d < 10)
-	    	  flying = false;
+	      flying = false;
 	    	  
 	    } else {
 	    	desired.normalize();
@@ -99,7 +108,10 @@ public class Shot {
 		  p5.pushMatrix();
 		  p5.translate(pos.x,pos.y);
 		  p5.rotate(theta);
-		  p5.rect(0, 0, r, r);
+		  if (flying) 
+			  p5.rect(0, 0, r, r);
+		  else
+			  p5.rect(0, 0, r, r*10);
 		  p5.popMatrix();
 	  }
 }

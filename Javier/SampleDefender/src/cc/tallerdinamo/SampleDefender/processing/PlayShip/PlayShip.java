@@ -48,11 +48,12 @@ public class PlayShip {
 		if (soundShots.size() > 1){
 			Shot.bufferOnPlay = (int) buOnPlayd;
 			for (int ind = 0 ; ind < soundShots.size() ; ind++) {
+				//Se o sound Shot fica dentro da tela é desenhado é ativado
 				if (soundShots.get(ind).bufferPos > BufPlayStart &&
 					soundShots.get(ind).bufferPos < BufPlayinfEnd) {
 					soundShots.get(ind).liveShot(BufPlayStart,BufPlayinfEnd);
 					soundShots.get(ind).display();
-				}
+				} 
 				 
 			}
 		}
