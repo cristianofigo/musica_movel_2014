@@ -77,7 +77,7 @@ public class ControlZoom extends ControlDesign {
 		 percentagemZoom = PApplet.constrain( PApplet.map(distEvaluacao, 0, widthDial, .01f, 1 ), .01f, 1);
 //		 Log.d("ControlZoom", Float.toString(distToqueCentro) );
 //		 posBotaoZoom = (widthDial * percentagemZoom);
-		 distToqueCentro = xZoomIn + distEvaluacao;
+		 distToqueCentro = PApplet.constrain((xZoomIn + distEvaluacao), xZoomIn, xZoomOut);
 		 return percentagemZoom;
 	 }
 	 
