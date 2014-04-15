@@ -49,7 +49,7 @@ public class Shot {
 			Playsom = true;
 		}
 		if (!prevPlaySom && Playsom)
-			PdBase.sendBang("SomKick01");
+			PdBase.sendBang("SomClap01"); //SomKick01
 	}
 	
 	public void setPlayingFalse() {

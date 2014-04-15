@@ -15,11 +15,10 @@ public class BufferDraw {
 	public float posSound;
 	public int bufferOnPlay;
 	private float zoomNivel;
-	public float velocidadeSom;
 	
 	BufferDraw (PApplet _p5, float[] bufferArrayIn) {
 		p5 = _p5;
-		zoomNivel=.05f;//o nivel de zoom inicial
+		zoomNivel=.5f;//o nivel de zoom inicial
 		BufferIn = bufferArrayIn;
 		bufferSize = BufferIn.length;
 		drawWidth = p5.width;
@@ -28,15 +27,17 @@ public class BufferDraw {
 		posSound = 0;
 		Bdraw = p5.createGraphics(drawWidth, drawHeight);
 		createBufferDraw();
-		velocidadeSom = 0.502f;
-		PdBase.sendFloat("velLetura", velocidadeSom);
 		bufferOnPlay=0;
 	}
 	
+	public float getMinPercentZoomPosible(){
+		float minP = (float)p5.width / (float)bufferSize;
+		return minP; 
+	}
 	public float getZoomNivel() {
 		return zoomNivel;
 	}
-	public void setZoomNivel(float zoomIn) {
+	public void setZoomNivel(float zoomIn) { //recive uma percentagem de zoom desde ControlZoom
 		zoomNivel = zoomIn;
 	}
 	
@@ -56,6 +57,11 @@ public class BufferDraw {
 			Y1 = PApplet.map(Y1, -1,1, drawHeight, 0);
 			float X2 = PApplet.map(i, 0, bufferSize, 0, drawWidth);
 			Bdraw.line (X1, Y1, X2, Y2);
+		}
+		Bdraw.stroke(120);
+		float horDiv = drawWidth/16;
+		for (int i= 0 ; i < drawWidth ; i+=horDiv ) {
+			Bdraw.line(i, drawHeight, i, 0);
 		}
 		Bdraw.endDraw();
 		p5.popStyle();

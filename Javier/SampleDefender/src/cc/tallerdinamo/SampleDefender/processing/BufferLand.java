@@ -15,16 +15,17 @@ public class BufferLand extends BufferDraw {
 	public int visibleSectionWidth;
 	private float noiseTime;
 	public int posicaoDoPlay;
+	private int SplitSampleWidth;
 	
 	BufferLand(PApplet _p5, float[] bufferArrayIn) {
 		super(_p5, bufferArrayIn);
-		// TODO Auto-generated constructor stub
 		roofLand = new ArrayList<Float>(p5.displayWidth);
 		groundLand = new ArrayList<Float>(p5.displayWidth);
 		centerLand = (int) (p5.displayHeight*.6f); //o centro do desenho
 		landHeight = (int) (p5.displayHeight*.8f); //altura do desenho do Land
 		indexInicio = 0; //Para indicar o inicio do desenho do buffer sengundo a posiçāo do play
 		noiseTime = 0;
+		SplitSampleWidth = bufferSize/16;
 		getRoofGroundLand();
 		
 	}
@@ -55,15 +56,9 @@ public class BufferLand extends BufferDraw {
 	
 	public void editVisibleSection(){
 //		setZoomNivel ( PApplet.map(p5.mouseX, 0, p5.width, .01f, 1) );
-		visibleSectionWidth = (int) (bufferSize*getZoomNivel()); //establece nivel de zoom
-		
-//Muda a VELOCIDADE de letura do SOM
-		velocidadeSom = PApplet.map(getZoomNivel(), .01f, 1, 0.502f, 1);
-		velocidadeSom = PApplet.constrain(velocidadeSom,0.502f, 1);
-		PdBase.sendFloat("velLetura", velocidadeSom);
-
+		visibleSectionWidth = (int) (bufferSize*getZoomNivel()); //set tamanho de zoom
 	}
-	
+
 	public void updateView(){
 		float posMaped = PApplet.map(posSound, 0, drawWidth, 0, bufferSize);
 		float tempIndexIni = posMaped - (visibleSectionWidth / 2);
@@ -79,14 +74,14 @@ public class BufferLand extends BufferDraw {
 	}
 	
 	public void drawLandSection (){
-		float maxSup = landHeight/2;
+		float esqSupEsq = -landHeight/2;
 		float maxInf = landHeight/2;
 		p5.pushMatrix();
 		p5.pushStyle();
-		p5.translate(0,centerLand); //desenho a partir do canto superior esquerdo
+		p5.translate(0,centerLand); 
 		p5.fill(255);
 		p5.noStroke();
-		p5.rect(0, -maxSup, p5.displayWidth, landHeight);
+		p5.rect(0, esqSupEsq, p5.displayWidth, landHeight);//desenho a partir do canto superior esquerdo
 		p5.stroke(255,0,0,50); //a cor da linha
 		p5.line(0, 0, p5.displayWidth, 0);
 		
@@ -113,13 +108,19 @@ public class BufferLand extends BufferDraw {
 		float GroundXVariavel;
 		float GroundYVariavel;
 		float amplitudeMovimento=0;
-		int constMult = 1;
+		int constMult = 1; //resoluçāo do desenho 
 		for (int i = 0 ; i < p5.displayWidth ; i+= constMult){
 			rY1Roof = roofLand.get(indexBuffer) * maxInf;
 			rX1Roof = i;
 			rY1ground = groundLand.get(indexBuffer) * maxInf;
 			rX1ground = i;
-				
+			//Desenho das linheas de diviçāo	
+			if (indexBuffer % SplitSampleWidth <= variableAjusteBuf) {
+				p5.stroke(0,0,255);
+				p5.line(i, esqSupEsq, i, maxInf);
+				p5.stroke(0,100,0);
+			}
+			
 		   //Se o buffer já foi escutado
 			if ( i < posicaoDoPlay) { 
 				//Calculo do Noise
@@ -150,10 +151,10 @@ public class BufferLand extends BufferDraw {
 				}
 			} else { //o buffer ainda nāo foi escutado
 				if (rY1Roof != 0 ) {
-					RoofXVariavel = rX1Roof;//  + amplitudeMovimento;
+					RoofXVariavel = rX1Roof;
 					p5.line (rX1Roof, roofEdge,RoofXVariavel, roofEdge+rY1Roof);
 				} else if (rY1ground != 0) {
-					GroundXVariavel = rX1ground;// + amplitudeMovimento;
+					GroundXVariavel = rX1ground;
 					p5.line (rX1ground, groundEdge,GroundXVariavel, groundEdge+rY1ground);
 				}
 			}

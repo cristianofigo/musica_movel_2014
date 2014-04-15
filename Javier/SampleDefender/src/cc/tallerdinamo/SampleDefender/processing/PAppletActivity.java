@@ -59,8 +59,10 @@ public class PAppletActivity extends PApplet {
 /*		uiControles = new UiControls(this,(width*0.8f),
 				bufferLand.centerLand, bufferLand.landHeight*.4f );*/
 		playShip = new PlayShip(this);
-		controlZoom = new ControlZoom(this,bufferLand.getZoomNivel() );
-		bufferLand.editVisibleSection(); 
+		controlZoom = new ControlZoom(this,bufferLand.getMinPercentZoomPosible() );
+		bufferLand.setZoomNivel(controlZoom.getPercentagemZoom());
+		bufferLand.editVisibleSection();
+		controlZoom.setVelocitySom();
 		background(120);
 	}
 	
@@ -92,7 +94,7 @@ public class PAppletActivity extends PApplet {
 				            bufferLand.indexInicio + bufferLand.visibleSectionWidth);
 		
 		controlZoom.desenhaZoom();
-		
+		controlZoom.updatePercentagemZoomdeSom();//mudanza suave do zoom
 		fill(0);
 		text("fps: "+ (int)fps(), 5, height*.48f);
 	}
@@ -140,11 +142,14 @@ public class PAppletActivity extends PApplet {
 
 	    if (index == 1 && action == 262)
 	    	playShip.newShot(bufferLand.bufferOnPlay, bufferLand.centerLand);
-	    
+	   
 	    controlZoom.activeZoom(x, y);
 		if (controlZoom.isVisible()) {
-			bufferLand.setZoomNivel(controlZoom.settingNivelZoom(x,y) );
+			controlZoom.settingNivelZoom(x,y);
+			controlZoom.setVelocitySom();
+			bufferLand.setZoomNivel(controlZoom.getPercentagemZoom() ); //da uma percentagem de zoom para desenha-lho
 			bufferLand.editVisibleSection();
+			
 		}
 		
 		//forward events
