@@ -2,6 +2,11 @@ package cc.tallerdinamo.SampleDefender.processing;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
 
 import ketai.ui.KetaiGesture;
 
@@ -14,14 +19,16 @@ import org.puredata.core.utils.IoUtils;
 import org.puredata.core.utils.PdDispatcher;
 
 import cc.tallerdinamo.SampleDefender.processing.PlayShip.PlayShip;
+import cc.tallerdinamo.SampleDefender.processing.UIcontrols.ControlParticulas;
 import cc.tallerdinamo.SampleDefender.processing.UIcontrols.ControlZoom;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.widget.Toast;
+
 import processing.core.PApplet;
+import processing.core.PFont;
 
 public class PAppletActivity extends PApplet {
 	PdDispatcher dispatcher = new PdUiDispatcher();
@@ -29,14 +36,18 @@ public class PAppletActivity extends PApplet {
 	KetaiGesture gesture;
 	PlayShip playShip;
 	ControlZoom controlZoom;
+	ControlParticulas controlParticulas;
 	
 	private float[] BufferIn;
 	private int bufferSize;
 	private final String TAG = "SampleAdmin";
 	BufferLand bufferLand;
-	UserInteraction ui;
 	private double pastTime;
 	String SampleIn;
+	PFont font;
+	
+	final int INVALID_POINTER_ID = -1;
+	private MultiTouchP MTlistaPontos; //lista de pontos multiTouch
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -51,18 +62,27 @@ public class PAppletActivity extends PApplet {
 		processingSetup();
 	}
 	void processingSetup() {
+		
+		// The font must be located in the sketch's 
+		// "data" directory to load successfully
+		font = loadFont("MuseoSans-300-48.vlw");
+		textFont(font, 20);
 	//	colorMode(HSB);
 		pastTime = millis();//vai ser o valor para comparar cada novo frame e obter fps
-		ui = new UserInteraction(this);
 		gesture = new KetaiGesture(this);
 		bufferLand = new BufferLand(this, BufferIn);
 /*		uiControles = new UiControls(this,(width*0.8f),
 				bufferLand.centerLand, bufferLand.landHeight*.4f );*/
 		playShip = new PlayShip(this);
+		
 		controlZoom = new ControlZoom(this,bufferLand.getMinPercentZoomPosible() );
+		controlZoom.setVelocitySom();
+		controlParticulas = new ControlParticulas(this);
+		
 		bufferLand.setZoomNivel(controlZoom.getPercentagemZoom());
 		bufferLand.editVisibleSection();
-		controlZoom.setVelocitySom();
+		
+		MTlistaPontos = new MultiTouchP(); //objeto nesta mesma aba que permite o multi touch
 		background(120);
 	}
 	
@@ -77,24 +97,23 @@ public class PAppletActivity extends PApplet {
 //		println ("buffer size: "+BufferIn.length);
 	}
 	public void draw (){
-		/*background (color(map(mouseX, 0,width, 0, 255), 
-				          map(mouseY, 0,height, 0, 255), 255) );*/
-		if (mousePressed) {
-			if (PApplet.abs (bufferLand.centerBufferDraw - mouseY) < (bufferLand.drawHeight/2) ) {
-				bufferLand.editVisibleSection(); 
-			}
-		}
-		bufferLand.pointerPos();
+		
+		bufferLand.bufferDraw();
 		bufferLand.updateView();
 		bufferLand.drawLandSection();
 		bufferLand.windowsSection();
-		ui.setLetureVel(bufferLand.centerLand, bufferLand.drawHeight);
 		playShip.playShipMove(bufferLand.posicaoDoPlay);
 		playShip.updateShots(bufferLand.bufferOnPlay, bufferLand.indexInicio, 
 				            bufferLand.indexInicio + bufferLand.visibleSectionWidth);
+		playShip.updateParticulas();
 		
-		controlZoom.desenhaZoom();
+		
+		controlZoom.desenhaControl();
 		controlZoom.updatePercentagemZoomdeSom();//mudanza suave do zoom
+		bufferLand.setZoomNivel(controlZoom.getPercentagemZoom() ); //da uma percentagem de zoom para desenha-lho
+		bufferLand.editVisibleSection();
+		
+		MTlistaPontos.gerenciadorDeToques();
 		fill(0);
 		text("fps: "+ (int)fps(), 5, height*.48f);
 	}
@@ -114,46 +133,56 @@ public class PAppletActivity extends PApplet {
 	public int sketchHeight() {
 	   return displayHeight;
 	}
-	
-//KETAI
-	public void onTap(float x, float y) {	}
-	public void onDoubleTap(float x, float y) {}
-	public void onLongPress(float x, float y) {}
-	public void onFlick( float x, float y, float px, float py, float v) { }
-	public void onPinch(float x, float y, float d) {}
-	public void onRotate(float x, float y, float angle) {}
-	public void mouseDragged() {}
-	
-	public boolean surfaceTouchEvent(MotionEvent event) {  //(20)
-		//call to keep mouseX and mouseY constants updated
-		super.surfaceTouchEvent(event);
-		  
-		int action = event.getAction(); 
-		float x    = event.getX();
-		float y    = event.getY();
-	  	int index  = action >> MotionEvent.ACTION_POINTER_INDEX_SHIFT;
-	    int id     = event.getPointerId(index);
-/* action:
- * 261 = ACTION_DOWN ; 262 = ACTION_UP
- * index:
- * 0 = primeir toque ; 1 = segundo toque
- */
-//		println ("id MotionEvent:"+id+" action: "+ action+ " index: "+index);
 
-	    if (index == 1 && action == 262)
-	    	playShip.newShot(bufferLand.bufferOnPlay, bufferLand.centerLand);
-	   
-	    controlZoom.activeZoom(x, y);
-		if (controlZoom.isVisible()) {
-			controlZoom.settingNivelZoom(x,y);
-			controlZoom.setVelocitySom();
-			bufferLand.setZoomNivel(controlZoom.getPercentagemZoom() ); //da uma percentagem de zoom para desenha-lho
-			bufferLand.editVisibleSection();
-			
-		}
+//LETURA DE EVENTOS DA TELA / Update do multi touch
+	public boolean surfaceTouchEvent(MotionEvent me) {
+		int action = me.getAction(); 
+		float x    = me.getX();
+		float y    = me.getY();
+		int index  = action >> MotionEvent.ACTION_POINTER_INDEX_SHIFT;	
+		int id     = me.getPointerId(index);
 		
-		//forward events
-		return gesture.surfaceTouchEvent(event);
+	    switch (action & MotionEvent.ACTION_MASK) {
+	    case MotionEvent.ACTION_DOWN: {
+	    	MTlistaPontos.insert(id, x, y);	        
+		    break;
+	    }  
+	   
+        case MotionEvent.ACTION_UP: {
+        	MTlistaPontos.delete(id);
+            break;
+        }
+
+	    case MotionEvent.ACTION_MOVE: {
+	        int numPointers = me.getPointerCount();
+	        for (int i=0; i < numPointers; i++) {
+	          id = me.getPointerId(i);
+	          x  = me.getX(i);
+	          y  = me.getY(i);
+	          MTlistaPontos.update(id, x, y);
+	        }
+		    break;
+	    } 
+        
+	    case MotionEvent.ACTION_POINTER_DOWN: {
+	    	MTlistaPontos.insert(id, x, y);
+	    	break;
+	    }	   
+        
+        case MotionEvent.ACTION_POINTER_UP: {
+        	
+        	MTlistaPontos.delete(id);
+            break;
+        }
+
+        case MotionEvent.ACTION_CANCEL: {
+        	MTlistaPontos.clearMe();
+            id = INVALID_POINTER_ID;
+            break;
+        }
+	    }
+	    
+	    return super.surfaceTouchEvent(me);
 	}
 	
 // PD De aqui para baixo e todo o negocio para o funcionamento de PureData
@@ -244,4 +273,181 @@ public class PAppletActivity extends PApplet {
 		PdBase.release();
 	}
 
+//TEST MULTI TOUCH______________________________________________________________________________---
+	/**
+	 * This class stores all the touch points objects in a Hash List
+	 * and manage them.
+	 */
+	class MultiTouchP {
+		//Uma lista que almacena os pontos com um ID.  Name/value pairs
+		private Map<Integer,Point> hashList;
+		
+		MultiTouchP() {
+			//HashMap Let’s you store and access elements as name/value pairs
+			hashList = new HashMap<Integer,Point>();
+		}
+		
+		public synchronized void gerenciadorDeToques(){
+			Set<Integer> keyList = hashList.keySet();
+			Iterator<Integer> iter = keyList.iterator();
+			int cnt = 0;
+			ArrayList<Point> lista = new ArrayList<Point>();
+			Point anchor = null;
+			while(iter.hasNext()){
+				anchor = hashList.get(iter.next());
+	        	lista.add(anchor);
+				cnt++;
+			}
+			if (lista.size() > 0) {
+//TODO: O control das particulas é só visiel quando tem pressoado o "Play", 
+				switch (cnt){
+				case 1:
+					setControlZoom(lista.get(0).posX, lista.get(0).posY);
+					break;
+				case 2:
+					setParticulasPos(lista.get(1).posX, lista.get(1).posY);
+					setControlZoom(lista.get(0).posX, lista.get(0).posY);
+					break;
+				case 3:
+					setParticulasPos(lista.get(1).posX, lista.get(1).posY);
+					setControlZoom(lista.get(0).posX, lista.get(0).posY);
+					bufferLand.setNovoLoucuraNivel(PApplet.map(lista.get(2).posX, 0, width, 0, 1));
+//					playShip.newShot(bufferLand.bufferOnPlay, bufferLand.centerLand);
+					break;
+				default:
+					
+				}
+			}
+			return;
+		}
+		
+		private void setParticulasPos(float x, float y) {
+			controlParticulas.activeControl(x, y);
+			if (controlParticulas.showControl()){
+				controlParticulas.applyControl(x, y);
+				playShip.setParticulasPos(x, y, controlParticulas.getAngulo(), controlParticulas.getMagnitude());
+			}
+			
+			
+		}
+		private void setControlZoom(float x, float y) {
+			controlZoom.activeControl(x, y);
+			if (controlZoom.showControl()) {
+				controlZoom.applyControl(x,y); //varia o nivel de zoom segundo a posiçāo do botāo
+				controlZoom.setVelocitySom(); //envia a mudança de velocidade a Pd
+				bufferLand.setZoomNivel(controlZoom.getPercentagemZoom() ); //da uma percentagem de zoom para desenha-lho
+				bufferLand.editVisibleSection();//transforma o nivel de zoom na secçāo visivel do jogo
+			}
+			//Pode ver o control da particula
+			controlParticulas.desenhaControl();
+		}
+		
+		public synchronized void drawInfo() {
+	//HashSet Prevents duplicates in the collections, and given an element, can find that element in the collection quickly.
+	        Set<Integer> keyList = hashList.keySet();
+	//Iterator enables you to cycle through a collection, obtaining or removing elements
+	        Iterator<Integer> iter = keyList.iterator();
+	        int cnt = 0;
+	        Point anchor = null;
+	//linkedList: Designed to give better performance when you  insert or delete elements from the middle of the collection 
+	        ArrayList<Point> lista = new ArrayList<Point>();
+	        while(iter.hasNext()){
+	        	anchor = hashList.get(iter.next());
+	        	lista.add(anchor);
+	        	anchor.drawIt();
+	        	cnt++;
+	        }
+	        /*
+	         * We draw now all the lines between nodes
+	         */
+	        if (lista.size() > 1) {
+	        	Object[] arList = lista.toArray();
+
+	        	for (int i = 0; i < arList.length; i++ ) {
+	        		for (int j = i+1; j < arList.length; j++) {
+	        			drawLine((Point) arList[i], (Point) arList[j]);
+	        		}
+	        	}
+	        }
+	        textSize(25);
+	        text("Active elements: " + cnt,10,25);
+
+	        return;
+		}
+
+		synchronized void drawLine(Point a, Point b) {
+			line(a.posX,a.posY,b.posX,b.posY);
+		}
+
+		/**
+		 * Remove item with the given id from the hashed list.
+		 * @param id 
+		 */
+		synchronized void delete(int id) {
+			if ( hashList.get(id) != null )
+				hashList.remove(id);
+		}
+		
+		/**
+		 * Remove all items from the list. This happens when an ACTION_CANCEL event
+		 * occurs.
+		 */
+		synchronized void clearMe() {
+			hashList.clear();
+		}
+
+		/**
+		 * Check if the given ID is in the list, and if not, inserts it.
+		 * @param id
+		 * @param x
+		 * @param y
+		 */
+		synchronized void insert(int id, float x, float y) {
+			if ( hashList.get(id) == null ){
+				hashList.put(id, new Point(id,x,y));
+			}
+				
+		}
+		
+		/**
+		 * Updates the current position of the given ID
+		 * @param id
+		 * @param x
+		 * @param y
+		 */
+		synchronized void update(int id, float x, float y) {
+			hashList.get(id).update(x, y);
+		}
+	}
+	
+	/**
+	 * This class contains the basic attributes that we are going to use
+	 **/
+	class Point {
+		float posX,posY;
+		int pointID;
+		int textSize = 12;
+		
+		Point(int id, float x, float y) {
+			pointID = id;
+			posX    = x;
+			posY    = y;
+		}
+		
+		void update(float x, float y) {
+			posX = x;
+			posY = y;
+		}
+		
+		void drawIt() {
+
+        	fill(120);
+        	textSize(textSize);
+        	ellipse(posX,posY,150,150);
+        	text("X: " + posX + " Y: " + posY, posX-100, posY-100);
+        	text("ID: " + pointID, posX-100, posY-100-textSize);
+        	fill(200);
+        	ellipse(posX,posY,20,20);
+		}
+	}
 }

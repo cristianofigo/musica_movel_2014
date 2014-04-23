@@ -7,9 +7,9 @@ import processing.core.PApplet;
 import processing.core.PVector;
 
 public class ControlZoom extends ControlDesign {
-	private boolean visible;
+//	private boolean visible;
 	PApplet p5;
-	PVector pos;
+//	PVector pos;
 	float xZoomIn;
 	float percentagemZoom;
 	private float percentagemFinal;
@@ -22,40 +22,43 @@ public class ControlZoom extends ControlDesign {
 	private float closestZoom;
 	
 	public ControlZoom (PApplet _p5, float minPercentZoom) {
+		//posiçao base do control
+		super( new PVector (_p5.width*.85f, _p5.height*.6f) );//(p5.width*.5f, p5.height*.96f);)
+		CONTROL_COUNTER++;
 		p5 = _p5;
-		pos = new PVector (p5.width*.5f, p5.height*.96f);
-		xZoomIn = p5.width*.4f; //posiçao esquerda do zoom
+		xZoomIn = pos.x - p5.width*.05f; //posiçao esquerda do zoom
 		percentagemZoom = .5f;
 		percentagemFinal = percentagemZoom;
-		xZoomOut = p5.width*.6f; //posiçao dereita do zoom
+		xZoomOut = pos.x + p5.width*.05f; //posiçao dereita do zoom
 		widthDial = (xZoomOut-xZoomIn); //largura do Dial
 		posBotaoZoom = (widthDial * percentagemZoom); //nivel atual do zoom em pixels
 		distToqueCentro = xZoomIn + posBotaoZoom;  //posiçao do nivel atual de zoom
-		botaoDiam = 30;
+		botaoDiam = 35;
 		closestZoom = minPercentZoom;
 		mappingZoomAndVel (posBotaoZoom);
 		
 		PApplet.println("minPercentZoom: "+ minPercentZoom );
 	}
 	
-	public void desenhaZoom () {
-		
+	@Override
+	public void desenhaControl() {
 		p5.pushStyle();
 		p5.pushMatrix();
 		p5.textAlign(PApplet.CENTER, PApplet.CENTER);
 		p5.translate(0, pos.y);
 		p5.strokeWeight(2);
-		p5.stroke(255);
+		p5.strokeWeight(25);
+		p5.stroke(50);
 		p5.line(xZoomIn, 0, xZoomOut, 0);
-		
+		p5.strokeWeight(1);
 		if (visible) {
-			p5.fill(0);
+			p5.fill(200);
 		} else
-			p5.fill(0,125);
+			p5.fill(255,125);
 		p5.ellipse( distToqueCentro, 0, botaoDiam, botaoDiam);
 		
-		p5.fill(255);
-		p5.text(" <<< ZOOM IN | ZOOM OUT >>> ", p5.width*.5f, (botaoDiam*.3f));
+		p5.fill(255,0,0);
+		p5.text(" <<········>> ", pos.x, 0); //<<< REWIND | PLAY >>>
 		p5.popStyle();
 		p5.popMatrix();
 	}
@@ -64,8 +67,9 @@ public class ControlZoom extends ControlDesign {
 		return pos;
 	}
 	
-	public void activeZoom (float px, float py) {
-		PVector posToque = new PVector (px, pos.y);
+	@Override
+	public	void activeControl (float px, float py) {
+		PVector posToque = new PVector (px, py);
 		PVector posBotao = new PVector (distToqueCentro, pos.y);
 		float distEvaluacao = posToque.dist(posBotao);
 //		Log.d("distEvaluacao", Float.toString(distEvaluacao) );
@@ -74,7 +78,6 @@ public class ControlZoom extends ControlDesign {
 		} else {
 			visible = false;
 		}
-		
 //		Log.d("ControlZoom visible: ", Boolean.toString(visible) );
 	}
 	
@@ -86,55 +89,56 @@ public class ControlZoom extends ControlDesign {
 		return percentagemZoom;
 	}
 	
-	public void settingNivelZoom(float px, float py) {
+	@Override
+	public void applyControl(float px, float py) {
 		 PVector posToque = new PVector (px,  pos.y); //so comparamos a posiçāo X
 		 PVector posInicial = new PVector (xZoomIn, pos.y);
-		 float distEvaluacao = posToque.dist(posInicial); //posiçao do toque desde a esquena esquerda do Dial
+		 float distEvaluacao;
+		 if (px > xZoomIn) {
+			distEvaluacao = posToque.dist(posInicial) ; //posiçao do toque desde a esquerda do Dial
+		 } else {
+			 distEvaluacao = 0;
+		 }
 		 mappingZoomAndVel (distEvaluacao);
 	}
 	
 	//Setting da velocidade de letura. Segundo a posiçao do Zoom representado na percentagemZoom
 	private void mappingZoomAndVel (float valToMap) {
-		float thresholdStop = widthDial*.2f; //limiar onde muda direçao do Play
-//		PApplet.println("valToMap: "+valToMap);
-
-		 if (valToMap < thresholdStop) {
-			 percentagemFinal = PApplet.constrain( PApplet.map(valToMap, 0, thresholdStop, .25f, closestZoom ), closestZoom, .25f);
-			 velocidadeSom = PApplet.map(percentagemZoom, .25f, closestZoom, .45f, .5f);
-		 } else if (valToMap > thresholdStop){
-			 percentagemFinal = PApplet.constrain( PApplet.map(valToMap, thresholdStop, widthDial, closestZoom, 1 ), closestZoom, 1);
-			 velocidadeSom = PApplet.map(percentagemZoom, closestZoom, 1, .5f, .75f);
-		 } 
-		 if ( PApplet.abs(valToMap - thresholdStop) < widthDial*.05 ) {
-			 velocidadeSom = .5f;
+		float thresholdStopI = widthDial*.05f; //limiar onde muda direçao do Play
+		float thresholdStopII = widthDial*.65f; //limiar onde pega maior velocidade o play
+		
+		 if (valToMap < thresholdStopI) { //play para atras
+//			 PApplet.println("valToMap: A: " + valToMap);
+			 percentagemFinal = closestZoom;
+			 velocidadeSom = PApplet.constrain( PApplet.map(valToMap, 0, thresholdStopI, .495f, .5f ), .497f, .5f);
+		 } else {
+			 if (valToMap < thresholdStopII) { //Play na frente
+//				   PApplet.println("valToMap: B: " + valToMap + " thresholdStopII: "+thresholdStopII);
+		 		   percentagemFinal = PApplet.constrain( PApplet.map(valToMap, thresholdStopI, 
+		 				 				thresholdStopII, closestZoom, .01f ), closestZoom, .01f);
+		 		   velocidadeSom = PApplet.constrain(PApplet.map(percentagemZoom, closestZoom, .01f, .5f, .505f), .5f, .505f);
+		     } else if (valToMap > thresholdStopII) {
+//				   PApplet.println("valToMap: C: " + valToMap);
+				   percentagemFinal = PApplet.constrain( PApplet.map(valToMap, thresholdStopII, widthDial, .01f, 1 ), .01f, 1);
+				   velocidadeSom = PApplet.constrain(PApplet.map(percentagemZoom, .01f, 1, .505f, .75f), .505f, .75f);
+			 } 
 		 }
-//		 else if (valToMap > widthDial*.2f) {
-//			 percentagemZoom = PApplet.constrain( PApplet.map(valToMap, widthDial*.35f, widthDial, .01f, 1 ), .01f, 1);
-//			 velocidadeSom = PApplet.map(percentagemZoom, .01f, 1, .5f, .75f);
-//		 } else {
-//			 percentagemZoom = .01f;//PApplet.constrain( PApplet.map(distEvaluacao, 0, widthDial, .01f, 1 ), .01f, 1);
-//			 velocidadeSom = .5f;
-//		 }
 		 
 		 updatePercentagemZoomdeSom();
-		 posBotaoZoom = (widthDial * percentagemZoom);
+		 posBotaoZoom = valToMap; //(widthDial * percentagemZoom);
 		 distToqueCentro = xZoomIn + posBotaoZoom;
-		 distToqueCentro = PApplet.constrain((xZoomIn + valToMap), xZoomIn, xZoomOut);
+		 distToqueCentro = PApplet.constrain(distToqueCentro, xZoomIn, xZoomOut);
 	}
 	
 	public void updatePercentagemZoomdeSom () {
-		percentagemZoom = percentagemFinal;
-		//PApplet.abs(PApplet.lerp(percentagemZoom, percentagemFinal , .1f) );
+//		percentagemZoom = percentagemFinal;
+		percentagemZoom = PApplet.lerp(percentagemZoom, percentagemFinal , .1f); //amortece o movimento do zoom
 //		PApplet.println("percentagemZoom: " + percentagemZoom + " percentagemAmortecedor: "+ percentagemAmortecedor);
 	}
 	
 	@Override
-	boolean showControl() {
+	public boolean showControl() {
 		// TODO Auto-generated method stub
-		return visible;
-	}
-
-	public boolean isVisible() {
 		return visible;
 	}
 

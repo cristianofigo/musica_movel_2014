@@ -15,6 +15,12 @@ public class BufferDraw {
 	public float posSound;
 	public int bufferOnPlay;
 	private float zoomNivel;
+	private int numOfSections;
+	private int[] cortinaDeSecoes;
+	private float loucuraNivel; //a porcentagem de probab. para as seçōes soar bagunçadas
+	private int actualIndexSection; //O segmento do buffer que esta sendo escutado
+	private int SplitSampleWidth; //largura do sample dividido 
+	private float VelCortina;
 	
 	BufferDraw (PApplet _p5, float[] bufferArrayIn) {
 		p5 = _p5;
@@ -26,19 +32,45 @@ public class BufferDraw {
 		centerBufferDraw = drawHeight/2;
 		posSound = 0;
 		Bdraw = p5.createGraphics(drawWidth, drawHeight);
-		createBufferDraw();
+		
+		numOfSections = 32;
+		loucuraNivel = .1f;
+		actualIndexSection = 0;
+		
+		SplitSampleWidth = bufferSize/numOfSections;
 		bufferOnPlay=0;
+		cortinaDeSecoes = new int[numOfSections];
+		setVelCortina();
+		for (int i = 0 ; i < cortinaDeSecoes.length ; i++)
+			cortinaDeSecoes[i] = 0;
+		
+		createBufferDraw();
 	}
 	
-	public float getMinPercentZoomPosible(){
-		float minP = (float)p5.width / (float)bufferSize;
-		return minP; 
+	public void bufDraw () {
+		p5.image(Bdraw, 0, 0);
+		
+		p5.pushStyle();
+		p5.noStroke();
+		float tempW = drawWidth / numOfSections;
+		for (int i = 0 ; i < numOfSections ; i++){
+			p5.fill(0,cortinaDeSecoes[i]);
+			p5.rect(i*tempW, 0, tempW, drawHeight);
+		}
+		p5.popStyle();
 	}
-	public float getZoomNivel() {
-		return zoomNivel;
+	
+	public void bufferDraw() {
+		bufDraw();
+		pointerPos();
 	}
-	public void setZoomNivel(float zoomIn) { //recive uma percentagem de zoom desde ControlZoom
-		zoomNivel = zoomIn;
+	
+	private void pointerPos(){
+		p5.pushStyle();
+		p5.stroke(255,0,0);
+		p5.strokeWeight(3);
+		p5.line(posSound, 0, posSound, drawHeight*.2f); //desenho do ponto de audio
+		p5.popStyle();
 	}
 	
 	private void createBufferDraw(){
@@ -59,7 +91,7 @@ public class BufferDraw {
 			Bdraw.line (X1, Y1, X2, Y2);
 		}
 		Bdraw.stroke(120);
-		float horDiv = drawWidth/16;
+		float horDiv = drawWidth/numOfSections;
 		for (int i= 0 ; i < drawWidth ; i+=horDiv ) {
 			Bdraw.line(i, drawHeight, i, 0);
 		}
@@ -67,20 +99,72 @@ public class BufferDraw {
 		p5.popStyle();
 		p5.popMatrix();
 	}
+	
+	public void updateNewSectionOnPlay () {
+		//Determinar em qual secçāo do buffer esta
+		if ( (int) (bufferOnPlay / SplitSampleWidth) != actualIndexSection) {
+			actualIndexSection = (int) (bufferOnPlay / SplitSampleWidth);
+//ESCOLHA DA SEÇAO SEGUINTE
+			float choice = p5.random(1); 
+			if (choice < loucuraNivel ) { //porcentagem de probabilidades para escolher a seçāo seguinte
+				int randomNewPos = (int) p5.random(numOfSections);
+			//se calcula o ponto exato para a nova posiçāo do play. o segmento + a posiçāo avançada
+				float newStartPos = (float)(randomNewPos*SplitSampleWidth) + (bufferOnPlay%SplitSampleWidth);
+				newStartPos = newStartPos / bufferSize;
+				PdBase.sendFloat("voltaCero",newStartPos);
+				setPosSound(newStartPos);
+				actualIndexSection = randomNewPos;
+			} else {
+				int randomNewPos = actualIndexSection;
+				//se calcula o ponto exato para a nova posiçāo do play. o segmento + a posiçāo avançada
+				float newStartPos = (float)(randomNewPos*SplitSampleWidth) + (bufferOnPlay%SplitSampleWidth);
+				newStartPos = newStartPos / bufferSize;
+				PdBase.sendFloat("voltaCero",newStartPos);
+				setPosSound(newStartPos);
+				actualIndexSection = randomNewPos;
+			}
+			cortinaDeSecoes[actualIndexSection] = 0;
+		}
+		
+		upDateCortinasDeSecoes(); //mudam de intensidade os retangulos pretos sobre cada seçāo
+	}
+	
+	public void upDateCortinasDeSecoes() {
+		setVelCortina();
+		for (int i = 0 ; i < cortinaDeSecoes.length ; i++) {
+			cortinaDeSecoes[i]+=VelCortina;
+			PApplet.constrain(cortinaDeSecoes[i], 0, 255);
+		}
+		cortinaDeSecoes[actualIndexSection] = 0;
+	}
+	private void setVelCortina(){
+		VelCortina = PApplet.map(zoomNivel, 0, 1, 1, 3);
+	}
+	
+	public int getSplitSampleWidth(){
+		return SplitSampleWidth;
+	}
+	public int getNumOfSections() {
+		return numOfSections;
+	}
+	public float getMinPercentZoomPosible(){
+		float minP = (float)p5.width / (float)bufferSize;
+		return minP; 
+	}
+	public float getZoomNivel() {
+		return zoomNivel;
+	}
+	public int getActualIndexSection(){
+		return actualIndexSection;
+	}
 	public void setPosSound(float x) {
 		posSound = PApplet.map(x, 0, 1, 0, drawWidth);
 		bufferOnPlay = (int) PApplet.map(x, 0, 1, 0, bufferSize);
 	}
-	public void bufDraw () {
-		p5.image(Bdraw, 0, 0);
+	public void setNovoLoucuraNivel (float n) {
+		loucuraNivel = n;
 	}
-	public void pointerPos(){
-		bufDraw();
-		p5.pushStyle();
-		p5.stroke(255,0,0);
-		p5.strokeWeight(3);
-		p5.line(posSound, 0, posSound, drawHeight*.2f); //desenho do ponto de audio
-		p5.popStyle();
+	public void setZoomNivel(float zoomIn) { //recive uma percentagem de zoom desde ControlZoom
+		zoomNivel = zoomIn;
 	}
-	
 }
