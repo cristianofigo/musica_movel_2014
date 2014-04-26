@@ -21,7 +21,10 @@ import org.puredata.core.utils.PdDispatcher;
 import cc.tallerdinamo.SampleDefender.processing.PlayShip.PlayShip;
 import cc.tallerdinamo.SampleDefender.processing.UIcontrols.ControlParticulas;
 import cc.tallerdinamo.SampleDefender.processing.UIcontrols.ControlZoom;
+import cc.tallerdinamo.SampleDefender.processing.buffergraphic.BufferLand;
 
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -96,6 +99,7 @@ public class PAppletActivity extends PApplet {
 		PdBase.readArray(BufferIn, 0, "array1", 0, bufferSize);
 //		println ("buffer size: "+BufferIn.length);
 	}
+	
 	public void draw (){
 		
 		bufferLand.bufferDraw();
@@ -107,7 +111,7 @@ public class PAppletActivity extends PApplet {
 				            bufferLand.indexInicio + bufferLand.visibleSectionWidth);
 		playShip.updateParticulas();
 		
-		
+		controlParticulas.desenhaControl();
 		controlZoom.desenhaControl();
 		controlZoom.updatePercentagemZoomdeSom();//mudanza suave do zoom
 		bufferLand.setZoomNivel(controlZoom.getPercentagemZoom() ); //da uma percentagem de zoom para desenha-lho
@@ -303,10 +307,11 @@ public class PAppletActivity extends PApplet {
 				switch (cnt){
 				case 1:
 					setControlZoom(lista.get(0).posX, lista.get(0).posY);
+					setParticulasPos(lista.get(0).posX, lista.get(0).posY);
 					break;
 				case 2:
+					setControlZoom(lista.get(1).posX, lista.get(1).posY);
 					setParticulasPos(lista.get(1).posX, lista.get(1).posY);
-					setControlZoom(lista.get(0).posX, lista.get(0).posY);
 					break;
 				case 3:
 					setParticulasPos(lista.get(1).posX, lista.get(1).posY);
@@ -326,7 +331,7 @@ public class PAppletActivity extends PApplet {
 			if (controlParticulas.showControl()){
 				controlParticulas.applyControl(x, y);
 				playShip.setParticulasPos(x, y, controlParticulas.getAngulo(), controlParticulas.getMagnitude());
-			}
+			} 
 			
 			
 		}
@@ -338,8 +343,7 @@ public class PAppletActivity extends PApplet {
 				bufferLand.setZoomNivel(controlZoom.getPercentagemZoom() ); //da uma percentagem de zoom para desenha-lho
 				bufferLand.editVisibleSection();//transforma o nivel de zoom na secçāo visivel do jogo
 			}
-			//Pode ver o control da particula
-			controlParticulas.desenhaControl();
+			
 		}
 		
 		public synchronized void drawInfo() {
