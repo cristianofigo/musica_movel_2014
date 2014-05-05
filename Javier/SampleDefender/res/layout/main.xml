@@ -31,9 +31,57 @@
         android:id="@+id/samplespinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/button1"
+        android:layout_centerHorizontal="true"
         android:layout_below="@+id/button1"
         android:layout_marginTop="15dp"
-        android:textSize="20dp" />
+        android:textSize="20dp" 
+        android:text="HOLA!!!!!!!"/>
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/splitGroup"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="36dp"
+        android:textSize="20dp" 
+        android:text="numero de cortes no Sample" />
+    
+    <RadioGroup
+        android:id="@+id/splitGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/samplespinner"
+        android:layout_marginTop="64dp"
+        android:orientation="horizontal" >
+
+        <RadioButton
+            android:id="@+id/split4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="4" />
+
+        <RadioButton
+            android:id="@+id/split8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="8" />
+
+        <RadioButton
+            android:id="@+id/split16"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="16" />
+
+        <RadioButton
+            android:id="@+id/split32"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="32" />
+    </RadioGroup>
+
+    
 
 </RelativeLayout>

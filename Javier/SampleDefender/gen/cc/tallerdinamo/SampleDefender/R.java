@@ -34,10 +34,16 @@ public final class R {
         public static final int icon=0x7f020001;
     }
     public static final class id {
-        public static final int action_settings=0x7f0b0003;
+        public static final int action_settings=0x7f0b0009;
         public static final int button1=0x7f0b0001;
         public static final int samplespinner=0x7f0b0002;
+        public static final int split16=0x7f0b0007;
+        public static final int split32=0x7f0b0008;
+        public static final int split4=0x7f0b0005;
+        public static final int split8=0x7f0b0006;
+        public static final int splitGroup=0x7f0b0004;
         public static final int textView1=0x7f0b0000;
+        public static final int textView2=0x7f0b0003;
     }
     public static final class layout {
         public static final int main=0x7f030000;

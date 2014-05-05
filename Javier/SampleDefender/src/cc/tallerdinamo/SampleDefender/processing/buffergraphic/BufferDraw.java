@@ -15,7 +15,7 @@ public class BufferDraw {
 	public float posSound;
 	public int bufferOnPlay;
 	private float zoomNivel;
-	private int numOfSections;
+	private static int numOfSections;
 	private int[] cortinaDeSecoes;
 	private float loucuraNivel; //a porcentagem de probab. para as seçōes soar bagunçadas
 	private int actualIndexSection; //O segmento do buffer que esta sendo escutado
@@ -33,7 +33,6 @@ public class BufferDraw {
 		posSound = 0;
 		Bdraw = p5.createGraphics(drawWidth, drawHeight);
 		
-		numOfSections = 32;
 		loucuraNivel = .1f;
 		actualIndexSection = 0;
 		
@@ -46,7 +45,9 @@ public class BufferDraw {
 		
 		createBufferDraw();
 	}
-	
+	public static void setNumOfSections(int ss){
+		numOfSections = ss;
+	}
 	public void bufDraw () {
 		p5.image(Bdraw, 0, 0);
 		

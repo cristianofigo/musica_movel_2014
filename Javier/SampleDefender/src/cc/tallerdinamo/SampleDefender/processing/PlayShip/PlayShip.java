@@ -14,7 +14,9 @@ public class PlayShip {
 	float r;
 	float maxforce;    // Maximum steering force
 	float maxspeed;    // Maximum speed
-	ArrayList<Shot> soundShots;
+	float ang;
+	ArrayList<PermanentShoot> soundShots;
+	ArrayList <Projetil> projetiles;
 	
 	public PlayShip(PApplet _p5) {
 		p5 = _p5;
@@ -22,26 +24,36 @@ public class PlayShip {
 	    r = 7;
 	    maxspeed = 9;
 	    maxforce = .5f;
-	    soundShots = new ArrayList<Shot>();
+	    soundShots = new ArrayList<PermanentShoot>();
+	    projetiles = new ArrayList<Projetil>();
 	    particulaA = new Particula (p5);
+	    ang = PApplet.PI/2;
 	}
 	
+	public void setAnglePlay(float newAng) {
+		ang = newAng;
+	}
 	public void newShot(int _bufferPos, int centerLand) {
-		soundShots.add(new Shot(p5, pos.x, pos.y, centerLand+150, _bufferPos));
+		soundShots.add(new PermanentShoot(p5, pos.x, pos.y, centerLand+150, _bufferPos));
 //		PApplet.println("shots count: "+ soundShots.size() );
 	}
 	
+	public void newProjetil(PVector PosIni, float anguloTiro, float magnitudeDoTiro) {
+		anguloTiro = anguloTiro+PApplet.PI;
+		projetiles.add(new Projetil(p5, PosIni.x, PosIni.y, anguloTiro, magnitudeDoTiro ) );
+//		PApplet.println("shots count: "+ soundShots.size() );
+	}
 	public void setPosShipIni() {
 		pos = new PVector (0, pos.y);
 	}
 	
-	public void playShipMove(int posS) {
+	public void updatePlayShip(int posS) {
 		pos = new PVector (posS, pos.y);
 		display();
 	}
 	public void updateShots(float buOnPlayd, int BufPlayStart, int BufPlayinfEnd){
 		if (soundShots.size() > 1){
-			Shot.bufferOnPlay = (int) buOnPlayd;
+			PermanentShoot.bufferOnPlay = (int) buOnPlayd;
 			for (int ind = 0 ; ind < soundShots.size() ; ind++) {
 				//Se o sound Shot fica dentro da tela é desenhado é ativado
 				if (soundShots.get(ind).bufferPos > BufPlayStart &&
@@ -50,6 +62,30 @@ public class PlayShip {
 					soundShots.get(ind).display();
 				} 
 			}
+		}
+		
+		//Se tem prjetiles pra desenhar
+		if (projetiles.size() > 1) {
+			for (int ind = projetiles.size()-1 ; ind > 0  ; ind--) {
+				if (projetiles.get(ind).isAlive()) {
+					//Calculo de gravidade
+					PVector gravity;
+					if (projetiles.get(ind).getStartPoint().y > pos.y)
+						gravity = new PVector (0, -0.3f);
+					else
+						gravity = new PVector (0, 0.3f);
+				    gravity.mult(projetiles.get(ind).getMasaDoProjetil()); //multiplica a masa que depois divide dentro de Projetil
+				    projetiles.get(ind).applyForce(gravity);
+				    
+				    //update
+					projetiles.get(ind).update();
+					projetiles.get(ind).desenha();
+				} else {
+					projetiles.remove(ind);
+				}
+				
+			}
+			
 		}
 	}
 	
@@ -74,7 +110,7 @@ public class PlayShip {
 		  p5.strokeWeight(2);
 		  p5.pushMatrix();
 		  p5.translate(pos.x,pos.y);
-		  p5.rotate(PApplet.PI/2);
+		  p5.rotate(ang);
 		  p5.beginShape();
 		  p5.vertex(0, -r*2);
 		  p5.vertex(-r, r*2);

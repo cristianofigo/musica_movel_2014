@@ -21,6 +21,7 @@ import org.puredata.core.utils.PdDispatcher;
 import cc.tallerdinamo.SampleDefender.processing.PlayShip.PlayShip;
 import cc.tallerdinamo.SampleDefender.processing.UIcontrols.ControlParticulas;
 import cc.tallerdinamo.SampleDefender.processing.UIcontrols.ControlZoom;
+import cc.tallerdinamo.SampleDefender.processing.buffergraphic.BufferDraw;
 import cc.tallerdinamo.SampleDefender.processing.buffergraphic.BufferLand;
 
 import android.app.FragmentManager;
@@ -48,7 +49,7 @@ public class PAppletActivity extends PApplet {
 	private double pastTime;
 	String SampleIn;
 	PFont font;
-	
+	private int numberOfSplitSections;
 	final int INVALID_POINTER_ID = -1;
 	private MultiTouchP MTlistaPontos; //lista de pontos multiTouch
 	
@@ -57,6 +58,7 @@ public class PAppletActivity extends PApplet {
 	   super.onCreate(savedInstanceState);
 	   Bundle extras=getIntent().getExtras();
 	   SampleIn=extras.getString("SampleToView");
+	   numberOfSplitSections = extras.getInt("SplitSection");
 	   }
 	
 	public void setup () {
@@ -73,7 +75,9 @@ public class PAppletActivity extends PApplet {
 	//	colorMode(HSB);
 		pastTime = millis();//vai ser o valor para comparar cada novo frame e obter fps
 		gesture = new KetaiGesture(this);
+		BufferDraw.setNumOfSections(numberOfSplitSections);
 		bufferLand = new BufferLand(this, BufferIn);
+		
 /*		uiControles = new UiControls(this,(width*0.8f),
 				bufferLand.centerLand, bufferLand.landHeight*.4f );*/
 		playShip = new PlayShip(this);
@@ -106,10 +110,8 @@ public class PAppletActivity extends PApplet {
 		bufferLand.updateView();
 		bufferLand.drawLandSection();
 		bufferLand.windowsSection();
-		playShip.playShipMove(bufferLand.posicaoDoPlay);
-		playShip.updateShots(bufferLand.bufferOnPlay, bufferLand.indexInicio, 
-				            bufferLand.indexInicio + bufferLand.visibleSectionWidth);
-		playShip.updateParticulas();
+		
+		
 		
 		controlParticulas.desenhaControl();
 		controlZoom.desenhaControl();
@@ -118,6 +120,12 @@ public class PAppletActivity extends PApplet {
 		bufferLand.editVisibleSection();
 		
 		MTlistaPontos.gerenciadorDeToques();
+		
+		playShip.updatePlayShip(bufferLand.posicaoDoPlay);
+		playShip.updateShots(bufferLand.bufferOnPlay, bufferLand.indexInicio, 
+				            bufferLand.indexInicio + bufferLand.visibleSectionWidth);
+		playShip.updateParticulas();
+		
 		fill(0);
 		text("fps: "+ (int)fps(), 5, height*.48f);
 	}
@@ -286,6 +294,9 @@ public class PAppletActivity extends PApplet {
 		//Uma lista que almacena os pontos com um ID.  Name/value pairs
 		private Map<Integer,Point> hashList;
 		
+		//O arrary onde vāo ficar o etado de cada um dos 'botōes' que serāo ocupados
+		int[] IndexDeToques = new int[3];
+		
 		MultiTouchP() {
 			//HashMap Let’s you store and access elements as name/value pairs
 			hashList = new HashMap<Integer,Point>();
@@ -294,6 +305,10 @@ public class PAppletActivity extends PApplet {
 		public synchronized void gerenciadorDeToques(){
 			Set<Integer> keyList = hashList.keySet();
 			Iterator<Integer> iter = keyList.iterator();
+			int[] IndexTemp = new int[3];
+			for (int i = 0 ; i < 3 ; i++)
+				IndexTemp[i] = IndexDeToques[i];
+			
 			int cnt = 0;
 			ArrayList<Point> lista = new ArrayList<Point>();
 			Point anchor = null;
@@ -306,44 +321,70 @@ public class PAppletActivity extends PApplet {
 //TODO: O control das particulas é só visiel quando tem pressoado o "Play", 
 				switch (cnt){
 				case 1:
-					setControlZoom(lista.get(0).posX, lista.get(0).posY);
-					setParticulasPos(lista.get(0).posX, lista.get(0).posY);
+					IndexDeToques[1] = setControlZoom(lista.get(0).posX, lista.get(0).posY, 0);
+					IndexDeToques[0] = setParticulasPos(lista.get(0).posX, lista.get(0).posY, 0) ;
 					break;
 				case 2:
-					setControlZoom(lista.get(1).posX, lista.get(1).posY);
-					setParticulasPos(lista.get(1).posX, lista.get(1).posY);
+					IndexDeToques[0] = setParticulasPos(lista.get(1).posX, lista.get(1).posY, 1); 
+					if ( IndexDeToques[0] == -1)
+						IndexDeToques[0] = setParticulasPos(lista.get(0).posX, lista.get(0).posY, 0); 
+					
+					IndexDeToques[1] = setControlZoom(lista.get(1).posX, lista.get(1).posY, 1);
+					if ( IndexDeToques[1] == -1) 
+						IndexDeToques[1] = setControlZoom(lista.get(0).posX, lista.get(0).posY, 0);
 					break;
 				case 3:
-					setParticulasPos(lista.get(1).posX, lista.get(1).posY);
-					setControlZoom(lista.get(0).posX, lista.get(0).posY);
+					setParticulasPos(lista.get(2).posX, lista.get(2).posY, 2);
+					setControlZoom(lista.get(0).posX, lista.get(0).posY, 2);
 					bufferLand.setNovoLoucuraNivel(PApplet.map(lista.get(2).posX, 0, width, 0, 1));
 //					playShip.newShot(bufferLand.bufferOnPlay, bufferLand.centerLand);
 					break;
 				default:
-					
 				}
+			} else {
+				IndexDeToques[1] = -1;
+				IndexDeToques[0] = -1;
 			}
+			
+			//Avaliação de quando começa o touch de cada control
+			if (IndexDeToques[0] != -1 && IndexTemp[0] == -1) { //o index 0 
+					
+					
+			}
+			
+			//Avaliação de quando termina o touch de cada control
+			if (IndexDeToques[0] == -1 && IndexTemp[0] != -1) {
+					playShip.newProjetil( controlParticulas.getProjectilPos(), 
+						controlParticulas.getGlobalAngulo(), 
+						controlParticulas.getMagnitude() );
+				
+					playShip.setAnglePlay( PI/2 );
+					controlParticulas.ShootReset();
+			}
+//			println("IndexDeToques: " +IndexDeToques);
 			return;
 		}
 		
-		private void setParticulasPos(float x, float y) {
+		private int setParticulasPos(float x, float y, int index) {
 			controlParticulas.activeControl(x, y);
 			if (controlParticulas.showControl()){
 				controlParticulas.applyControl(x, y);
 				playShip.setParticulasPos(x, y, controlParticulas.getAngulo(), controlParticulas.getMagnitude());
+				playShip.setAnglePlay(controlParticulas.getAngulo());
+				return index;
 			} 
-			
-			
+			return -1;
 		}
-		private void setControlZoom(float x, float y) {
+		private int setControlZoom(float x, float y, int index) {
 			controlZoom.activeControl(x, y);
 			if (controlZoom.showControl()) {
 				controlZoom.applyControl(x,y); //varia o nivel de zoom segundo a posiçāo do botāo
 				controlZoom.setVelocitySom(); //envia a mudança de velocidade a Pd
 				bufferLand.setZoomNivel(controlZoom.getPercentagemZoom() ); //da uma percentagem de zoom para desenha-lho
 				bufferLand.editVisibleSection();//transforma o nivel de zoom na secçāo visivel do jogo
-			}
-			
+				return index;
+			} 
+			return -1;
 		}
 		
 		public synchronized void drawInfo() {

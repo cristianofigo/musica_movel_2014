@@ -66,6 +66,7 @@ public class BufferLand extends BufferDraw {
 	public void editVisibleSection(){
 //		setZoomNivel ( PApplet.map(p5.mouseX, 0, p5.width, .01f, 1) );
 		visibleSectionWidth = (int) (bufferSize*getZoomNivel()); //set tamanho de zoom
+		Portal.setPortalStrokeWeigth( getZoomNivel() ); //set tamanho das linhas nos portales segundo  o zoom
 	}
 	
 	public void updateView(){
@@ -152,7 +153,7 @@ public class BufferLand extends BufferDraw {
 				p5.noStroke();
 				p5.rect(i, bordeSup, sectionWidth, landHeight);//desenho a partir do canto superior esquerdo*
 				int temporalActualSec = (indexBuffer / getSplitSampleWidth()) ;
-				insertSampleSectionBoss(i, temporalActualSec);
+				insertSampleSectionBoss(i, temporalActualSec); //Desenho das linheas de diviçāo
 				p5.stroke(255);
 			}
 			
@@ -216,8 +217,9 @@ public class BufferLand extends BufferDraw {
 	}
 	
 	public void insertSampleSectionBoss(float posX, int actualSection) {
+		
 		portales.get(actualSection).setPos(posX, centerLand);
-		portales.get(actualSection).desenhar();
+		portales.get(actualSection).desenhar(); 
 	}
 	
 	public void windowsSection(){
